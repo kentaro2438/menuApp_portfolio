@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCat, getIng, editIng } from '../api/api.js';
 import type { catType } from '../types/type.ts';
-
+import Select from '../components/Select.tsx';
+import Input from '../components/Input.tsx';
 
 function EditIng() {
     const { ing_id } = useParams();
@@ -68,29 +69,20 @@ function EditIng() {
             <form onSubmit={handleEditedIng} className="form">
                 <div className='input-name'>
                     <label htmlFor="ingName">材料名</label>
-                    <input
-                        id="ingName"
-                        type="text"
-                        value={editedIngName}
-                        onChange={(e) => setEditedIngName(e.target.value)}
-                        placeholder="材料の名前を入力"
+                    <Input
+                        word={editedIngName}
+                        setWord={setEditedIngName}
+                        placeholder="材料名を入力"
                     />
                 </div>
 
                 <div className='input-cat'>
                     <label htmlFor="category">カテゴリー</label>
-                    <select
-                        id="category"
-                        value={editedIngCat}
-                        onChange={(e) => setEditedIngCat(e.target.value)}
-                    >
-                        <option value="">カテゴリーを選択</option>
-                        {catData.map((cat: catType) => (
-                            <option key={cat.cat_id} value={cat.cat_id}>
-                                {cat.cat_name}
-                            </option>
-                        ))}
-                    </select>
+                    <Select
+                        showCatId={editedIngCat}
+                        setShowCatId={setEditedIngCat}
+                        catData={catData}
+                    />
                 </div>
 
                 <button type="submit">保存</button>

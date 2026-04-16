@@ -2,6 +2,8 @@ import '../reset.css';
 import { useState, useEffect } from 'react';
 import { getCat, addIng } from '../api/api.js';
 import type { catType } from '../types/type.ts';
+import Select from '../components/Select.tsx';
+import Input from '../components/Input.tsx';
 
 function AddIng() {
     const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
@@ -58,36 +60,22 @@ function AddIng() {
         <div className="main">
             <h2>材料を追加</h2>
             <form onSubmit={handleNewIng} className="form">
-                <div className='input-name'>
-                    <label htmlFor="ingName">材料名</label>
-                    <input
-                        id="ingName"
-                        type="text"
-                        value={newIngName}
-                        onChange={(e) => setNewIngName(e.target.value)}
-                        placeholder="材料の名前を入力"
-                        autoComplete='off'
-                    />
-                </div>
-                <div className='input-cat'>
-                    <label htmlFor="category">カテゴリー</label>
-                    <select
-                        id="category"
-                        value={newIngCat}
-                        onChange={(e) => setNewIngCat(e.target.value)}
-                    >
-                        <option value="">カテゴリーを選択</option>
-                        {catData.map((cat: catType) => (
-                            <option key={cat.cat_id} value={cat.cat_id}>
-                                {cat.cat_name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <label htmlFor="ingName">材料名</label>
+                <Input
+                    word={newIngName}
+                    setWord={setNewIngName}
+                    placeholder="材料名を入力"
+                />
+                <label htmlFor="category">カテゴリー</label>
+                <Select
+                    showCatId={newIngCat}
+                    setShowCatId={setNewIngCat}
+                    catData={catData}
+                />
                 <button type="submit">追加</button>
             </form>
-            {successMessage && <p>{successMessage}</p>}
-            {error && <p>{error}</p>}
+            {successMessage && <p className='success-message'>{successMessage}</p>}
+            {error && <p className='error-message'>{error}</p>}
         </div>
     );
 }

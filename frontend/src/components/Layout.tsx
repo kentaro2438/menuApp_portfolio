@@ -9,10 +9,10 @@ function Layout() {
             <header>
                 <h1>MealMate</h1>
                 <nav>
-                    <Link to="/">ホーム</Link>
-                    <Link to="/search">検索</Link>
-                    <Link to="/list_ing">材料</Link>
-                    <Link to="/list_dish">料理</Link>
+                    <Link to="/">Home</Link>
+                    <Link to="/search">Search</Link>
+                    <Link to="/list_ing">Ingredients</Link>
+                    <Link to="/list_dish">Dishes</Link>
                 </nav>
             </header>
             <Outlet />

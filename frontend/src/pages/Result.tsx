@@ -17,8 +17,7 @@ function Result() {
 
     return (
         <div className="main">
-            <h2>検索結果</h2>
-
+            <h2>Results</h2>
             <div>
                 {selectedIngIds.length === 0 ? (
                     <p>検索する材料が選択されていません</p>
@@ -37,6 +36,13 @@ function Result() {
                                         ? ` ${result[3].join("、")}`
                                         : " なし"}
                                 </p>
+                                <a
+                                    href={`https://www.google.com/search?q=${encodeURIComponent(result[0] + ' レシピ')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    レシピを検索
+                                </a>
                             </div>
                         ))}
                     </div>
