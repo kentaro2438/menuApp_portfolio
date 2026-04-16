@@ -1,0 +1,26 @@
+header {
+    background-color: rgb(96, 96, 96);
+    padding: 20px;
+}
+
+h1 {
+    color: white;
+    margin-left: 10%;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 5vw;
+    margin-top: 10px;
+}
+
+nav a {
+    text-align: center;
+    width: 12vw;
+    padding: 10px;
+    color: white;
+    background-color: royalblue;
+    text-decoration: none;
+    border-radius: 10px;
+}
