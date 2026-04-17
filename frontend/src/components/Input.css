@@ -1,0 +1,31 @@
+input[type="text"],
+select {
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    width: 30vw;
+}
+
+select {
+    width: 20vw;
+}
+
+/* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
+@media screen and (max-width: 640px) {
+
+    input[type="text"],
+    select {
+        font-size: 12px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+}

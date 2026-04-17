@@ -59,20 +59,20 @@ function AddIng() {
     return (
         <div className="main">
             <h2>材料を追加</h2>
-            <form onSubmit={handleNewIng} className="form">
-                <label htmlFor="ingName">材料名</label>
-                <Input
-                    word={newIngName}
-                    setWord={setNewIngName}
-                    placeholder="材料名を入力"
-                />
-                <label htmlFor="category">カテゴリー</label>
-                <Select
-                    showCatId={newIngCat}
-                    setShowCatId={setNewIngCat}
-                    catData={catData}
-                />
-                <button type="submit">追加</button>
+            <form onSubmit={handleNewIng}>
+                <div className="input-area">
+                    <Input
+                        word={newIngName}
+                        setWord={setNewIngName}
+                        placeholder="材料名を入力"
+                    />
+                    <Select
+                        showCatId={newIngCat}
+                        setShowCatId={setNewIngCat}
+                        catData={catData}
+                    />
+                    <button type="submit">追加</button>
+                </div>
             </form>
             {successMessage && <p className='success-message'>{successMessage}</p>}
             {error && <p className='error-message'>{error}</p>}

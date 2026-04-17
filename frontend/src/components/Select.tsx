@@ -12,7 +12,7 @@ function Select({ showCatId, setShowCatId, catData }: SelectProps) {
             value={showCatId}
             onChange={(e) => setShowCatId(e.target.value)}
         >
-            <option value="">すべてのカテゴリー</option>
+            <option value="">すべて</option>
             {catData.map((cat: catType) => (
                 <option key={cat.cat_id} value={cat.cat_id}>
                     {cat.cat_name}

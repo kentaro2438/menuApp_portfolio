@@ -5,6 +5,7 @@ import { getCat, getAllIng, getDish, editDish } from "../api/api.js";
 import type { catType, ingType } from "../types/type.ts";
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 
 function EditDish() {
     const { dish_id } = useParams<{ dish_id: string }>();
@@ -94,60 +95,42 @@ function EditDish() {
     return (
         <div className="main">
             <h2>料理を編集</h2>
-
-            <Input
-                word={searchWord}
-                setWord={setSearchWord}
-                placeholder="材料を検索"
-            />
-
-            <Select
-                showCatId={showCatId}
-                setShowCatId={setShowCatId}
-                catData={catData}
-            />
-
             <form onSubmit={handleEditDish}>
-                <div>
-                    <label htmlFor="dishName">料理名</label>
-                    <input
-                        id="dishName"
-                        type="text"
-                        value={dishName}
-                        onChange={(e) => setDishName(e.target.value)}
+                <h3>料理名を編集</h3>
+                <hr />
+                <div className="input-area">
+                    <Input
+                        word={dishName}
+                        setWord={setDishName}
                         placeholder="料理名を入力"
                     />
+
                 </div>
-
-                <div>
-                    {filteredIngData.map((ing: ingType) => {
-                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-
-                        return (
-                            <div key={ing.ing_id} className="card">
-                                <p className={`cat-name cat-${catId}`}>{catName}</p>
-                                <hr />
-                                <div className="inner-wrap">
-                                    <p className='ing-name'>{ing.ing_name}</p>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedIngIds.includes(ing.ing_id)}
-                                        onChange={() => handleCheckboxChange(ing.ing_id)}
-                                    />
-                                </div>
-                            </div>
-                        );
-                    })}
+                <h3>材料を選択</h3>
+                <hr />
+                <div className="input-area">
+                    <Input
+                        word={searchWord}
+                        setWord={setSearchWord}
+                        placeholder="材料を検索"
+                    />
+                    <Select
+                        showCatId={showCatId}
+                        setShowCatId={setShowCatId}
+                        catData={catData}
+                    />
                 </div>
-
+                {filteredIngData.map((ing: ingType) => (
+                    <IngCardCheckboxType
+                        key={ing.ing_id}
+                        ing={ing}
+                        catData={catData}
+                        selectedIngIds={selectedIngIds}
+                        handleCheckboxChange={handleCheckboxChange}
+                    />
+                ))}
                 <button type="submit">更新</button>
             </form>
-
-            <div className="message">
-                {successMessage && <p>{successMessage}</p>}
-                {error && <p>{error}</p>}
-            </div>
         </div>
     );
 }

@@ -37,49 +37,52 @@ function ListIng() {
 
     return (
         <div className="main">
-            <h2>Ingredients</h2>
-            <Input
-                word={searchWord}
-                setWord={setSearchWord}
-                placeholder="材料名を検索"
-            />
-            <Select
-                showCatId={showCatId}
-                setShowCatId={setShowCatId}
-                catData={catData}
-            />
-            <div>
-                {filteredIngData.map((ing: ingType) => {
-                    const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                    const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                    return (
-                        <div key={ing.ing_id} className="card">
-                            <p className={`cat-name cat-${catId}`}>{catName}</p>
-                            <hr />
-                            <div className="inner-wrap">
-                                <p className='ing-name'>{ing.ing_name}</p>
-                                <div className="btn-container">
-                                    <Link
-                                        key={ing.ing_id}
-                                        to={`/list_ing/edit/${ing.ing_id}`}
-                                        className='btn btn-edit'
-                                    >
-                                        編集
-                                    </Link>
-                                    <Link
-                                        key={ing.ing_id}
-                                        to={`/list_ing/delete/${ing.ing_id}`}
-                                        className='btn btn-delete'
-                                    >
-                                        削除
-                                    </Link>
-                                </div>
+            <h2>材料</h2>
+            <p>登録済みの材料を編集・削除できます</p>
+            <div className="input-area">
+                <Input
+                    word={searchWord}
+                    setWord={setSearchWord}
+                    placeholder="材料名を検索"
+                />
+                <Select
+                    showCatId={showCatId}
+                    setShowCatId={setShowCatId}
+                    catData={catData}
+                />
+
+                <Link to="/list_ing/add" className='btn btn-main'>材料を追加</Link>
+
+            </div>
+            {filteredIngData.map((ing: ingType) => {
+                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                return (
+                    <div key={ing.ing_id} className="card">
+                        <p className={`cat-name cat-${catId}`}>{catName}</p>
+                        <hr />
+                        <div className="inner-wrap">
+                            <p className='ing-name'>{ing.ing_name}</p>
+                            <div className="btn-container">
+                                <Link
+                                    key={ing.ing_id}
+                                    to={`/list_ing/edit/${ing.ing_id}`}
+                                    className='btn btn-sub edit'
+                                >
+                                    編集
+                                </Link>
+                                <Link
+                                    key={ing.ing_id}
+                                    to={`/list_ing/delete/${ing.ing_id}`}
+                                    className='btn btn-sub delete'
+                                >
+                                    削除
+                                </Link>
                             </div>
                         </div>
-                    )
-                })}
-            </div>
-            <Link to="/list_ing/add" className='btn'>Add</Link>
+                    </div>
+                )
+            })}
         </div>
     );
 }

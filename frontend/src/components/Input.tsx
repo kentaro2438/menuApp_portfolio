@@ -1,3 +1,6 @@
+import '../reset.css';
+import './Input.css';
+
 function Input({ word, setWord, placeholder }:
     { word: string; setWord: (value: string) => void; placeholder: string }) {
 

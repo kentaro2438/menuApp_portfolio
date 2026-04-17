@@ -162,6 +162,18 @@ def edit_ing(ing_id):
     )
 
 
+# 材料を削除するAPI
+@app.route("/api/deleteIng/<int:ing_id>", methods=["DELETE"])
+def delete_ing(ing_id):
+    ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
+    db.session.delete(ing)
+    db.session.commit()
+    return (
+        jsonify({"message": "材料が正常に削除されました。"}),
+        200,
+    )
+
+
 # 料理を登録するAPI
 @app.route("/api/newDish", methods=["POST"])
 def new_dish():
@@ -241,6 +253,18 @@ def edit_dish(dish_id):
         raise
 
     return jsonify({"message": "料理が正常に編集されました。"}), 200
+
+
+# 料理を削除するAPI
+@app.route("/api/deleteDish/<int:dish_id>", methods=["DELETE"])
+def delete_dish(dish_id):
+    dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+    db.session.delete(dish)
+    db.session.commit()
+    return (
+        jsonify({"message": "料理が正常に削除されました。"}),
+        200,
+    )
 
 
 # 料理を検索するAPI

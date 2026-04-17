@@ -1,6 +1,8 @@
 header {
     background-color: rgb(50, 50, 50);
     padding: 20px;
+    position: relative;
+    z-index: 100;
 }
 
 h1 {
@@ -20,7 +22,79 @@ nav a {
     width: 12vw;
     padding: 10px;
     color: white;
-    background-color: royalblue;
     text-decoration: none;
     border-radius: 10px;
+}
+
+/* PCではボタン非表示 */
+.menu-btn {
+    display: none;
+}
+
+/* 640px以下だけサイドメニュー化 */
+@media (max-width: 640px) {
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-left: 0;
+    }
+
+    .menu-btn {
+        display: block;
+        width: auto;
+        padding: 0;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 32px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        margin-top: 0;
+        padding: 80px 20px 20px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 16px;
+
+        background-color: rgb(35, 35, 35);
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
+
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        z-index: 1000;
+    }
+
+    nav.open {
+        transform: translateX(0);
+    }
+
+    nav a {
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+    }
 }

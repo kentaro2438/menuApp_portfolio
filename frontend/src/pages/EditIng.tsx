@@ -66,29 +66,21 @@ function EditIng() {
     return (
         <div className="main">
             <h2>材料を編集</h2>
-            <form onSubmit={handleEditedIng} className="form">
-                <div className='input-name'>
-                    <label htmlFor="ingName">材料名</label>
+            <form onSubmit={handleEditedIng}>
+                <div className="input-area">
                     <Input
                         word={editedIngName}
                         setWord={setEditedIngName}
                         placeholder="材料名を入力"
                     />
-                </div>
-
-                <div className='input-cat'>
-                    <label htmlFor="category">カテゴリー</label>
                     <Select
                         showCatId={editedIngCat}
                         setShowCatId={setEditedIngCat}
                         catData={catData}
                     />
+                    <button type="submit">保存</button>
                 </div>
-
-                <button type="submit">保存</button>
             </form>
-            {successMessage && <p>{successMessage}</p>}
-            {error && <p>{error}</p>}
         </div>
     );
 }
