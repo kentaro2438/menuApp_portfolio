@@ -1,7 +1,6 @@
 /* 全体のスタイル */
 body {
     background-color: rgb(42, 42, 42);
-    font-size: 16px;
 }
 
 hr {
@@ -9,24 +8,24 @@ hr {
 }
 
 .main {
-    width: 85%;
+    width: 90%;
     margin: 0 auto;
     padding: 20px 50px;
     background-color: #F6EDE8;
 }
 
+/* Linkタグ共通スタイル */
 a {
-    color: rgb(255, 255, 255);
+    color: white;
     text-decoration: none;
-
 }
 
-.main button {
+button {
     display: block;
     width: 150px;
     height: 40px;
     background-color: royalblue;
-    color: rgb(255, 255, 255);
+    color: white;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -34,118 +33,21 @@ a {
     font-size: 16px;
 }
 
-.input-area {
-    display: flex;
-    margin: 20px 0;
-}
-
-.input-area button {
-    margin-left: auto;
-}
-
-/* 材料カード */
-
-.card {
-    height: 85px;
-    background: #fff;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.dish-card {
-    height: auto;
-}
-
-/* カテゴリ（左上） */
-.cat-name {
-    width: 150px;
-    color: #ffffff;
-    border-radius: 10px 0 10px 0;
-    text-align: center;
-    padding: 2px 0;
-}
-
-/* カテゴリー別カラー */
-.cat-1 {
-    background-color: rgb(96, 165, 66);
-}
-
-.cat-2 {
-    background-color: rgb(255, 104, 87);
-}
-
-.cat-3 {
-    background-color: rgb(0, 195, 255);
-}
-
-.cat-4 {
-    background-color: rgb(255, 161, 80);
-}
-
-.cat-5 {
-    background-color: rgb(255, 163, 255);
-}
-
-.cat-6 {
-    background-color: rgb(204, 149, 255);
-}
-
-.cat-7 {
-    background-color: rgb(255, 165, 95);
-}
-
-.card .inner-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.ing-name,
-.dish-name,
-.is-lack-ing-name {
-    font-weight: 500;
-    padding: 15px 30px;
-}
-
-.ing-name {
-    width: 150px;
-    text-align: center;
-}
-
-.no-lack {
-    color: rgb(96, 165, 66);
-}
-
-.lack {
-    color: rgb(255, 104, 87);
-}
-
-.card input[type="checkbox"] {
-    width: 25px;
-    height: 25px;
-    margin-right: 15px;
-    cursor: pointer;
-}
-
-
-
 /* Linkタグボタン */
-a.btn {
+.btn {
     display: block;
-    padding: 5px 10px;
-    color: rgb(255, 255, 255);
+    height: 40px;
+    color: white;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
-    /* テキストを縦中央に配置 */
-    line-height: 30px;
     margin-left: auto;
+    line-height: 40px;
 }
 
 /* 編集ボタン，削除ボタンのコンテナ */
-.btn-container {
+div.btn-container {
     display: flex;
     justify-content: flex-end;
 }
@@ -157,34 +59,146 @@ a.btn {
 
 /* 編集および削除ボタン(共通) */
 .btn-sub {
-    width: 60px;
-    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    line-height: 30px;
     margin-right: 10px;
 }
 
 /* 編集ボタン */
-.edit {
+.btn-sub.edit {
     background-color: royalblue;
 }
 
 /* 削除ボタン */
-.delete {
+.btn-sub.delete {
     background-color: rgb(255, 104, 87);
 }
 
+/* アイコンのスタイル */
+span.lucide-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    padding-top: 2px;
+}
+
+/* 入力エリア, カテゴリー選択 */
+.input-area {
+    display: flex;
+    margin: 20px 0;
+}
+
+.input-area button {
+    margin-left: auto;
+    /* メインボタンを右端に配置 */
+}
+
+/* 材料カード */
+.card {
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card .inner-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+/* カテゴリ */
+p.cat-name {
+    width: 150px;
+    color: #ffffff;
+    border-radius: 10px 0 10px 0;
+    text-align: center;
+    padding: 2px 0;
+}
+
+/* 材料名 */
+p.name {
+    width: 150px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* 料理名 */
+p.dish-name {
+    width: 150px;
+    font-weight: 500;
+    text-align: left;
+    margin-left: 20px;
+}
+
+/* カテゴリー別カラー */
+p.cat-1 {
+    background-color: rgb(96, 165, 66);
+}
+
+p.cat-2 {
+    background-color: rgb(255, 104, 87);
+}
+
+p.cat-3 {
+    background-color: rgb(0, 195, 255);
+}
+
+p.cat-4 {
+    background-color: rgb(255, 161, 80);
+}
+
+p.cat-5 {
+    background-color: rgb(255, 163, 255);
+}
+
+p.cat-6 {
+    background-color: rgb(204, 149, 255);
+}
+
+p.cat-7 {
+    background-color: rgb(255, 165, 95);
+}
+
+.card input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+/* 結果カード */
 .result-card {
     height: auto;
     background: #fff;
-    padding: 10px 20px 20px 0;
+    padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* レシピを検索するボタン */
 .btn-recipe {
     width: 120px;
     margin-left: auto;
 }
+
+
+
+/* 不足なし */
+.no-lack {
+    color: rgb(96, 165, 66);
+}
+
+/* 不足あり */
+.lack {
+    color: rgb(255, 104, 87);
+}
+
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
 @media screen and (max-width: 640px) {
@@ -197,19 +211,15 @@ a.btn {
     }
 
     .card {
-        height: auto;
         margin-bottom: 10px;
     }
 
-    .card .inner-wrap {
-        padding: 10px 0;
-    }
-
-    .cat-name {
+    /* カテゴリ名 */
+    p.cat-name {
         width: 100px;
     }
 
-    .ing-name {
+    p.name {
         width: 100px;
         padding: 0;
         text-align: center;
@@ -217,7 +227,7 @@ a.btn {
 
     .btn {
         display: block;
-        padding: 2px;
+        padding: 0px;
     }
 
     .btn-main {
@@ -226,10 +236,13 @@ a.btn {
     }
 
     .btn-sub {
-        width: 45px;
-        padding: 0;
-        margin-right: 8px;
+        width: 25px;
+        height: 25px;
+        border-radius: 8px;
+        line-height: 25px;
+        margin-right: 10px;
     }
+
 
 
     .card input[type="checkbox"] {
@@ -237,27 +250,14 @@ a.btn {
         height: 20px;
     }
 
-    .main button {
-        width: 100%;
-        font-size: 12px;
-        margin: 0 auto;
-    }
-
     .result-card {
-        padding: 5px 10px 10px 0;
+        padding: 10px;
         border-radius: 10px;
         margin-bottom: 20px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .ing-name,
-    .dish-name,
-    .is-lack-ing-name {
-        padding: 5px 20px;
-    }
-
-    .btn-recipe {
-        width: 120px;
-        margin-left: auto;
+    span.lucide-icon {
+        padding-top: 0px;
     }
 }

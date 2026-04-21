@@ -9,7 +9,7 @@ function IngCardCheckboxType({ ing, catData, selectedIngIds, handleCheckboxChang
             <p className={`cat-name cat-${catId}`}>{catName}</p>
             <hr />
             <div className="inner-wrap">
-                <p className='ing-name'>{ing.ing_name}</p>
+                <p className='name'>{ing.ing_name}</p>
                 <input
                     type="checkbox"
                     checked={selectedIngIds.includes(ing.ing_id)}

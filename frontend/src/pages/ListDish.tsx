@@ -1,9 +1,10 @@
 import '../reset.css';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAllDishes } from '../api/api.js';
+import { getAllDish } from '../api/api.js';
 import type { dishType } from '../types/type.ts';
 import Input from '../components/Input.tsx';
+import { Pencil, Trash } from 'lucide-react';
 
 function ListDish() {
 
@@ -11,12 +12,12 @@ function ListDish() {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        fetchGetAllDishes();
+        fetchGetAllDish();
     }, []);
 
-    const fetchGetAllDishes = async () => {
-        const data = await getAllDishes();
-        setDishesData(data.dish_list);
+    const fetchGetAllDish = async () => {
+        const data = await getAllDish();
+        setDishesData(data.dish_list_json);
     };
 
     // 検索フィルタ
@@ -39,25 +40,28 @@ function ListDish() {
             {filteredDishes.map((dish: dishType) => (
                 <div key={dish.dish_id} className='card dish-card'>
                     <div className="inner-wrap">
-                        <p className='dish-name'>{dish.dish_name}</p>
+                        <p className='name dish-name'>{dish.dish_name}</p>
                         <div className="btn-container">
                             <Link
                                 to={`/list_dish/edit/${dish.dish_id}`}
                                 className='btn btn-sub edit'
                             >
-                                編集
+                                <span className='lucide-icon'>
+                                    <Pencil />
+                                </span>
                             </Link>
                             <Link
                                 to={`/list_dish/delete/${dish.dish_id}`}
                                 className='btn btn-sub delete'
                             >
-                                削除
+                                <span className='lucide-icon'>
+                                    <Trash />
+                                </span>
                             </Link>
                         </div>
                     </div>
                 </div>
             ))}
-
         </div>
     )
 };

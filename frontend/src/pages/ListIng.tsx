@@ -5,6 +5,7 @@ import { getAllIng, getCat } from '../api/api.js';
 import type { ingType, catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+import { Pencil } from 'lucide-react';
 
 function ListIng() {
     const [ingData, setIngData] = useState<ingType[]>([]); // 全ての材料
@@ -20,14 +21,15 @@ function ListIng() {
     // 全ての材料を取得
     const fetchGetAllIng = async () => {
         const data = await getAllIng();
-        setIngData(data.ing_list);
+        setIngData(data.ing_list_json);
     };
 
     // カテゴリーを取得
     const fetchGetCat = async () => {
         const data = await getCat();
-        setCatData(data.cat_list);
+        setCatData(data.cat_list_json);
     };
+
 
     const filteredIngData = ingData.filter((ing: ingType) => {
         const matchCategory = showCatId === "" || ing.cat_id === Number(showCatId);
@@ -50,9 +52,7 @@ function ListIng() {
                     setShowCatId={setShowCatId}
                     catData={catData}
                 />
-
                 <Link to="/list_ing/add" className='btn btn-main'>材料を追加</Link>
-
             </div>
             {filteredIngData.map((ing: ingType) => {
                 const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
@@ -62,21 +62,15 @@ function ListIng() {
                         <p className={`cat-name cat-${catId}`}>{catName}</p>
                         <hr />
                         <div className="inner-wrap">
-                            <p className='ing-name'>{ing.ing_name}</p>
+                            <p className='name'>{ing.ing_name}</p>
                             <div className="btn-container">
                                 <Link
-                                    key={ing.ing_id}
                                     to={`/list_ing/edit/${ing.ing_id}`}
                                     className='btn btn-sub edit'
                                 >
-                                    編集
-                                </Link>
-                                <Link
-                                    key={ing.ing_id}
-                                    to={`/list_ing/delete/${ing.ing_id}`}
-                                    className='btn btn-sub delete'
-                                >
-                                    削除
+                                    <span className='lucide-icon'>
+                                        <Pencil />
+                                    </span>
                                 </Link>
                             </div>
                         </div>

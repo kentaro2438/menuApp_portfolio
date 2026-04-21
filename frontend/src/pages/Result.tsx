@@ -47,11 +47,12 @@ function Result() {
                                             )}
                                         </div>
                                     </div>
+                                    <br />
                                     <a
                                         href={`https://www.google.com/search?q=${encodeURIComponent(result[0] + ' レシピ')}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className='btn btn-recipe'
+                                        className='btn btn-main btn-recipe'
                                     >
                                         レシピを検索
                                     </a>

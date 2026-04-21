@@ -8,49 +8,55 @@ import Input from '../components/Input.tsx';
 
 function EditIng() {
     const { ing_id } = useParams();
+    // URLの動的な部分をオブジェクトで取得し，分割代入でing_idに代入．
+    // (ex)ing_id = "2".
 
     const [editedIngName, setEditedIngName] = useState<string>('');
-    const [editedIngCat, setEditedIngCat] = useState<string>('');
+    const [editedIngCatId, setEditedIngCatId] = useState<string>('');
     const [error, setError] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
     const [catData, setCatData] = useState<catType[]>([]);
-
-    //カテゴリーを取得
-    const fetchGetCat = async () => {
-        const data = await getCat();
-        setCatData(data.cat_list);
-    };
-
-    //特定の材料を取得
-    const fetchGetIng = async () => {
-        const data = await getIng(Number(ing_id));
-        setEditedIngName(data.ing_name);
-        setEditedIngCat(data.cat_id.toString());
-    };
 
     useEffect(() => {
         fetchGetCat();
         fetchGetIng();
     }, []);
 
+    //カテゴリーを取得
+    const fetchGetCat = async () => {
+        const data = await getCat();
+        setCatData(data.cat_list_json);
+    };
+
+    //特定の材料を取得
+    const fetchGetIng = async () => {
+        const data = await getIng(Number(ing_id));
+        setEditedIngName(data.ing_name);
+        setEditedIngCatId(data.cat_id.toString());
+    };
+
     const handleEditedIng = async (e: any) => {
         e.preventDefault();
-
         const trimmedEditedIngName = editedIngName.trim();
         if (!trimmedEditedIngName) {
             setError('材料名を入力してください');
+            setTimeout(() => {
+                setError('');
+            }, 2000);
             return;
         }
-        if (!editedIngCat) {
+        if (!editedIngCatId) {
             setError('カテゴリーを選択してください');
+            setTimeout(() => {
+                setError('');
+            }, 2000);
             return;
         }
-
         try {
-            await editIng(Number(ing_id), trimmedEditedIngName, parseInt(editedIngCat));
+            await editIng(Number(ing_id), trimmedEditedIngName, Number(editedIngCatId));
             setSuccessMessage('材料が正常に編集されました。');
             setEditedIngName('');
-            setEditedIngCat('');
+            setEditedIngCatId('');
         } catch (error: any) {
             setError(`エラー: ${error.message}`);
             return;
@@ -74,8 +80,8 @@ function EditIng() {
                         placeholder="材料名を入力"
                     />
                     <Select
-                        showCatId={editedIngCat}
-                        setShowCatId={setEditedIngCat}
+                        showCatId={editedIngCatId}
+                        setShowCatId={setEditedIngCatId}
                         catData={catData}
                     />
                     <button type="submit">保存</button>

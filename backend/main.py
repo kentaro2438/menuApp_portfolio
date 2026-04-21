@@ -43,109 +43,46 @@ class Ing_Dish_Set(db.Model):
 
 
 # API------------------------------------------------------------------------------------------------------------------------------------
-# 材料をすべて取得するAPI
+# 全ての材料を取得するAPI
 @app.route("/api/getAllIng", methods=["GET"])
 def get_all_ing():
     ing_list = Ingredient.query.all()
-    # ing_list = [
-    #    Ingredient(ing_id=1, ing_name="野菜", cat_id=1),
-    #    Ingredient(ing_id=2, ing_name="肉", cat_id=2), ...
-    #   ]
-    ing_list_dict = [
-        {
-            "ing_id": ing.ing_id,
-            "ing_name": ing.ing_name,
-            "cat_id": ing.cat_id,
-        }
-        for ing in ing_list
-    ]
-    return {"ing_list": ing_list_dict}
+    ing_list_json = []
+    for ing in ing_list:
+        ing_list_json.append(
+            {
+                "ing_id": ing.ing_id,
+                "ing_name": ing.ing_name,
+                "cat_id": ing.cat_id,
+            }
+        )
+    return jsonify({"ing_list_json": ing_list_json})
 
 
 # 特定の材料を取得するAPI
 @app.route("/api/getIng/<int:ing_id>", methods=["GET"])
 def get_ing(ing_id):
     ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
-    return (
-        jsonify(
-            {
-                "ing_id": ing.ing_id,
-                "ing_name": ing.ing_name,
-                "cat_id": ing.cat_id,
-            }
-        ),
-        200,
-    )
-
-
-# カテゴリーを取得するAPI
-@app.route("/api/getCategory", methods=["GET"])
-def get_category():
-    cat_list = Category.query.all()
-    # cat_list = [
-    #    Category(cat_id=1, cat_name="野菜"),
-    #    Category(cat_id=2, cat_name="肉"),
-    #   ]
-    cat_list_dict = [
+    return jsonify(
         {
-            "cat_id": cat.cat_id,
-            "cat_name": cat.cat_name,
+            "ing_id": ing.ing_id,
+            "ing_name": ing.ing_name,
+            "cat_id": ing.cat_id,
         }
-        for cat in cat_list
-    ]
-    return jsonify({"cat_list": cat_list_dict}), 200
-
-
-# 料理をすべて取得するAPI
-@app.route("/api/getAllDish", methods=["GET"])
-def get_all_dish():
-    dish_list = Dish.query.all()
-    # dish_list = [
-    #    Dish(dish_id=1, dish_name="カレー"),
-    #    Dish(dish_id=2, dish_name="シチュー"),
-    #   ]
-    dish_list_dict = [
-        {
-            "dish_id": dish.dish_id,
-            "dish_name": dish.dish_name,
-        }
-        for dish in dish_list
-    ]
-    return jsonify({"dish_list": dish_list_dict}), 200
-
-
-# 特定の料理を取得するAPI
-@app.route("/api/getDish/<int:dish_id>", methods=["GET"])
-def get_dish(dish_id):
-    dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
-    ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
-    ing_id_needed_list = [ing_dish_set.ing_id for ing_dish_set in ing_dish_set_list]
-    return (
-        jsonify(
-            {
-                "dish_id": dish.dish_id,
-                "dish_name": dish.dish_name,
-                "ing_id_needed_list": ing_id_needed_list,
-            }
-        ),
-        200,
     )
 
 
 # 材料を登録するAPI
-@app.route("/api/newIng", methods=["POST"])
-def new_ing():
+@app.route("/api/addIng", methods=["POST"])
+def add_ing():
     data = request.get_json()
-    new_ing = Ingredient(ing_name=data["new_ing_name"], cat_id=data["cat_id"])
+    new_ing = Ingredient(ing_name=data["new_ing_name"], cat_id=data["new_ing_cat_id"])
     existing = Ingredient.query.filter_by(ing_name=data["new_ing_name"]).first()
     if existing:
-        return jsonify({"message": "この材料はすでに登録されています"}), 400
+        return {"message": "この材料はすでに登録されています"}
     db.session.add(new_ing)
     db.session.commit()
-    return (
-        jsonify({"message": "材料が正常に追加されました。", "ing_id": new_ing.ing_id}),
-        201,
-    )
+    return jsonify({"message": "材料が登録されました"})
 
 
 # 材料を編集するAPI
@@ -156,40 +93,72 @@ def edit_ing(ing_id):
     ing.ing_name = data["ing_name"]
     ing.cat_id = data["cat_id"]
     db.session.commit()
-    return (
-        jsonify({"message": "材料が正常に編集されました。"}),
-        200,
-    )
+    return jsonify({"message": "材料が編集されました"})
 
 
-# 材料を削除するAPI
-@app.route("/api/deleteIng/<int:ing_id>", methods=["DELETE"])
-def delete_ing(ing_id):
-    ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
-    db.session.delete(ing)
-    db.session.commit()
-    return (
-        jsonify({"message": "材料が正常に削除されました。"}),
-        200,
+# カテゴリーを全て取得するAPI
+@app.route("/api/getCat", methods=["GET"])
+def get_cat():
+    cat_list = Category.query.all()
+    cat_list_json = []
+    for cat in cat_list:
+        cat_list_json.append(
+            {
+                "cat_id": cat.cat_id,
+                "cat_name": cat.cat_name,
+            }
+        )
+    return jsonify({"cat_list_json": cat_list_json})
+
+
+# 全ての料理を取得するAPI
+@app.route("/api/getAllDish", methods=["GET"])
+def get_all_dish():
+    dish_list = Dish.query.all()
+    dish_list_json = []
+    for dish in dish_list:
+        dish_list_json.append(
+            {
+                "dish_id": dish.dish_id,
+                "dish_name": dish.dish_name,
+            }
+        )
+    return jsonify({"dish_list_json": dish_list_json})
+
+
+# 特定の料理を取得するAPI
+@app.route("/api/getDish/<int:dish_id>", methods=["GET"])
+def get_dish(dish_id):
+    dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+    ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
+    ing_id_needed_list = []
+    for ing_dish_list in ing_dish_set_list:
+        ing_id_needed_list.append(ing_dish_list.ing_id)
+    return jsonify(
+        {
+            "dish_id": dish.dish_id,
+            "dish_name": dish.dish_name,
+            "ing_id_needed_list": ing_id_needed_list,
+        }
     )
 
 
 # 料理を登録するAPI
-@app.route("/api/newDish", methods=["POST"])
+@app.route("/api/addDish", methods=["POST"])
 def new_dish():
     data = request.get_json()
 
-    new_dish_name = (data.get("new_dish_name") or "").strip()
+    new_dish_name = data["new_dish_name"].strip()
     if not new_dish_name:
-        return jsonify({"message": "料理名を入力してください。"}), 400
+        return jsonify({"message": "料理名を入力してください"})
 
-    ing_id_needed_list = data.get("ing_id_needed_list")
+    ing_id_needed_list = data["ing_id_needed_list"]
     if not ing_id_needed_list:
-        return jsonify({"message": "材料を選択してください。"}), 400
+        return jsonify({"message": "材料を選択してください"})
 
     existing = Dish.query.filter_by(dish_name=new_dish_name).first()
     if existing:
-        return jsonify({"message": "その料理はすでに登録されています。"}), 400
+        return jsonify({"message": "その料理はすでに登録されています"})
 
     try:
         new_dish = Dish(dish_name=new_dish_name)
@@ -209,15 +178,7 @@ def new_dish():
         db.session.rollback()
         raise
 
-    return (
-        jsonify(
-            {
-                "message": "料理が正常に追加されました。",
-                "dish_id": new_dish.dish_id,
-            }
-        ),
-        201,
-    )
+    return jsonify({"message": "料理が追加されました"})
 
 
 # 料理を編集するAPI
@@ -225,23 +186,23 @@ def new_dish():
 def edit_dish(dish_id):
     data = request.get_json()
 
-    dish_name = (data.get("dish_name") or "").strip()
+    dish_name = data["dish_name"].strip()
     if not dish_name:
-        return jsonify({"message": "料理名を入力してください。"}), 400
+        return jsonify({"message": "料理名を入力してください"})
 
-    ing_id_needed_list = data.get("ing_id_needed_list")
+    ing_id_needed_list = data["ing_id_needed_list"]
     if not ing_id_needed_list:
-        return jsonify({"message": "材料を選択してください。"}), 400
+        return jsonify({"message": "材料を選択してください"})
 
     try:
-        now_dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
-        now_dish.dish_name = dish_name
+        dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+        dish.dish_name = dish_name
 
         Ing_Dish_Set.query.filter_by(dish_id=dish_id).delete(synchronize_session=False)
 
         for ing_id_needed in ing_id_needed_list:
             ing_dish_set = Ing_Dish_Set(
-                dish_id=now_dish.dish_id,
+                dish_id=dish.dish_id,
                 ing_id=int(ing_id_needed),
             )
             db.session.add(ing_dish_set)
@@ -252,19 +213,20 @@ def edit_dish(dish_id):
         db.session.rollback()
         raise
 
-    return jsonify({"message": "料理が正常に編集されました。"}), 200
+    return jsonify({"message": "料理が編集されました"})
 
 
-# 料理を削除するAPI
-@app.route("/api/deleteDish/<int:dish_id>", methods=["DELETE"])
-def delete_dish(dish_id):
-    dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
-    db.session.delete(dish)
-    db.session.commit()
-    return (
-        jsonify({"message": "料理が正常に削除されました。"}),
-        200,
-    )
+
+
+
+
+
+
+
+
+# ここから未編集------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 # 料理を検索するAPI

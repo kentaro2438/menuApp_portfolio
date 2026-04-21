@@ -8,7 +8,10 @@ import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 
 function EditDish() {
-    const { dish_id } = useParams<{ dish_id: string }>();
+    const { dish_id } = useParams();
+    // URLの動的な部分をオブジェクトで取得し，分割代入でdish_idに代入．
+    // (ex)dish_id = "2".
+
     const [dishName, setDishName] = useState<string>("");
     const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
     const [successMessage, setSuccessMessage] = useState<string>("");
@@ -20,25 +23,26 @@ function EditDish() {
 
     useEffect(() => {
         fetchGetAllIng();
-        fetchGetCategory();
+        fetchGetCat();
         fetchGetDish();
     }, []);
 
     const fetchGetAllIng = async () => {
         const data = await getAllIng();
-        setIngData(data.ing_list);
+        setIngData(data.ing_list_json);
     };
 
-    const fetchGetCategory = async () => {
+    const fetchGetCat = async () => {
         const data = await getCat();
-        setCatData(data.cat_list);
+        setCatData(data.cat_list_json);
     };
 
     const fetchGetDish = async () => {
         const data = await getDish(Number(dish_id));
         setDishName(data.dish_name);
         setSelectedIngIds(data.ing_id_needed_list);
-    };
+    }
+
 
     const handleCheckboxChange = (ingId: number) => {
         setSelectedIngIds((prev) => {

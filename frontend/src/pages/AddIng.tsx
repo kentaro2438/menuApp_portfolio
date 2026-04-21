@@ -8,7 +8,7 @@ import Input from '../components/Input.tsx';
 function AddIng() {
     const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
     const [newIngName, setNewIngName] = useState<string>(''); //新しい材料名
-    const [newIngCat, setNewIngCat] = useState<string>(''); //新しい材料のカテゴリーID
+    const [newIngCatId, setNewIngCatId] = useState<string>(''); //新しい材料のカテゴリーID
     const [successMessage, setSuccessMessage] = useState<string>(''); //成功メッセージ
     const [error, setError] = useState<string>(''); //エラーメッセージ
 
@@ -19,7 +19,7 @@ function AddIng() {
     //カテゴリーを取得
     const fetchGetCat = async () => {
         const data = await getCat();
-        setCatData(data.cat_list);
+        setCatData(data.cat_list_json);
     };
 
     const handleNewIng = async (e: any) => {
@@ -32,7 +32,7 @@ function AddIng() {
             }, 2000);
             return;
         }
-        if (!newIngCat) {
+        if (!newIngCatId) {
             setError('カテゴリーを選択してください');
             setTimeout(() => {
                 setError('');
@@ -40,10 +40,10 @@ function AddIng() {
             return;
         }
         try {
-            await addIng(trimmednewIngName, parseInt(newIngCat));
+            await addIng(trimmednewIngName, Number(newIngCatId));
             setSuccessMessage('材料が追加されました');
             setNewIngName('');
-            setNewIngCat('');
+            setNewIngCatId('');
         } catch (error: any) {
             setError(`エラー: ${error.message}`);
             return;
@@ -54,7 +54,6 @@ function AddIng() {
             }, 2000);
         }
     };
-
 
     return (
         <div className="main">
@@ -67,8 +66,8 @@ function AddIng() {
                         placeholder="材料名を入力"
                     />
                     <Select
-                        showCatId={newIngCat}
-                        setShowCatId={setNewIngCat}
+                        showCatId={newIngCatId}
+                        setShowCatId={setNewIngCatId}
                         catData={catData}
                     />
                     <button type="submit">追加</button>

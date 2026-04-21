@@ -20,13 +20,13 @@ function Search() {
     // 全ての材料を取得
     const fetchGetAllIng = async () => {
         const data = await getAllIng();
-        setIngData(data.ing_list);
+        setIngData(data.ing_list_json);
     };
 
     // カテゴリーを取得
     const fetchGetCat = async () => {
         const data = await getCat();
-        setCatData(data.cat_list);
+        setCatData(data.cat_list_json);
     };
 
     useEffect(() => {
