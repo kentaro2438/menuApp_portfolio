@@ -216,17 +216,20 @@ def edit_dish(dish_id):
     return jsonify({"message": "料理が編集されました"})
 
 
-
-
-
-
-
-
-
-
-# ここから未編集------------------------------------------------------------------------------------------------------------------------------------
-
-
+@app.route("/api/deleteDish/<int:dish_id>", methods=["DELETE"])
+def delete_dish(dish_id):
+    dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+    ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
+    try:
+        for ing_dish_set in ing_dish_set_list:
+            db.session.delete(ing_dish_set)
+        db.session.flush()
+        db.session.delete(dish)
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        raise
+    return jsonify({"message": "料理が削除されました"})
 
 
 # 料理を検索するAPI

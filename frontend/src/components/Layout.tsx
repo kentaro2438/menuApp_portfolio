@@ -1,6 +1,6 @@
 import '../reset.css';
 import './Layout.css';
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Layout() {
@@ -23,10 +23,10 @@ function Layout() {
                 <h1>MealMate</h1>
 
                 <nav className={isOpen ? "open" : ""}>
-                    <Link to="/" onClick={closeMenu}>ホーム</Link>
-                    <Link to="/search" onClick={closeMenu}>検索</Link>
-                    <Link to="/list_ing" onClick={closeMenu}>材料</Link>
-                    <Link to="/list_dish" onClick={closeMenu}>料理</Link>
+                    <NavLink to="/" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>ホーム</NavLink>
+                    <NavLink to="/search" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>検索</NavLink>
+                    <NavLink to="/list_ing" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>材料</NavLink>
+                    <NavLink to="/list_dish" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>料理</NavLink>
                 </nav>
 
                 {isOpen && <div className="overlay" onClick={closeMenu}></div>}

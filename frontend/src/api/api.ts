@@ -69,6 +69,12 @@ export const editDish = (dish_id: number, dish_name: string, ing_id_needed_list:
 });
 
 
+//料理を削除
+export const deleteDish = (dish_id: number) => apiFetch(`/deleteDish/${dish_id}`, {
+    method: 'DELETE',
+});
+
+
 // ここから未編集------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -77,10 +83,6 @@ export const editDish = (dish_id: number, dish_name: string, ing_id_needed_list:
 
 
 
-// 料理を削除
-export const deleteDish = (dish_id: number) => apiFetch(`/deleteDish/${dish_id}`, {
-    method: 'DELETE',
-});
 
 
 

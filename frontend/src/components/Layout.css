@@ -26,6 +26,26 @@ nav a {
     border-radius: 10px;
 }
 
+/* 現在いるページを示す下線のスタイル */
+nav a {
+    position: relative;
+    padding-bottom: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+/* 現在いるページを示す下線のスタイル */
+nav a.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background-color: white;
+}
+
 /* PCではボタン非表示 */
 .menu-btn {
     display: none;
