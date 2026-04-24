@@ -6,16 +6,15 @@ import type { catType, ingType } from "../types/type.ts";
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
+import { useNotification } from '../context/NotificationContext.tsx';
 
 function EditDish() {
     const { dish_id } = useParams();
     // URLの動的な部分をオブジェクトで取得し，分割代入でdish_idに代入．
     // (ex)dish_id = "2".
-
+    const { showNotification } = useNotification();
     const [dishName, setDishName] = useState<string>("");
     const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
-    const [successMessage, setSuccessMessage] = useState<string>("");
-    const [error, setError] = useState<string>("");
     const [ingData, setIngData] = useState<ingType[]>([]);
     const [catData, setCatData] = useState<catType[]>([]);
     const [searchWord, setSearchWord] = useState<string>("");
@@ -59,32 +58,24 @@ function EditDish() {
         const trimmedDishName = dishName.trim();
 
         if (!trimmedDishName) {
-            setError("料理名を入力してください");
-            setTimeout(() => {
-                setError('');
-            }, 2000);
+            showNotification("error", "料理名を入力してください");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
 
         if (selectedIngIds.length === 0) {
-            setError("材料を1つ以上選択してください");
-            setTimeout(() => {
-                setError('');
-            }, 2000);
+            showNotification("error", "材料を1つ以上選択してください");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
 
         try {
             await editDish(Number(dish_id), trimmedDishName, selectedIngIds);
-            setSuccessMessage("料理が正常に編集されました。");
+            showNotification("success", "料理が正常に編集されました。");
         } catch (error: any) {
-            setError(`エラー: ${error.message}`);
+            showNotification("error", error.message);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
-        } finally {
-            setTimeout(() => {
-                setSuccessMessage("");
-                setError("");
-            }, 2000);
         }
     };
 
@@ -97,8 +88,10 @@ function EditDish() {
     });
 
     return (
-        <div className="main">
+        <div className="main edit-dish-page">
             <h2>料理を編集</h2>
+            <hr />
+            <br />
             <form onSubmit={handleEditDish}>
                 <h3>料理名を編集</h3>
                 <hr />
@@ -108,7 +101,6 @@ function EditDish() {
                         setWord={setDishName}
                         placeholder="料理名を入力"
                     />
-
                 </div>
                 <h3>材料を選択</h3>
                 <hr />
@@ -124,15 +116,18 @@ function EditDish() {
                         catData={catData}
                     />
                 </div>
-                {filteredIngData.map((ing: ingType) => (
-                    <IngCardCheckboxType
-                        key={ing.ing_id}
-                        ing={ing}
-                        catData={catData}
-                        selectedIngIds={selectedIngIds}
-                        handleCheckboxChange={handleCheckboxChange}
-                    />
-                ))}
+                <div className="two-columns-container">
+                    {filteredIngData.map((ing: ingType) => (
+                        <IngCardCheckboxType
+                            key={ing.ing_id}
+                            ing={ing}
+                            catData={catData}
+                            selectedIngIds={selectedIngIds}
+                            handleCheckboxChange={handleCheckboxChange}
+                        />
+                    ))}
+                </div>
+                <br />
                 <button type="submit">更新</button>
             </form>
         </div>

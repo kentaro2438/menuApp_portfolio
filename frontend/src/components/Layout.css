@@ -7,19 +7,19 @@ header {
 
 h1 {
     color: white;
-    margin-left: 10%;
+    margin-left: 4%;
 }
 
 nav {
     display: flex;
     justify-content: center;
-    gap: 5vw;
+    /* gap: 5vw; */
     margin-top: 10px;
 }
 
 nav a {
     text-align: center;
-    width: 12vw;
+    width: 15vw;
     padding: 10px;
     color: white;
     text-decoration: none;
@@ -41,14 +41,15 @@ nav a.active::after {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    height: 3px;
+    width: 100%;
+    height: 1.5px;
     background-color: white;
 }
 
 /* PCではボタン非表示 */
 .menu-btn {
     display: none;
+    margin-left: 0;
 }
 
 /* 640px以下だけサイドメニュー化 */

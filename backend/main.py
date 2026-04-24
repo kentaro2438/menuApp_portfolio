@@ -42,6 +42,13 @@ class Ing_Dish_Set(db.Model):
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
 
 
+# 冷蔵庫
+class Refrigerator(db.Model):
+    __tablename__ = "refrigerator"
+    ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
+    ingredient = db.relationship("Ingredient")
+
+
 # API------------------------------------------------------------------------------------------------------------------------------------
 # 全ての材料を取得するAPI
 @app.route("/api/getAllIng", methods=["GET"])
@@ -56,19 +63,22 @@ def get_all_ing():
                 "cat_id": ing.cat_id,
             }
         )
-    return jsonify({"ing_list_json": ing_list_json})
+    return jsonify({"ing_list_json": ing_list_json}), 200
 
 
 # 特定の材料を取得するAPI
 @app.route("/api/getIng/<int:ing_id>", methods=["GET"])
 def get_ing(ing_id):
     ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
-    return jsonify(
-        {
-            "ing_id": ing.ing_id,
-            "ing_name": ing.ing_name,
-            "cat_id": ing.cat_id,
-        }
+    return (
+        jsonify(
+            {
+                "ing_id": ing.ing_id,
+                "ing_name": ing.ing_name,
+                "cat_id": ing.cat_id,
+            }
+        ),
+        200,
     )
 
 
@@ -79,10 +89,10 @@ def add_ing():
     new_ing = Ingredient(ing_name=data["new_ing_name"], cat_id=data["new_ing_cat_id"])
     existing = Ingredient.query.filter_by(ing_name=data["new_ing_name"]).first()
     if existing:
-        return {"message": "この材料はすでに登録されています"}
+        return jsonify({"message": "この材料はすでに登録されています"}), 400
     db.session.add(new_ing)
     db.session.commit()
-    return jsonify({"message": "材料が登録されました"})
+    return jsonify({"message": "材料が登録されました"}), 201
 
 
 # 材料を編集するAPI
@@ -93,7 +103,7 @@ def edit_ing(ing_id):
     ing.ing_name = data["ing_name"]
     ing.cat_id = data["cat_id"]
     db.session.commit()
-    return jsonify({"message": "材料が編集されました"})
+    return jsonify({"message": "材料が編集されました"}), 200
 
 
 # カテゴリーを全て取得するAPI
@@ -108,7 +118,7 @@ def get_cat():
                 "cat_name": cat.cat_name,
             }
         )
-    return jsonify({"cat_list_json": cat_list_json})
+    return jsonify({"cat_list_json": cat_list_json}), 200
 
 
 # 全ての料理を取得するAPI
@@ -123,7 +133,7 @@ def get_all_dish():
                 "dish_name": dish.dish_name,
             }
         )
-    return jsonify({"dish_list_json": dish_list_json})
+    return jsonify({"dish_list_json": dish_list_json}), 200
 
 
 # 特定の料理を取得するAPI
@@ -134,12 +144,15 @@ def get_dish(dish_id):
     ing_id_needed_list = []
     for ing_dish_list in ing_dish_set_list:
         ing_id_needed_list.append(ing_dish_list.ing_id)
-    return jsonify(
-        {
-            "dish_id": dish.dish_id,
-            "dish_name": dish.dish_name,
-            "ing_id_needed_list": ing_id_needed_list,
-        }
+    return (
+        jsonify(
+            {
+                "dish_id": dish.dish_id,
+                "dish_name": dish.dish_name,
+                "ing_id_needed_list": ing_id_needed_list,
+            }
+        ),
+        200,
     )
 
 
@@ -150,15 +163,15 @@ def new_dish():
 
     new_dish_name = data["new_dish_name"].strip()
     if not new_dish_name:
-        return jsonify({"message": "料理名を入力してください"})
+        return jsonify({"message": "料理名を入力してください"}), 400
 
     ing_id_needed_list = data["ing_id_needed_list"]
     if not ing_id_needed_list:
-        return jsonify({"message": "材料を選択してください"})
+        return jsonify({"message": "材料を選択してください"}), 400
 
     existing = Dish.query.filter_by(dish_name=new_dish_name).first()
     if existing:
-        return jsonify({"message": "その料理はすでに登録されています"})
+        return jsonify({"message": "その料理はすでに登録されています"}), 400
 
     try:
         new_dish = Dish(dish_name=new_dish_name)
@@ -178,7 +191,7 @@ def new_dish():
         db.session.rollback()
         raise
 
-    return jsonify({"message": "料理が追加されました"})
+    return jsonify({"message": "料理が追加されました"}), 201
 
 
 # 料理を編集するAPI
@@ -188,11 +201,11 @@ def edit_dish(dish_id):
 
     dish_name = data["dish_name"].strip()
     if not dish_name:
-        return jsonify({"message": "料理名を入力してください"})
+        return jsonify({"message": "料理名を入力してください"}), 400
 
     ing_id_needed_list = data["ing_id_needed_list"]
     if not ing_id_needed_list:
-        return jsonify({"message": "材料を選択してください"})
+        return jsonify({"message": "材料を選択してください"}), 400
 
     try:
         dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
@@ -213,9 +226,10 @@ def edit_dish(dish_id):
         db.session.rollback()
         raise
 
-    return jsonify({"message": "料理が編集されました"})
+    return jsonify({"message": "料理が編集されました"}), 200
 
 
+# 料理を削除するAPI
 @app.route("/api/deleteDish/<int:dish_id>", methods=["DELETE"])
 def delete_dish(dish_id):
     dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
@@ -229,7 +243,7 @@ def delete_dish(dish_id):
     except Exception:
         db.session.rollback()
         raise
-    return jsonify({"message": "料理が削除されました"})
+    return jsonify({"message": "料理が削除されました"}), 200
 
 
 # 料理を検索するAPI
@@ -276,3 +290,47 @@ def search():
     result_list.sort(key=lambda result: result[1], reverse=True)
 
     return jsonify({"result_list": result_list}), 200
+
+
+# 冷蔵庫の中身を取得するAPI
+@app.route("/api/ref", methods=["GET"])
+def get_refrigerator():
+    ings_in_ref = Refrigerator.query.all()
+    ings_in_ref_list = []
+    for ref in ings_in_ref:
+        ings_in_ref_list.append(
+            {
+                "ing_id": ref.ing_id,
+                "ing_name": ref.ingredient.ing_name,
+                "cat_id": ref.ingredient.cat_id,
+            }
+        )
+    return jsonify({"ings_in_ref_list_json": ings_in_ref_list})
+
+
+# 冷蔵庫に材料を追加するAPI
+@app.route("/api/ref", methods=["POST"])
+def add_ing_to_ref():
+    data = request.get_json()
+    ing_id = data["ing_id"]
+    existing = Refrigerator.query.filter_by(ing_id=ing_id).first()
+    if existing:
+        return jsonify({"message": "その材料はすでに冷蔵庫に入っています"}), 400
+    new_ing_to_ref = Refrigerator(ing_id=ing_id)
+    db.session.add(new_ing_to_ref)
+    db.session.commit()
+    return jsonify({"message": "冷蔵庫に材料が追加されました"}), 201
+
+
+# 冷蔵庫から材料を削除するAPI
+@app.route("/api/ref/<int:ing_id>", methods=["DELETE"])
+def delete_ing_from_ref(ing_id):
+    ing = Refrigerator.query.filter_by(ing_id=ing_id).first_or_404()
+    db.session.delete(ing)
+    db.session.commit()
+    return jsonify({"message": "冷蔵庫から材料が削除されました"}), 200
+
+
+# # 冷蔵庫にある材料から料理を検索するAPI
+# @app.route("/api/searchDishFromRef", method=["GET"])
+# def search_dish_from_ref():

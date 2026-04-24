@@ -5,16 +5,15 @@ import { getCat, getIng, editIng } from '../api/api.js';
 import type { catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+import { useNotification } from '../context/NotificationContext.tsx';
 
 function EditIng() {
     const { ing_id } = useParams();
     // URLの動的な部分をオブジェクトで取得し，分割代入でing_idに代入．
     // (ex)ing_id = "2".
-
+    const { showNotification } = useNotification();
     const [editedIngName, setEditedIngName] = useState<string>('');
     const [editedIngCatId, setEditedIngCatId] = useState<string>('');
-    const [error, setError] = useState<string>('');
-    const [successMessage, setSuccessMessage] = useState<string>('');
     const [catData, setCatData] = useState<catType[]>([]);
 
     useEffect(() => {
@@ -39,39 +38,33 @@ function EditIng() {
         e.preventDefault();
         const trimmedEditedIngName = editedIngName.trim();
         if (!trimmedEditedIngName) {
-            setError('材料名を入力してください');
-            setTimeout(() => {
-                setError('');
-            }, 2000);
+            showNotification("error", "材料名を入力してください");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         if (!editedIngCatId) {
-            setError('カテゴリーを選択してください');
-            setTimeout(() => {
-                setError('');
-            }, 2000);
+            showNotification("error", "カテゴリーを選択してください");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         try {
             await editIng(Number(ing_id), trimmedEditedIngName, Number(editedIngCatId));
-            setSuccessMessage('材料が正常に編集されました。');
+            showNotification("success", "材料が正常に編集されました。");
             setEditedIngName('');
             setEditedIngCatId('');
         } catch (error: any) {
-            setError(`エラー: ${error.message}`);
+            showNotification("error", error.message);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
-        } finally {
-            setTimeout(() => {
-                setSuccessMessage('');
-                setError('');
-            }, 2000);
         }
     };
 
 
     return (
-        <div className="main">
+        <div className="main edit-ing-page">
             <h2>材料を編集</h2>
+            <hr />
+            <br />
             <form onSubmit={handleEditedIng}>
                 <div className="input-area">
                     <Input

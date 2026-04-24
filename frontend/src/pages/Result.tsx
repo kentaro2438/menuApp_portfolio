@@ -16,8 +16,10 @@ function Result() {
     const resultList = state?.resultList || [];
 
     return (
-        <div className="main">
+        <div className="main result-page">
             <h2>検索結果</h2>
+            <hr />
+            <br />
             <p>選択した材料に基づいて検索された料理の結果です</p>
             <div className="input-area">
                 <Link to="/search">
@@ -30,9 +32,9 @@ function Result() {
                 ) : resultList.length === 0 ? (
                     <p>該当する料理が見つかりませんでした</p>
                 ) : (
-                    <div>
+                    <div className="two-columns-container">
                         {[...resultList]
-                            .sort((a, b) => a[2] - b[2]) // ← 不足数で昇順ソート
+                            .sort((a, b) => a[2] - b[2]) //不足数で昇順ソート
                             .map((result, index) => (
                                 <div key={index} className='result-card'>
                                     <h3 className='dish-name'>{result[0]}</h3>

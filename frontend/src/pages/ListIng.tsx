@@ -38,8 +38,10 @@ function ListIng() {
     });
 
     return (
-        <div className="main">
+        <div className="main list-ing-page">
             <h2>材料</h2>
+            <hr />
+            <br />
             <p>登録済みの材料を編集・削除できます</p>
             <div className="input-area">
                 <Input
@@ -54,29 +56,31 @@ function ListIng() {
                 />
                 <Link to="/list_ing/add" className='btn btn-main'>材料を追加</Link>
             </div>
-            {filteredIngData.map((ing: ingType) => {
-                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                return (
-                    <div key={ing.ing_id} className="card">
-                        <p className={`cat-name cat-${catId}`}>{catName}</p>
-                        <hr />
-                        <div className="inner-wrap">
-                            <p className='name'>{ing.ing_name}</p>
-                            <div className="btn-container">
-                                <Link
-                                    to={`/list_ing/edit/${ing.ing_id}`}
-                                    className='btn btn-sub edit'
-                                >
-                                    <span className='lucide-icon'>
-                                        <Pencil />
-                                    </span>
-                                </Link>
+            <div className="two-columns-container">
+                {filteredIngData.map((ing: ingType) => {
+                    const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                    const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                    return (
+                        <div key={ing.ing_id} className="card">
+                            <p className={`cat-name cat-${catId}`}>{catName}</p>
+                            <hr />
+                            <div className="inner-wrap">
+                                <p className='name'>{ing.ing_name}</p>
+                                <div className="btn-container">
+                                    <Link
+                                        to={`/list_ing/edit/${ing.ing_id}`}
+                                        className='btn btn-sub edit'
+                                    >
+                                        <span className='lucide-icon'>
+                                            <Pencil />
+                                        </span>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </div>
     );
 }

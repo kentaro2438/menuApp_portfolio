@@ -9,7 +9,7 @@ const apiFetch = async (URL: string, options: RequestInit = {}) => {
     });
     const data = await result.json();
     if (!result.ok) {
-        throw new Error(`エラー: ${result.status}`);
+        throw new Error(data.message);
     }
     return data;
 };
@@ -75,22 +75,26 @@ export const deleteDish = (dish_id: number) => apiFetch(`/deleteDish/${dish_id}`
 });
 
 
-// ここから未編集------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
 // 料理を検索
 export const searchDish = (searched_ing_id_list: number[]) => apiFetch('/searchDish', {
     method: 'POST',
     body: JSON.stringify({
         searched_ing_id_list: searched_ing_id_list,
     }),
+});
+
+// 冷蔵庫の材料を取得
+export const getRefIng = () => apiFetch('/ref');
+
+// 冷蔵庫に材料を追加
+export const addIngToRef = (ing_id: number) => apiFetch('/ref', {
+    method: 'POST',
+    body: JSON.stringify({
+        ing_id: ing_id,
+    }),
+});
+
+// 冷蔵庫から材料を削除
+export const deleteIngFromRef = (ing_id: number) => apiFetch(`/ref/${ing_id}`, {
+    method: 'DELETE',
 });

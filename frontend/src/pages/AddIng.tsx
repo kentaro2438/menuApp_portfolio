@@ -4,13 +4,16 @@ import { getCat, addIng } from '../api/api.js';
 import type { catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+import { useNotification } from '../context/NotificationContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 function AddIng() {
+    const { showNotification } = useNotification();
     const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
     const [newIngName, setNewIngName] = useState<string>(''); //新しい材料名
     const [newIngCatId, setNewIngCatId] = useState<string>(''); //新しい材料のカテゴリーID
-    const [successMessage, setSuccessMessage] = useState<string>(''); //成功メッセージ
-    const [error, setError] = useState<string>(''); //エラーメッセージ
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         fetchGetCat();
@@ -26,38 +29,33 @@ function AddIng() {
         e.preventDefault();
         const trimmednewIngName = newIngName.trim();
         if (!trimmednewIngName) {
-            setError('材料名を入力してください');
-            setTimeout(() => {
-                setError('');
-            }, 2000);
+            showNotification("error", "材料名を入力してください");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         if (!newIngCatId) {
-            setError('カテゴリーを選択してください');
-            setTimeout(() => {
-                setError('');
-            }, 2000);
+            showNotification("error", "カテゴリーを選択してください");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         try {
             await addIng(trimmednewIngName, Number(newIngCatId));
-            setSuccessMessage('材料が追加されました');
+            showNotification("success", "材料が追加されました");
             setNewIngName('');
             setNewIngCatId('');
+            navigate("/list_ing");
         } catch (error: any) {
-            setError(`エラー: ${error.message}`);
+            showNotification("error", error.message);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
-        } finally {
-            setTimeout(() => {
-                setSuccessMessage('');
-                setError('');
-            }, 2000);
         }
     };
 
     return (
-        <div className="main">
+        <div className="main add-ing-page">
             <h2>材料を追加</h2>
+            <hr />
+            <br />
             <form onSubmit={handleNewIng}>
                 <div className="input-area">
                     <Input
@@ -73,8 +71,6 @@ function AddIng() {
                     <button type="submit">追加</button>
                 </div>
             </form>
-            {successMessage && <p className='success-message'>{successMessage}</p>}
-            {error && <p className='error-message'>{error}</p>}
         </div>
     );
 }

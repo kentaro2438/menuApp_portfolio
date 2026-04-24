@@ -6,10 +6,11 @@ import type { ingType, catType } from "../types/type.ts";
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
+import { useNotification } from '../context/NotificationContext.tsx';
 
 function Search() {
+    const { showNotification } = useNotification();
     const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
-    const [error, setError] = useState<string>("");
     const [ingData, setIngData] = useState<ingType[]>([]);
     const [catData, setCatData] = useState<catType[]>([]);
     const [searchWord, setSearchWord] = useState<string>("");
@@ -47,16 +48,13 @@ function Search() {
         e.preventDefault();
 
         if (selectedIngIds.length === 0) {
-            setError("材料を1つ以上選択してください");
-            setTimeout(() => {
-                setError('');
-            }, 2000);
+            showNotification("error", "材料を1つ以上選択してください");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
 
         try {
             const data = await searchDish(selectedIngIds);
-
             navigate("/result", {
                 state: {
                     selectedIngIds,
@@ -64,11 +62,8 @@ function Search() {
                 },
             });
         } catch (error: any) {
-            setError(error.message || "検索中にエラーが発生しました");
-        } finally {
-            setTimeout(() => {
-                setError("");
-            }, 2000);
+            showNotification("error", error.message);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
@@ -81,10 +76,11 @@ function Search() {
     });
 
     return (
-        <div className="main">
+        <div className="main search-page">
             <h2>検索</h2>
+            <hr />
+            <br />
             <p>材料を選択して，検索ボタンを押してください</p>
-
             <form onSubmit={handleSearch}>
                 <div className="input-area">
                     <Input
@@ -99,15 +95,17 @@ function Search() {
                     />
                     <button type="submit">検索</button>
                 </div>
-                {filteredIngData.map((ing: ingType) => (
-                    <IngCardCheckboxType
-                        key={ing.ing_id}
-                        ing={ing}
-                        catData={catData}
-                        selectedIngIds={selectedIngIds}
-                        handleCheckboxChange={handleCheckboxChange}
-                    />
-                ))}
+                <div className="two-columns-container">
+                    {filteredIngData.map((ing: ingType) => (
+                        <IngCardCheckboxType
+                            key={ing.ing_id}
+                            ing={ing}
+                            catData={catData}
+                            selectedIngIds={selectedIngIds}
+                            handleCheckboxChange={handleCheckboxChange}
+                        />
+                    ))}
+                </div>
             </form>
         </div>
     );

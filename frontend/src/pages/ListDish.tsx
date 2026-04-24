@@ -31,8 +31,10 @@ function ListDish() {
     );
 
     return (
-        <div className="main">
+        <div className="main list-dish-page">
             <h2>料理</h2>
+            <hr />
+            <br />
             <p>登録済みの料理を編集・削除できます</p>
             <div className="input-area">
                 <Input
@@ -42,35 +44,37 @@ function ListDish() {
                 />
                 <Link to="/list_dish/add" className='btn btn-main'>料理を追加</Link>
             </div>
-            {filteredDishes.map((dish: dishType) => (
-                <div key={dish.dish_id} className='card dish-card'>
-                    <div className="inner-wrap">
-                        <p className='name dish-name'>{dish.dish_name}</p>
-                        <div className="btn-container">
-                            <Link
-                                to={`/list_dish/edit/${dish.dish_id}`}
-                                className='btn btn-sub edit'
-                            >
-                                <span className='lucide-icon'>
-                                    <Pencil />
-                                </span>
-                            </Link>
-                            <button
-                                onClick={async () => {
-                                    if (window.confirm('本当に削除しますか？')) {
-                                        await fetchDeleteDish(dish.dish_id);
-                                    }
-                                }}
-                                className='btn btn-sub delete'
-                            >
-                                <span className='lucide-icon'>
-                                    <Trash />
-                                </span>
-                            </button>
+            <div className="two-columns-container">
+                {filteredDishes.map((dish: dishType) => (
+                    <div key={dish.dish_id} className='card dish-card'>
+                        <div className="inner-wrap">
+                            <p className='name dish-name'>{dish.dish_name}</p>
+                            <div className="btn-container">
+                                <Link
+                                    to={`/list_dish/edit/${dish.dish_id}`}
+                                    className='btn btn-sub edit'
+                                >
+                                    <span className='lucide-icon'>
+                                        <Pencil />
+                                    </span>
+                                </Link>
+                                <button
+                                    onClick={async () => {
+                                        if (window.confirm('本当に削除しますか？')) {
+                                            await fetchDeleteDish(dish.dish_id);
+                                        }
+                                    }}
+                                    className='btn btn-sub delete'
+                                >
+                                    <span className='lucide-icon'>
+                                        <Trash />
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     )
 };
