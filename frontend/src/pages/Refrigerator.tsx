@@ -97,37 +97,41 @@ function Refrigerator() {
             <div className='two-columns-container'>
                 <div>
                     <h3>すべての材料一覧<span>{filteredIngData.length}個</span></h3>
-                    {filteredIngData.map((ing: ingType) => {
-                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                        return (
-                            <RefCard
-                                key={ing.ing_id}
-                                ing={ing}
-                                catId={catId}
-                                catName={catName}
-                                type="add"
-                                onClick={handleAddIngToRef}
-                            />
-                        )
-                    })}
+                    <div className="two-columns-container">
+                        {filteredIngData.map((ing: ingType) => {
+                            const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                            const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                            return (
+                                <RefCard
+                                    key={ing.ing_id}
+                                    ing={ing}
+                                    catId={catId}
+                                    catName={catName}
+                                    type="add"
+                                    onClick={handleAddIngToRef}
+                                />
+                            )
+                        })}
+                    </div>
                 </div>
                 <div>
                     <h3>冷蔵庫の材料一覧<span>{refIngData.length}個</span></h3>
-                    {refIngData.map((ing: ingType) => {
-                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                        return (
-                            <RefCard
-                                key={ing.ing_id}
-                                ing={ing}
-                                catId={catId}
-                                catName={catName}
-                                type="delete"
-                                onClick={handleDeleteIngFromRef}
-                            />
-                        )
-                    })}
+                    <div className="two-columns-container">
+                        {refIngData.map((ing: ingType) => {
+                            const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                            const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                            return (
+                                <RefCard
+                                    key={ing.ing_id}
+                                    ing={ing}
+                                    catId={catId}
+                                    catName={catName}
+                                    type="delete"
+                                    onClick={handleDeleteIngFromRef}
+                                />
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

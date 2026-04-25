@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getAllDish, deleteDish } from '../api/api.js';
 import type { dishType } from '../types/type.ts';
 import Input from '../components/Input.tsx';
-import { Pencil, Trash } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 
 function ListDish() {
 
@@ -44,7 +44,7 @@ function ListDish() {
                 />
                 <Link to="/list_dish/add" className='btn btn-main'>料理を追加</Link>
             </div>
-            <div className="two-columns-container">
+            <div className="three-columns-container">
                 {filteredDishes.map((dish: dishType) => (
                     <div key={dish.dish_id} className='card dish-card'>
                         <div className="inner-wrap">
@@ -54,9 +54,7 @@ function ListDish() {
                                     to={`/list_dish/edit/${dish.dish_id}`}
                                     className='btn btn-sub edit'
                                 >
-                                    <span className='lucide-icon'>
-                                        <Pencil />
-                                    </span>
+                                    <Pencil className='lucide-icon' />
                                 </Link>
                                 <button
                                     onClick={async () => {
@@ -64,11 +62,9 @@ function ListDish() {
                                             await fetchDeleteDish(dish.dish_id);
                                         }
                                     }}
-                                    className='btn btn-sub delete'
+                                    className='btn-sub delete'
                                 >
-                                    <span className='lucide-icon'>
-                                        <Trash />
-                                    </span>
+                                    <Trash2 className='lucide-icon' />
                                 </button>
                             </div>
                         </div>

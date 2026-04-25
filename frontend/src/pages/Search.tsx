@@ -95,7 +95,7 @@ function Search() {
                     />
                     <button type="submit">検索</button>
                 </div>
-                <div className="two-columns-container">
+                <div className="three-columns-container">
                     {filteredIngData.map((ing: ingType) => (
                         <IngCardCheckboxType
                             key={ing.ing_id}

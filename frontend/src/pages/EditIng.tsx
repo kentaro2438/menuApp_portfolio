@@ -6,6 +6,7 @@ import type { catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 function EditIng() {
     const { ing_id } = useParams();
@@ -15,6 +16,7 @@ function EditIng() {
     const [editedIngName, setEditedIngName] = useState<string>('');
     const [editedIngCatId, setEditedIngCatId] = useState<string>('');
     const [catData, setCatData] = useState<catType[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchGetCat();
@@ -52,6 +54,7 @@ function EditIng() {
             showNotification("success", "材料が正常に編集されました。");
             setEditedIngName('');
             setEditedIngCatId('');
+            navigate('/list_ing');
         } catch (error: any) {
             showNotification("error", error.message);
             window.scrollTo({ top: 0, behavior: 'smooth' });

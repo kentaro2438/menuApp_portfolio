@@ -7,12 +7,6 @@ hr {
     border: 0.5px solid rgba(0, 0, 0, 0.7);
 }
 
-.main>hr {
-    border: 1px solid rgba(0, 0, 0, 0.7);
-}
-
-
-
 .main {
     width: 90%;
     margin: 0 auto;
@@ -30,7 +24,7 @@ button {
     display: block;
     width: 150px;
     height: 40px;
-    background-color: royalblue;
+    background-color: rgb(64, 147, 0);
     color: white;
     border: none;
     border-radius: 10px;
@@ -64,45 +58,48 @@ button:hover {
 /* 編集ボタン，削除ボタンのコンテナ */
 div.btn-container {
     display: flex;
-    justify-content: flex-end;
+    margin-left: auto;
 }
 
 .btn-main {
     width: 150px;
-    background-color: royalblue;
+    background-color: rgb(64, 147, 0);
 }
 
 /* 編集および削除ボタン(共通) */
 .btn-sub {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 30px;
     height: 30px;
-    border-radius: 10px;
-    line-height: 30px;
+    border-radius: 5px;
     margin-right: 10px;
 }
 
 /* 追加ボタン */
-.btn-sub.add {
-    background-color: rgb(0, 195, 255);
+.add {
+    background-color: rgb(64, 147, 0);
 }
 
 /* 編集ボタン */
-.btn-sub.edit {
-    background-color: royalblue;
+.edit {
+    background-color: rgb(255, 161, 80);
 }
 
 /* 削除ボタン */
-.btn-sub.delete {
-    background-color: rgb(255, 104, 87);
+.delete {
+    background-color: red;
 }
 
-/* アイコンのスタイル */
-span.lucide-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+/* アイコンのサイズ */
+.add .lucide-icon {
+    width: 70%;
+}
+
+.edit .lucide-icon,
+.delete .lucide-icon {
     width: 60%;
-    padding-top: 3px;
 }
 
 /* 入力エリア, カテゴリー選択 */
@@ -124,82 +121,82 @@ span.lucide-icon {
     column-gap: 20px;
 }
 
+.three-columns-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3列 */
+    column-gap: 20px;
+}
+
 .card {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    padding-left: 20px;
     margin-bottom: 10px;
 }
 
-.card .inner-wrap {
+.inner-wrap {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
 }
 
-.card hr {
-    border: 0.5px solid rgba(128, 128, 128, 0.5);
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: auto;
+    cursor: pointer;
 }
 
-/* カテゴリ */
-p.cat-name {
-    width: 150px;
-    color: #ffffff;
-    border-radius: 10px 0 10px 0;
-    text-align: center;
-    padding: 2px 0;
-}
-
-/* 材料名 */
 p.name {
-    width: 150px;
-    font-weight: 500;
-    text-align: center;
+    font-weight: 550;
+}
+
+p.cat-name {
+    font-weight: 650;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.dish-card {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 /* 料理名 */
 p.dish-name {
-    width: 150px;
-    font-weight: 500;
-    text-align: left;
-    margin-left: 20px;
+    font-weight: 550;
 }
 
 /* カテゴリー別カラー */
 p.cat-1 {
-    background-color: rgb(96, 165, 66);
+    color: rgb(96, 165, 66);
 }
 
 p.cat-2 {
-    background-color: rgb(255, 104, 87);
+    color: rgb(255, 104, 87);
 }
 
 p.cat-3 {
-    background-color: rgb(0, 195, 255);
+    color: rgb(0, 195, 255);
 }
 
 p.cat-4 {
-    background-color: rgb(255, 161, 80);
+    color: rgb(255, 161, 80);
 }
 
 p.cat-5 {
-    background-color: rgb(255, 163, 255);
+    color: rgb(255, 163, 255);
 }
 
 p.cat-6 {
-    background-color: rgb(204, 149, 255);
+    color: rgb(204, 149, 255);
 }
 
 p.cat-7 {
-    background-color: rgb(255, 165, 95);
-}
-
-.card input[type="checkbox"] {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    cursor: pointer;
+    color: rgb(255, 165, 95);
 }
 
 /* 結果カード */
@@ -209,6 +206,7 @@ p.cat-7 {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
 }
 
 /* レシピを検索するボタン */
@@ -216,8 +214,6 @@ p.cat-7 {
     width: 120px;
     margin-left: auto;
 }
-
-
 
 /* 不足なし */
 .no-lack {
@@ -230,10 +226,6 @@ p.cat-7 {
     color: rgb(255, 104, 87);
     font-weight: 600;
 }
-
-/* 冷蔵庫 */
-
-
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
 @media screen and (max-width: 640px) {
@@ -306,7 +298,7 @@ p.cat-7 {
         padding: 5px 0;
     }
 
-    .card input[type="checkbox"] {
+    input[type="checkbox"] {
         width: 15px;
         height: 15px;
         margin-right: 5px;
@@ -315,9 +307,5 @@ p.cat-7 {
     .result-card {
         padding: 10px;
         border-radius: 10px;
-    }
-
-    span.lucide-icon {
-        padding-top: 0px;
     }
 }

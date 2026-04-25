@@ -7,6 +7,7 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 function EditDish() {
     const { dish_id } = useParams();
@@ -19,6 +20,7 @@ function EditDish() {
     const [catData, setCatData] = useState<catType[]>([]);
     const [searchWord, setSearchWord] = useState<string>("");
     const [showCatId, setShowCatId] = useState<string>("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchGetAllIng();
@@ -72,6 +74,7 @@ function EditDish() {
         try {
             await editDish(Number(dish_id), trimmedDishName, selectedIngIds);
             showNotification("success", "料理が正常に編集されました。");
+            navigate('/list_dish');
         } catch (error: any) {
             showNotification("error", error.message);
             window.scrollTo({ top: 0, behavior: 'smooth' });

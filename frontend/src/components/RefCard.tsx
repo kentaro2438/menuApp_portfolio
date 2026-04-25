@@ -1,4 +1,4 @@
-import { Plus, Trash } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import type { ingType } from '../types/type.ts';
 
 type RefCardProps = {
@@ -12,18 +12,15 @@ type RefCardProps = {
 function RefCard({ ing, catId, catName, type, onClick }: RefCardProps) {
 
     return (
-        <div key={ing.ing_id} className="card">
-            <p className={`cat-name cat-${catId}`}>{catName}</p>
-            <hr />
-            <div className="inner-wrap">
+        <div key={ing.ing_id} className="card inner-wrap">
+            <div>
                 <p className='name'>{ing.ing_name}</p>
-                <div className="btn-container">
-                    <button className={`btn btn-sub ${type}`} onClick={() => onClick(ing.ing_id)}>
-                        <span className='lucide-icon'>
-                            {type === "add" ? <Plus /> : <Trash />}
-                        </span>
-                    </button>
-                </div>
+                <p className={`cat-name cat-${catId}`}>{catName}</p>
+            </div>
+            <div className="btn-container">
+                <button className={`btn-sub ${type}`} onClick={() => onClick(ing.ing_id)}>
+                    {type === "add" ? <Plus className='lucide-icon' /> : <Trash2 className='lucide-icon' />}
+                </button>
             </div>
         </div>
     )

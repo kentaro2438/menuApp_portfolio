@@ -56,26 +56,23 @@ function ListIng() {
                 />
                 <Link to="/list_ing/add" className='btn btn-main'>材料を追加</Link>
             </div>
-            <div className="two-columns-container">
+            <div className="three-columns-container">
                 {filteredIngData.map((ing: ingType) => {
                     const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
                     const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
                     return (
-                        <div key={ing.ing_id} className="card">
-                            <p className={`cat-name cat-${catId}`}>{catName}</p>
-                            <hr />
-                            <div className="inner-wrap">
+                        <div key={ing.ing_id} className="card inner-wrap">
+                            <div>
                                 <p className='name'>{ing.ing_name}</p>
-                                <div className="btn-container">
-                                    <Link
-                                        to={`/list_ing/edit/${ing.ing_id}`}
-                                        className='btn btn-sub edit'
-                                    >
-                                        <span className='lucide-icon'>
-                                            <Pencil />
-                                        </span>
-                                    </Link>
-                                </div>
+                                <p className={`cat-name cat-${catId}`}>{catName}</p>
+                            </div>
+                            <div className="btn-container">
+                                <Link
+                                    to={`/list_ing/edit/${ing.ing_id}`}
+                                    className='btn btn-sub edit'
+                                >
+                                    <Pencil className='lucide-icon' />
+                                </Link>
                             </div>
                         </div>
                     )
