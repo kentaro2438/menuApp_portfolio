@@ -1,6 +1,11 @@
 /* 全体のスタイル */
+html {
+    background-color: #ff5900;
+}
+
 body {
     background-color: rgb(42, 42, 42);
+    font-size: 16px;
 }
 
 hr {
@@ -8,10 +13,17 @@ hr {
 }
 
 .main {
-    width: 90%;
+    width: 100%;
+    min-height: 95vh;
     margin: 0 auto;
     padding: 20px 50px;
     background-color: #F6EDE8;
+}
+
+.h2-icon {
+    stroke-width: 2.5;
+    color: rgb(64, 147, 0);
+    margin-bottom: -2px;
 }
 
 /* Linkタグ共通スタイル */
@@ -49,6 +61,14 @@ button:hover {
     text-align: center;
     margin-left: auto;
     line-height: 40px;
+}
+
+.icon-in-main-btn {
+    /* width: 20px; */
+    height: 20px;
+    aspect-ratio: 1/1;
+    margin-bottom: -4px;
+    stroke-width: 2.5;
 }
 
 .btn:hover {
@@ -113,28 +133,95 @@ div.btn-container {
     /* メインボタンを右端に配置 */
 }
 
+.result-page .input-area {
+    display: flex;
+    gap: 10px;
+}
+
 /* 材料カード */
 .two-columns-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     /* 2列 */
-    column-gap: 20px;
+    column-gap: 10px;
 }
 
-.three-columns-container {
+.ref-columns-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2列 */
+    column-gap: 10px;
+    /* 以下はその他の設定 */
+    max-height: 500px;
+    overflow-y: auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-columns-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* 3列 */
     column-gap: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
 }
 
 .card {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.12);
     padding: 10px;
     padding-left: 20px;
     margin-bottom: 10px;
+    max-height: 68px;
+}
+
+.card p.name {
+    font-weight: 550;
+    font-size: 15px;
+}
+
+.card p.cat-name {
+    font-weight: 650;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.ref-card {}
+
+.ref-name {
+    font-weight: 600;
+    background-color: whitesmoke;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    border-radius: 10px 10px 0 0;
+}
+
+.ref-search-btn {
+    width: 300px;
+}
+
+/* 冷蔵庫 */
+.length {
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: rgb(96, 165, 66);
+    color: white;
+    margin-left: 10px;
+    padding: 2px 10px;
+    border-radius: 20px;
 }
 
 .inner-wrap {
@@ -150,24 +237,9 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-p.name {
-    font-weight: 550;
-}
-
-p.cat-name {
-    font-weight: 650;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
 .dish-card {
     padding-top: 20px;
     padding-bottom: 20px;
-}
-
-/* 料理名 */
-p.dish-name {
-    font-weight: 550;
 }
 
 /* カテゴリー別カラー */
@@ -200,6 +272,13 @@ p.cat-7 {
 }
 
 /* 結果カード */
+.result-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2列 */
+    column-gap: 20px;
+}
+
 .result-card {
     height: auto;
     background: #fff;
@@ -227,85 +306,86 @@ p.cat-7 {
     font-weight: 600;
 }
 
+
+
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 800px) {
     body {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .main {
         padding: 20px 30px;
     }
 
-    .card-container {
-        gap: 10px;
+    .card-columns-container {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+        /* 2列 */
     }
 
-    /* カテゴリ名 */
-    p.cat-name {
-        width: 100px;
-        padding: 0;
+    .card {
+        padding: 8px;
+        padding-left: 15px;
+        margin-bottom: 5px;
     }
 
-    p.name {
-        width: 100px;
-        padding: 0;
-        text-align: center;
+    .card p.name {
+        font-size: 12px;
     }
 
-    p.dish-name {
-        margin-left: 0;
+    .card p.cat-name {
+        font-size: 10px;
+        margin-top: 2px;
     }
 
-    .btn {
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+    }
+
+    button {
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+        margin: 0 auto;
+    }
+
+    .ref-columns-container {
         display: block;
-        padding: 0px;
+    }
+
+    .ref-search-btn {
+        width: 100%;
+    }
+
+    .ref-name {
+        padding: 15px 10px;
+        border-radius: 10px 10px 0 0;
     }
 
     .btn-main {
         width: 100%;
-        margin: 0 auto;
+        font-size: 14px;
+        background-color: rgb(64, 147, 0);
     }
 
     .btn-sub {
-        width: 15px;
-        height: 15px;
-        line-height: 15px;
-        margin-right: 5px;
+        width: 20px;
+        height: 20px;
         border-radius: 5px;
-    }
-
-    span.lucide-icon {
-        margin-top: 2.5px;
-        width: 10px;
-        height: 10px;
-    }
-
-    button {
-        display: block;
-        width: 100%;
-    }
-
-    p.cat-name {
-        width: 80px;
-    }
-
-    p.name {
-        width: 80px;
-    }
-
-    .card .inner-wrap {
-        padding: 5px 0;
-    }
-
-    input[type="checkbox"] {
-        width: 15px;
-        height: 15px;
         margin-right: 5px;
     }
 
-    .result-card {
-        padding: 10px;
-        border-radius: 10px;
+    .length {
+        width: 25px;
+        font-size: 10px;
+        padding: 2px 5px;
+        margin-left: 5px;
     }
+
+
+
+
 }

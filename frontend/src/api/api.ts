@@ -18,7 +18,7 @@ const apiFetch = async (URL: string, options: RequestInit = {}) => {
 export const getAllIng = () => apiFetch('/getAllIng');
 
 //特定の材料を取得
-export const getIng = (ing_id: number) => apiFetch(`/getIng/${ing_id}`);
+export const getIng = (ing_id: number) => apiFetch(`/ing/${ing_id}`);
 
 // カテゴリーを取得
 export const getCat = () => apiFetch('/getCat');
@@ -27,10 +27,10 @@ export const getCat = () => apiFetch('/getCat');
 export const getAllDish = () => apiFetch('/getAllDish');
 
 //特定の料理を取得
-export const getDish = (dish_id: number) => apiFetch(`/getDish/${dish_id}`)
+export const getDish = (dish_id: number) => apiFetch(`/dish/${dish_id}`)
 
 // 材料を追加
-export const addIng = (new_ing_name: string, new_ing_cat_id: number) => apiFetch('/addIng', {
+export const addIng = (new_ing_name: string, new_ing_cat_id: number) => apiFetch('/ing', {
     method: 'POST',
     // 送信するデータをJSON形式で指定
     body: JSON.stringify({
@@ -40,7 +40,7 @@ export const addIng = (new_ing_name: string, new_ing_cat_id: number) => apiFetch
 });
 
 // 材料を編集
-export const editIng = (ing_id: number, ing_name: string, cat_id: number) => apiFetch(`/editIng/${ing_id}`, {
+export const editIng = (ing_id: number, ing_name: string, cat_id: number) => apiFetch(`/ing/${ing_id}`, {
     method: 'PUT',
     body: JSON.stringify({
         ing_id: ing_id,
@@ -50,7 +50,7 @@ export const editIng = (ing_id: number, ing_name: string, cat_id: number) => api
 });
 
 // 料理を追加
-export const addDish = (new_dish_name: string, ing_id_needed_list: number[]) => apiFetch('/addDish', {
+export const addDish = (new_dish_name: string, ing_id_needed_list: number[]) => apiFetch('/dish', {
     method: 'POST',
     body: JSON.stringify({
         new_dish_name: new_dish_name,
@@ -59,7 +59,7 @@ export const addDish = (new_dish_name: string, ing_id_needed_list: number[]) => 
 });
 
 // 料理を編集
-export const editDish = (dish_id: number, dish_name: string, ing_id_needed_list: number[]) => apiFetch(`/editDish/${dish_id}`, {
+export const editDish = (dish_id: number, dish_name: string, ing_id_needed_list: number[]) => apiFetch(`/dish/${dish_id}`, {
     method: 'PUT',
     body: JSON.stringify({
         dish_id: dish_id,
@@ -68,12 +68,10 @@ export const editDish = (dish_id: number, dish_name: string, ing_id_needed_list:
     }),
 });
 
-
 //料理を削除
-export const deleteDish = (dish_id: number) => apiFetch(`/deleteDish/${dish_id}`, {
+export const deleteDish = (dish_id: number) => apiFetch(`/dish/${dish_id}`, {
     method: 'DELETE',
 });
-
 
 // 料理を検索
 export const searchDish = (searched_ing_id_list: number[]) => apiFetch('/searchDish', {

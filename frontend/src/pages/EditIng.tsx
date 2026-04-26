@@ -12,10 +12,10 @@ function EditIng() {
     const { ing_id } = useParams();
     // URLの動的な部分をオブジェクトで取得し，分割代入でing_idに代入．
     // (ex)ing_id = "2".
-    const { showNotification } = useNotification();
     const [editedIngName, setEditedIngName] = useState<string>('');
     const [editedIngCatId, setEditedIngCatId] = useState<string>('');
     const [catData, setCatData] = useState<catType[]>([]);
+    const { showNotification } = useNotification();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,23 +41,20 @@ function EditIng() {
         const trimmedEditedIngName = editedIngName.trim();
         if (!trimmedEditedIngName) {
             showNotification("error", "材料名を入力してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         if (!editedIngCatId) {
             showNotification("error", "カテゴリーを選択してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         try {
             await editIng(Number(ing_id), trimmedEditedIngName, Number(editedIngCatId));
-            showNotification("success", "材料が正常に編集されました。");
+            showNotification("success", "材料が編集されました");
             setEditedIngName('');
             setEditedIngCatId('');
             navigate('/list_ing');
         } catch (error: any) {
             showNotification("error", error.message);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
     };

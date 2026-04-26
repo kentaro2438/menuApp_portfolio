@@ -7,6 +7,7 @@ import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 
 function AddDish() {
     const { showNotification } = useNotification();
@@ -51,26 +52,22 @@ function AddDish() {
 
         if (!trimmedDishName) {
             showNotification("error", "料理名を入力してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
 
         if (selectedIngIds.length === 0) {
             showNotification("error", "材料を1つ以上選択してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
 
         try {
             await addDish(trimmedDishName, selectedIngIds);
             showNotification("success", "料理が追加されました");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             setNewDishName('');
             setSelectedIngIds([]);
             navigate("/list_dish");
         } catch (error: any) {
             showNotification("error", error.message);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
     };
@@ -112,7 +109,7 @@ function AddDish() {
                         catData={catData}
                     />
                 </div>
-                <div className='two-columns-container'>
+                <div className='card-columns-container'>
                     {filteredIngData.map((ing: ingType) => (
                         <IngCardCheckboxType
                             key={ing.ing_id}
@@ -124,7 +121,7 @@ function AddDish() {
                     ))}
                 </div>
                 <br />
-                <button type="submit">追加</button>
+                <button type="submit"><Plus className='icon-in-main-btn' /> 追加</button>
             </form>
         </div>
     );

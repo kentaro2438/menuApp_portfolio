@@ -7,14 +7,15 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
+import { Search as SearchIcon } from 'lucide-react';
 
 function Search() {
-    const { showNotification } = useNotification();
     const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
     const [ingData, setIngData] = useState<ingType[]>([]);
     const [catData, setCatData] = useState<catType[]>([]);
     const [searchWord, setSearchWord] = useState<string>("");
     const [showCatId, setShowCatId] = useState<string>("");
+    const { showNotification } = useNotification();
 
     const navigate = useNavigate();
 
@@ -44,15 +45,11 @@ function Search() {
         });
     };
 
-    const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
+    const handleSearch = async () => {
         if (selectedIngIds.length === 0) {
             showNotification("error", "材料を1つ以上選択してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
-
         try {
             const data = await searchDish(selectedIngIds);
             navigate("/result", {
@@ -63,7 +60,6 @@ function Search() {
             });
         } catch (error: any) {
             showNotification("error", error.message);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
@@ -77,36 +73,35 @@ function Search() {
 
     return (
         <div className="main search-page">
-            <h2>検索</h2>
+            <h2><SearchIcon className='h2-icon' /> 検索</h2>
             <hr />
             <br />
             <p>材料を選択して，検索ボタンを押してください</p>
-            <form onSubmit={handleSearch}>
-                <div className="input-area">
-                    <Input
-                        word={searchWord}
-                        setWord={setSearchWord}
-                        placeholder="材料名を検索"
-                    />
-                    <Select
-                        showCatId={showCatId}
-                        setShowCatId={setShowCatId}
+            <div className="input-area">
+                <Input
+                    word={searchWord}
+                    setWord={setSearchWord}
+                    placeholder="材料名を検索"
+                />
+                <Select
+                    showCatId={showCatId}
+                    setShowCatId={setShowCatId}
+                    catData={catData}
+                />
+                <button onClick={handleSearch}><SearchIcon className='icon-in-main-btn' /> 検索</button>
+            </div>
+            <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+            <div className="card-columns-container">
+                {filteredIngData.map((ing: ingType) => (
+                    <IngCardCheckboxType
+                        key={ing.ing_id}
+                        ing={ing}
                         catData={catData}
+                        selectedIngIds={selectedIngIds}
+                        handleCheckboxChange={handleCheckboxChange}
                     />
-                    <button type="submit">検索</button>
-                </div>
-                <div className="three-columns-container">
-                    {filteredIngData.map((ing: ingType) => (
-                        <IngCardCheckboxType
-                            key={ing.ing_id}
-                            ing={ing}
-                            catData={catData}
-                            selectedIngIds={selectedIngIds}
-                            handleCheckboxChange={handleCheckboxChange}
-                        />
-                    ))}
-                </div>
-            </form>
+                ))}
+            </div>
         </div>
     );
 }

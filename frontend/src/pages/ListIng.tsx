@@ -5,7 +5,7 @@ import { getAllIng, getCat } from '../api/api.js';
 import type { ingType, catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
-import { Pencil } from 'lucide-react';
+import { Pencil, Apple, Plus } from 'lucide-react';
 
 function ListIng() {
     const [ingData, setIngData] = useState<ingType[]>([]); // 全ての材料
@@ -39,7 +39,7 @@ function ListIng() {
 
     return (
         <div className="main list-ing-page">
-            <h2>材料</h2>
+            <h2><Apple className='h2-icon' /> 材料</h2>
             <hr />
             <br />
             <p>登録済みの材料を編集・削除できます</p>
@@ -54,29 +54,32 @@ function ListIng() {
                     setShowCatId={setShowCatId}
                     catData={catData}
                 />
-                <Link to="/list_ing/add" className='btn btn-main'>材料を追加</Link>
+                <Link to="/list_ing/add" className='btn btn-main'><Plus className='icon-in-main-btn' /> 材料を追加</Link>
             </div>
-            <div className="three-columns-container">
-                {filteredIngData.map((ing: ingType) => {
-                    const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                    const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                    return (
-                        <div key={ing.ing_id} className="card inner-wrap">
-                            <div>
-                                <p className='name'>{ing.ing_name}</p>
-                                <p className={`cat-name cat-${catId}`}>{catName}</p>
+            <div>
+                <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                <div className="card-columns-container">
+                    {filteredIngData.map((ing: ingType) => {
+                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                        return (
+                            <div key={ing.ing_id} className="card inner-wrap">
+                                <div>
+                                    <p className='name'>{ing.ing_name}</p>
+                                    <p className={`cat-name cat-${catId}`}>{catName}</p>
+                                </div>
+                                <div className="btn-container">
+                                    <Link
+                                        to={`/list_ing/edit/${ing.ing_id}`}
+                                        className='btn btn-sub edit'
+                                    >
+                                        <Pencil className='lucide-icon' />
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="btn-container">
-                                <Link
-                                    to={`/list_ing/edit/${ing.ing_id}`}
-                                    className='btn btn-sub edit'
-                                >
-                                    <Pencil className='lucide-icon' />
-                                </Link>
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
         </div>
     );

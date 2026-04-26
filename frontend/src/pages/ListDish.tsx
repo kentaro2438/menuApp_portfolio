@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { getAllDish, deleteDish } from '../api/api.js';
 import type { dishType } from '../types/type.ts';
 import Input from '../components/Input.tsx';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2, CookingPot, Plus } from 'lucide-react';
+import { useNotification } from '../context/NotificationContext.tsx';
 
 function ListDish() {
 
     const [dishesData, setDishesData] = useState<dishType[]>([]);
     const [search, setSearch] = useState('');
+    const { showNotification } = useNotification();
 
     useEffect(() => {
         fetchGetAllDish();
@@ -22,6 +24,7 @@ function ListDish() {
 
     const fetchDeleteDish = async (dish_id: number) => {
         await deleteDish(dish_id);
+        showNotification("success", "料理が削除されました");
         await fetchGetAllDish();
     }
 
@@ -32,7 +35,7 @@ function ListDish() {
 
     return (
         <div className="main list-dish-page">
-            <h2>料理</h2>
+            <h2><CookingPot className='h2-icon' /> 料理</h2>
             <hr />
             <br />
             <p>登録済みの料理を編集・削除できます</p>
@@ -42,34 +45,37 @@ function ListDish() {
                     setWord={setSearch}
                     placeholder="料理名を検索"
                 />
-                <Link to="/list_dish/add" className='btn btn-main'>料理を追加</Link>
+                <Link to="/list_dish/add" className='btn btn-main'><Plus className='icon-in-main-btn' /> 料理を追加</Link>
             </div>
-            <div className="three-columns-container">
-                {filteredDishes.map((dish: dishType) => (
-                    <div key={dish.dish_id} className='card dish-card'>
-                        <div className="inner-wrap">
-                            <p className='name dish-name'>{dish.dish_name}</p>
-                            <div className="btn-container">
-                                <Link
-                                    to={`/list_dish/edit/${dish.dish_id}`}
-                                    className='btn btn-sub edit'
-                                >
-                                    <Pencil className='lucide-icon' />
-                                </Link>
-                                <button
-                                    onClick={async () => {
-                                        if (window.confirm('本当に削除しますか？')) {
-                                            await fetchDeleteDish(dish.dish_id);
-                                        }
-                                    }}
-                                    className='btn-sub delete'
-                                >
-                                    <Trash2 className='lucide-icon' />
-                                </button>
+            <div>
+                <p className='ref-name'>料理一覧<span className='length'>{filteredDishes.length}</span></p>
+                <div className="card-columns-container">
+                    {filteredDishes.map((dish: dishType) => (
+                        <div key={dish.dish_id} className='card dish-card'>
+                            <div className="inner-wrap">
+                                <p className='name'>{dish.dish_name}</p>
+                                <div className="btn-container">
+                                    <Link
+                                        to={`/list_dish/edit/${dish.dish_id}`}
+                                        className='btn btn-sub edit'
+                                    >
+                                        <Pencil className='lucide-icon' />
+                                    </Link>
+                                    <button
+                                        onClick={async () => {
+                                            if (window.confirm('本当に削除しますか？')) {
+                                                await fetchDeleteDish(dish.dish_id);
+                                            }
+                                        }}
+                                        className='btn-sub delete'
+                                    >
+                                        <Trash2 className='lucide-icon' />
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     )

@@ -61,23 +61,20 @@ function EditDish() {
 
         if (!trimmedDishName) {
             showNotification("error", "料理名を入力してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
 
         if (selectedIngIds.length === 0) {
             showNotification("error", "材料を1つ以上選択してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
 
         try {
             await editDish(Number(dish_id), trimmedDishName, selectedIngIds);
-            showNotification("success", "料理が正常に編集されました。");
+            showNotification("success", "料理が編集されました");
             navigate('/list_dish');
         } catch (error: any) {
             showNotification("error", error.message);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
     };
@@ -119,7 +116,7 @@ function EditDish() {
                         catData={catData}
                     />
                 </div>
-                <div className="two-columns-container">
+                <div className="card-columns-container">
                     {filteredIngData.map((ing: ingType) => (
                         <IngCardCheckboxType
                             key={ing.ing_id}

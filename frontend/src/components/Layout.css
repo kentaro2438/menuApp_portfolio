@@ -7,7 +7,13 @@ header {
 
 h1 {
     color: white;
-    margin-left: 4%;
+    margin-left: 2.5%;
+}
+
+.h1-icon {
+    width: 32px;
+    height: 32px;
+    stroke-width: 2.5;
 }
 
 nav {
@@ -24,6 +30,13 @@ nav a {
     color: white;
     text-decoration: none;
     border-radius: 10px;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: -3px;
+    margin-right: 2px;
 }
 
 /* 現在いるページを示す下線のスタイル */
@@ -49,11 +62,10 @@ nav a.active::after {
 /* PCではボタン非表示 */
 .menu-btn {
     display: none;
-    margin-left: 0;
 }
 
-/* 640px以下だけサイドメニュー化 */
-@media (max-width: 640px) {
+/* 800px以下だけサイドメニュー化 */
+@media (max-width: 800px) {
     header {
         display: flex;
         align-items: center;
@@ -64,7 +76,7 @@ nav a.active::after {
 
     h1 {
         font-size: 28px;
-        margin-left: 0;
+        margin-right: auto;
     }
 
     .menu-btn {
@@ -77,6 +89,9 @@ nav a.active::after {
         font-size: 32px;
         cursor: pointer;
         z-index: 1001;
+        margin-right: 0px;
+        margin-left: 0;
+        padding-bottom: 42px;
     }
 
     nav {

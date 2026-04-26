@@ -8,7 +8,7 @@ select {
 }
 
 input[type="text"] {
-    width: 30vw;
+    width: 20vw;
 }
 
 select {
@@ -16,13 +16,12 @@ select {
 }
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 800px) {
 
     input[type="text"],
     select {
         font-size: 12px;
         width: 100%;
-        height: 30px;
         margin-bottom: 10px;
     }
 

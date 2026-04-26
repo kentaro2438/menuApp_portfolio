@@ -6,6 +6,7 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 
 function AddIng() {
     const { showNotification } = useNotification();
@@ -30,12 +31,10 @@ function AddIng() {
         const trimmednewIngName = newIngName.trim();
         if (!trimmednewIngName) {
             showNotification("error", "材料名を入力してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         if (!newIngCatId) {
             showNotification("error", "カテゴリーを選択してください");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         try {
@@ -46,7 +45,6 @@ function AddIng() {
             navigate("/list_ing");
         } catch (error: any) {
             showNotification("error", error.message);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
     };
@@ -68,7 +66,7 @@ function AddIng() {
                         setShowCatId={setNewIngCatId}
                         catData={catData}
                     />
-                    <button type="submit">追加</button>
+                    <button type="submit"><Plus className='icon-in-main-btn' /> 追加</button>
                 </div>
             </form>
         </div>

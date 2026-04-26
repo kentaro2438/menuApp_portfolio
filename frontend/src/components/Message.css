@@ -1,5 +1,6 @@
 .message {
-    position: absolute;
+    position: fixed;
+    width: 30%;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -7,6 +8,7 @@
     padding: 10px 20px;
     border-radius: 10px;
     z-index: 1000;
+    text-align: center;
 }
 
 .message.success {
@@ -15,4 +17,12 @@
 
 .message.error {
     background-color: #f44336;
+}
+
+@media screen and (max-width: 800px) {
+    .message {
+        width: 70%;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
 }

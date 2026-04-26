@@ -67,7 +67,7 @@ def get_all_ing():
 
 
 # 特定の材料を取得するAPI
-@app.route("/api/getIng/<int:ing_id>", methods=["GET"])
+@app.route("/api/ing/<int:ing_id>", methods=["GET"])
 def get_ing(ing_id):
     ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
     return (
@@ -83,7 +83,7 @@ def get_ing(ing_id):
 
 
 # 材料を登録するAPI
-@app.route("/api/addIng", methods=["POST"])
+@app.route("/api/ing", methods=["POST"])
 def add_ing():
     data = request.get_json()
     new_ing = Ingredient(ing_name=data["new_ing_name"], cat_id=data["new_ing_cat_id"])
@@ -96,7 +96,7 @@ def add_ing():
 
 
 # 材料を編集するAPI
-@app.route("/api/editIng/<int:ing_id>", methods=["PUT"])
+@app.route("/api/ing/<int:ing_id>", methods=["PUT"])
 def edit_ing(ing_id):
     data = request.get_json()
     ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
@@ -137,7 +137,7 @@ def get_all_dish():
 
 
 # 特定の料理を取得するAPI
-@app.route("/api/getDish/<int:dish_id>", methods=["GET"])
+@app.route("/api/dish/<int:dish_id>", methods=["GET"])
 def get_dish(dish_id):
     dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
     ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
@@ -157,22 +157,18 @@ def get_dish(dish_id):
 
 
 # 料理を登録するAPI
-@app.route("/api/addDish", methods=["POST"])
+@app.route("/api/dish", methods=["POST"])
 def new_dish():
     data = request.get_json()
-
     new_dish_name = data["new_dish_name"].strip()
     if not new_dish_name:
         return jsonify({"message": "料理名を入力してください"}), 400
-
     ing_id_needed_list = data["ing_id_needed_list"]
     if not ing_id_needed_list:
         return jsonify({"message": "材料を選択してください"}), 400
-
     existing = Dish.query.filter_by(dish_name=new_dish_name).first()
     if existing:
         return jsonify({"message": "その料理はすでに登録されています"}), 400
-
     try:
         new_dish = Dish(dish_name=new_dish_name)
         db.session.add(new_dish)
@@ -195,7 +191,7 @@ def new_dish():
 
 
 # 料理を編集するAPI
-@app.route("/api/editDish/<int:dish_id>", methods=["PUT"])
+@app.route("/api/dish/<int:dish_id>", methods=["PUT"])
 def edit_dish(dish_id):
     data = request.get_json()
 
@@ -230,7 +226,7 @@ def edit_dish(dish_id):
 
 
 # 料理を削除するAPI
-@app.route("/api/deleteDish/<int:dish_id>", methods=["DELETE"])
+@app.route("/api/dish/<int:dish_id>", methods=["DELETE"])
 def delete_dish(dish_id):
     dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
     ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
@@ -248,7 +244,7 @@ def delete_dish(dish_id):
 
 # 料理を検索するAPI
 @app.route("/api/searchDish", methods=["POST"])
-def search():
+def search_dish():
     data = request.get_json()
 
     searched_ing_id_list = data.get("searched_ing_id_list", [])

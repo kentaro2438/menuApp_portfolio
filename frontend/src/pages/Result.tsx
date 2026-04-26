@@ -25,6 +25,9 @@ function Result() {
                 <Link to="/search">
                     <button type="button">検索に戻る</button>
                 </Link>
+                <Link to="/refrigerator">
+                    <button type="button">冷蔵庫に戻る</button>
+                </Link>
             </div>
             <div>
                 {selectedIngIds.length === 0 ? (
@@ -32,7 +35,7 @@ function Result() {
                 ) : resultList.length === 0 ? (
                     <p>該当する料理が見つかりませんでした</p>
                 ) : (
-                    <div className="two-columns-container">
+                    <div className="result-card-container">
                         {[...resultList]
                             .sort((a, b) => a[2] - b[2]) //不足数で昇順ソート
                             .map((result, index) => (
