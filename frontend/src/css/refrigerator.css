@@ -1,0 +1,55 @@
+.ref-columns-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2列 */
+    column-gap: 10px;
+    /* 以下はその他の設定 */
+    max-height: 56.5vh;
+    overflow-y: auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.ref-name {
+    font-weight: 600;
+    background-color: whitesmoke;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    border-radius: 10px 10px 0 0;
+}
+
+.ref-search-btn {
+    width: 300px;
+}
+
+.not_in_ref .elapsed_time {
+    display: none;
+}
+
+.elapsed_time {
+    color: rgb(160, 160, 160);
+}
+
+@media screen and (max-width: 800px) {
+    .ref-columns-container {
+        display: block;
+    }
+
+    .ref-search-btn {
+        width: 100%;
+    }
+
+    .ref-name {
+        padding: 15px 10px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .length {
+        font-size: 10px;
+        padding: 2px 5px;
+        margin-left: 5px;
+    }
+}

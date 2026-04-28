@@ -5,9 +5,16 @@ header {
     z-index: 100;
 }
 
+.title-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 h1 {
     color: white;
     margin-left: 2.5%;
+    margin-right: 20px;
 }
 
 .h1-icon {
@@ -19,13 +26,12 @@ h1 {
 nav {
     display: flex;
     justify-content: center;
-    /* gap: 5vw; */
     margin-top: 10px;
 }
 
 nav a {
     text-align: center;
-    width: 15vw;
+    width: 12vw;
     padding: 10px;
     color: white;
     text-decoration: none;
@@ -79,6 +85,10 @@ nav a.active::after {
         margin-right: auto;
     }
 
+    .h1-icon {
+        display: none;
+    }
+
     .menu-btn {
         display: block;
         width: auto;
@@ -125,6 +135,7 @@ nav a.active::after {
         width: 100%;
         padding: 14px;
         border-radius: 10px;
+        font-size: 14px;
     }
 
     .overlay {

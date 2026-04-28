@@ -1,4 +1,5 @@
 import '../reset.css';
+import '../css/result.css';
 import { Link, useLocation } from "react-router-dom";
 
 type ResultItemType = [string, number, number, string[]];

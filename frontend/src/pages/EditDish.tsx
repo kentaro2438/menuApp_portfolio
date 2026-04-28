@@ -1,4 +1,5 @@
 import '../reset.css';
+// import '../css/category.css';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getCat, getAllIng, getDish, editDish } from "../api/api.js";
@@ -116,16 +117,21 @@ function EditDish() {
                         catData={catData}
                     />
                 </div>
-                <div className="card-columns-container">
-                    {filteredIngData.map((ing: ingType) => (
-                        <IngCardCheckboxType
-                            key={ing.ing_id}
-                            ing={ing}
-                            catData={catData}
-                            selectedIngIds={selectedIngIds}
-                            handleCheckboxChange={handleCheckboxChange}
-                        />
-                    ))}
+                <div>
+                    <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                    <div className="card-columns-container">
+                        {filteredIngData
+                            .sort((a, b) => a.cat_id - b.cat_id)
+                            .map((ing: ingType) => (
+                                <IngCardCheckboxType
+                                    key={ing.ing_id}
+                                    ing={ing}
+                                    catData={catData}
+                                    selectedIngIds={selectedIngIds}
+                                    handleCheckboxChange={handleCheckboxChange}
+                                />
+                            ))}
+                    </div>
                 </div>
                 <br />
                 <button type="submit">更新</button>

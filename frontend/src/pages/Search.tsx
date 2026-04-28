@@ -76,7 +76,8 @@ function Search() {
             <h2><SearchIcon className='h2-icon' /> 検索</h2>
             <hr />
             <br />
-            <p>材料を選択して，検索ボタンを押してください</p>
+            <p>選択した材料から作れる料理を検索できます．</p>
+            <p>以下の材料リストで材料をチェックしてから，検索ボタンを押してください．</p>
             <div className="input-area">
                 <Input
                     word={searchWord}
@@ -92,7 +93,9 @@ function Search() {
             </div>
             <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
             <div className="card-columns-container">
-                {filteredIngData.map((ing: ingType) => (
+                {filteredIngData
+                .sort((a, b) => a.cat_id - b.cat_id)
+                .map((ing: ingType) => (
                     <IngCardCheckboxType
                         key={ing.ing_id}
                         ing={ing}

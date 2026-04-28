@@ -1,4 +1,5 @@
 import '../reset.css';
+import '../css/refrigerator.css';
 import { useEffect, useState } from "react";
 import { getAllIng, getCat, getRefIng, addIngToRef, deleteIngFromRef, searchDish } from '../api/api.js';
 import type { ingType, catType } from '../types/type.ts';
@@ -20,6 +21,10 @@ function Refrigerator() {
     const refIngIdSet = new Set(refIngData.map(ing => ing.ing_id)); //冷蔵庫の材料IDのセット（重複なし）
     const { showNotification } = useNotification();
     const navigate = useNavigate();
+
+    ingData.map(ing => {
+        console.log(ing.ing_name, ing.added_at);
+    });
 
     useEffect(() => {
         fetchGetAllIng();
@@ -121,10 +126,12 @@ function Refrigerator() {
                 </button>
             </div>
             <div className='two-columns-container'>
-                <div>
+                <div className='not_in_ref'>
                     <p className='ref-name'>冷蔵庫にない材料<span className='length'>{filteredIngData.length}</span></p>
                     <div className="ref-columns-container">
-                            {filteredIngData.map((ing: ingType) => {
+                            {filteredIngData
+                            .sort((a, b) => a.cat_id - b.cat_id)
+                            .map((ing: ingType) => {
                                 const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
                                 const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
                                 return (
@@ -140,7 +147,7 @@ function Refrigerator() {
                             })}
                     </div>
                 </div>
-                <div>
+                <div className='in_ref'>
                     <p className='ref-name'>冷蔵庫にある材料<span className='length'>{refIngData.length}</span></p>
                     <div className="ref-columns-container">
                         {refIngData.map((ing: ingType) => {

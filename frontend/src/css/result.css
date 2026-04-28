@@ -1,0 +1,35 @@
+.result-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2列 */
+    column-gap: 20px;
+}
+
+.result-card {
+    height: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.result-page .input-area {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-recipe {
+    width: 120px;
+    margin-left: auto;
+}
+
+.no-lack {
+    color: rgb(96, 165, 66);
+    font-weight: 600;
+}
+
+.lack {
+    color: rgb(255, 104, 87);
+    font-weight: 600;
+}

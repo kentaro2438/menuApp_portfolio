@@ -11,8 +11,18 @@ input[type="text"] {
     width: 20vw;
 }
 
+input:focus {
+    outline: none;
+    border: 2px solid rgb(64, 147, 0);
+}
+
 select {
     width: 20vw;
+}
+
+select:focus {
+    outline: none;
+    border: 2px solid rgb(64, 147, 0);
 }
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */

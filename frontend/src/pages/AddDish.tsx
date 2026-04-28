@@ -109,16 +109,22 @@ function AddDish() {
                         catData={catData}
                     />
                 </div>
-                <div className='card-columns-container'>
-                    {filteredIngData.map((ing: ingType) => (
-                        <IngCardCheckboxType
-                            key={ing.ing_id}
-                            ing={ing}
-                            catData={catData}
-                            selectedIngIds={selectedIngIds}
-                            handleCheckboxChange={handleCheckboxChange}
-                        />
-                    ))}
+                <div>
+                    <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                    <div className='card-columns-container'>
+                    
+                        {filteredIngData
+                            .sort((a, b) => a.cat_id - b.cat_id)
+                            .map((ing: ingType) => (
+                                <IngCardCheckboxType
+                                    key={ing.ing_id}
+                                    ing={ing}
+                                    catData={catData}
+                                    selectedIngIds={selectedIngIds}
+                                    handleCheckboxChange={handleCheckboxChange}
+                                />
+                            ))}
+                    </div>
                 </div>
                 <br />
                 <button type="submit"><Plus className='icon-in-main-btn' /> 追加</button>

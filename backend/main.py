@@ -2,13 +2,13 @@ from flask import Flask, redirect, request, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
 
 # データベース設定------------------------------------------------------------------------------------------------------------------------------------
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://urara2438@localhost/postgres"
-
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:yoneken812@localhost:5432/testdb"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy()
 migrate = Migrate()
@@ -46,6 +46,7 @@ class Ing_Dish_Set(db.Model):
 class Refrigerator(db.Model):
     __tablename__ = "refrigerator"
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
+    added_at = db.Column(db.DateTime, default=datetime.utcnow)
     ingredient = db.relationship("Ingredient")
 
 
@@ -299,6 +300,7 @@ def get_refrigerator():
                 "ing_id": ref.ing_id,
                 "ing_name": ref.ingredient.ing_name,
                 "cat_id": ref.ingredient.cat_id,
+                "added_at": ref.added_at.isoformat(),
             }
         )
     return jsonify({"ings_in_ref_list_json": ings_in_ref_list})
@@ -312,7 +314,7 @@ def add_ing_to_ref():
     existing = Refrigerator.query.filter_by(ing_id=ing_id).first()
     if existing:
         return jsonify({"message": "その材料はすでに冷蔵庫に入っています"}), 400
-    new_ing_to_ref = Refrigerator(ing_id=ing_id)
+    new_ing_to_ref = Refrigerator(ing_id=ing_id, added_at=datetime.now())
     db.session.add(new_ing_to_ref)
     db.session.commit()
     return jsonify({"message": "冷蔵庫に材料が追加されました"}), 201

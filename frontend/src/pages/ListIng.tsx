@@ -1,4 +1,5 @@
 import '../reset.css';
+import '../css/category.css';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllIng, getCat } from '../api/api.js';
@@ -42,7 +43,7 @@ function ListIng() {
             <h2><Apple className='h2-icon' /> 材料</h2>
             <hr />
             <br />
-            <p>登録済みの材料を編集・削除できます</p>
+            <p>新しく材料を追加したり，登録済みの材料を編集したりできます．</p>
             <div className="input-area">
                 <Input
                     word={searchWord}
@@ -59,26 +60,28 @@ function ListIng() {
             <div>
                 <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
                 <div className="card-columns-container">
-                    {filteredIngData.map((ing: ingType) => {
-                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                        return (
-                            <div key={ing.ing_id} className="card inner-wrap">
-                                <div>
-                                    <p className='name'>{ing.ing_name}</p>
-                                    <p className={`cat-name cat-${catId}`}>{catName}</p>
+                    {filteredIngData
+                        .sort((a, b) => a.cat_id - b.cat_id)
+                        .map((ing: ingType) => {
+                            const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                            const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                            return (
+                                <div key={ing.ing_id} className="card inner-wrap">
+                                    <div>
+                                        <p className='name'>{ing.ing_name}</p>
+                                        <p className={`cat-name cat-${catId}`}>{catName}</p>
+                                    </div>
+                                    <div className="btn-container">
+                                        <Link
+                                            to={`/list_ing/edit/${ing.ing_id}`}
+                                            className='btn btn-sub edit'
+                                        >
+                                            <Pencil className='lucide-icon' />
+                                        </Link>
+                                    </div>
                                 </div>
-                                <div className="btn-container">
-                                    <Link
-                                        to={`/list_ing/edit/${ing.ing_id}`}
-                                        className='btn btn-sub edit'
-                                    >
-                                        <Pencil className='lucide-icon' />
-                                    </Link>
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
                 </div>
             </div>
         </div>

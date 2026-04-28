@@ -1,6 +1,6 @@
 /* 全体のスタイル */
 html {
-    background-color: #ff5900;
+    background-color: rgb(50, 50, 50);
 }
 
 body {
@@ -14,7 +14,7 @@ hr {
 
 .main {
     width: 100%;
-    min-height: 95vh;
+    min-height: 90vh;
     margin: 0 auto;
     padding: 20px 50px;
     background-color: #F6EDE8;
@@ -24,6 +24,18 @@ hr {
     stroke-width: 2.5;
     color: rgb(64, 147, 0);
     margin-bottom: -2px;
+}
+
+.length {
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: rgb(96, 165, 66);
+    color: white;
+    margin-left: 10px;
+    padding: 2px 10px;
+    border-radius: 20px;
 }
 
 /* Linkタグ共通スタイル */
@@ -133,10 +145,7 @@ div.btn-container {
     /* メインボタンを右端に配置 */
 }
 
-.result-page .input-area {
-    display: flex;
-    gap: 10px;
-}
+
 
 /* 材料カード */
 .two-columns-container {
@@ -146,26 +155,12 @@ div.btn-container {
     column-gap: 10px;
 }
 
-.ref-columns-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2列 */
-    column-gap: 10px;
-    /* 以下はその他の設定 */
-    max-height: 500px;
-    overflow-y: auto;
-    background-color: white;
-    padding: 10px;
-    border-radius: 0 0 10px 10px;
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-}
-
 .card-columns-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     /* 3列 */
     column-gap: 20px;
-    max-height: 500px;
+    max-height: 56.5vh;
     overflow-y: auto;
     background-color: white;
     padding: 10px;
@@ -196,34 +191,6 @@ div.btn-container {
     margin-top: 5px;
 }
 
-.ref-card {}
-
-.ref-name {
-    font-weight: 600;
-    background-color: whitesmoke;
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-    padding: 15px 20px;
-    border-radius: 10px 10px 0 0;
-}
-
-.ref-search-btn {
-    width: 300px;
-}
-
-/* 冷蔵庫 */
-.length {
-    display: inline-block;
-    text-align: center;
-    width: 40px;
-    font-size: 12px;
-    font-weight: 500;
-    background-color: rgb(96, 165, 66);
-    color: white;
-    margin-left: 10px;
-    padding: 2px 10px;
-    border-radius: 20px;
-}
-
 .inner-wrap {
     display: flex;
     align-items: center;
@@ -242,73 +209,19 @@ input[type="checkbox"] {
     padding-bottom: 20px;
 }
 
-/* カテゴリー別カラー */
-p.cat-1 {
-    color: rgb(96, 165, 66);
-}
 
-p.cat-2 {
-    color: rgb(255, 104, 87);
-}
-
-p.cat-3 {
-    color: rgb(0, 195, 255);
-}
-
-p.cat-4 {
-    color: rgb(255, 161, 80);
-}
-
-p.cat-5 {
-    color: rgb(255, 163, 255);
-}
-
-p.cat-6 {
-    color: rgb(204, 149, 255);
-}
-
-p.cat-7 {
-    color: rgb(255, 165, 95);
-}
-
-/* 結果カード */
-.result-card-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2列 */
-    column-gap: 20px;
-}
-
-.result-card {
-    height: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-}
-
-/* レシピを検索するボタン */
-.btn-recipe {
-    width: 120px;
-    margin-left: auto;
-}
-
-/* 不足なし */
-.no-lack {
-    color: rgb(96, 165, 66);
-    font-weight: 600;
-}
-
-/* 不足あり */
-.lack {
-    color: rgb(255, 104, 87);
-    font-weight: 600;
-}
 
 
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
+@media screen and (max-width: 1000px) {
+    .card-columns-container {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 10px;
+        /* 2列 */
+    }
+}
+
 @media screen and (max-width: 800px) {
     body {
         font-size: 12px;
@@ -352,19 +265,6 @@ p.cat-7 {
         margin: 0 auto;
     }
 
-    .ref-columns-container {
-        display: block;
-    }
-
-    .ref-search-btn {
-        width: 100%;
-    }
-
-    .ref-name {
-        padding: 15px 10px;
-        border-radius: 10px 10px 0 0;
-    }
-
     .btn-main {
         width: 100%;
         font-size: 14px;
@@ -377,15 +277,4 @@ p.cat-7 {
         border-radius: 5px;
         margin-right: 5px;
     }
-
-    .length {
-        width: 25px;
-        font-size: 10px;
-        padding: 2px 5px;
-        margin-left: 5px;
-    }
-
-
-
-
 }
