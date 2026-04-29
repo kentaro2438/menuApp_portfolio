@@ -44,6 +44,16 @@ function ListIng() {
             <hr />
             <br />
             <p>新しく材料を追加したり，登録済みの材料を編集したりできます．</p>
+                        <br />
+            <div className='description'>
+                <div>
+                    <div className='icon-area edit'>
+                        <Pencil className='icon-size' />
+                    </div>
+                    材料を編集
+                </div>
+            </div>
+            <br />
             <div className="input-area">
                 <Input
                     word={searchWord}
@@ -58,7 +68,7 @@ function ListIng() {
                 <Link to="/list_ing/add" className='btn btn-main'><Plus className='icon-in-main-btn' /> 材料を追加</Link>
             </div>
             <div>
-                <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
                 <div className="card-columns-container">
                     {filteredIngData
                         .sort((a, b) => a.cat_id - b.cat_id)

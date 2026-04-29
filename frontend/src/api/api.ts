@@ -50,21 +50,23 @@ export const editIng = (ing_id: number, ing_name: string, cat_id: number) => api
 });
 
 // 料理を追加
-export const addDish = (new_dish_name: string, ing_id_needed_list: number[]) => apiFetch('/dish', {
+export const addDish = (new_dish_name: string, ing_id_needed_list: number[], newDishMemo: string) => apiFetch('/dish', {
     method: 'POST',
     body: JSON.stringify({
         new_dish_name: new_dish_name,
         ing_id_needed_list: ing_id_needed_list,
+        new_dish_memo: newDishMemo,
     }),
 });
 
 // 料理を編集
-export const editDish = (dish_id: number, dish_name: string, ing_id_needed_list: number[]) => apiFetch(`/dish/${dish_id}`, {
+export const editDish = (dish_id: number, dish_name: string, ing_id_needed_list: number[], dish_memo: string) => apiFetch(`/dish/${dish_id}`, {
     method: 'PUT',
     body: JSON.stringify({
         dish_id: dish_id,
         dish_name: dish_name,
         ing_id_needed_list: ing_id_needed_list,
+        dish_memo: dish_memo,
     }),
 });
 
@@ -95,4 +97,28 @@ export const addIngToRef = (ing_id: number) => apiFetch('/ref', {
 // 冷蔵庫から材料を削除
 export const deleteIngFromRef = (ing_id: number) => apiFetch(`/ref/${ing_id}`, {
     method: 'DELETE',
+});
+
+// 買い物リストの材料を取得
+export const getShoppingList = () => apiFetch('/shoppingList');
+
+// 買い物リストに材料を追加
+export const addIngToShoppingList = (ing_id: number) => apiFetch('/shoppingList', {
+    method: 'POST',
+    body: JSON.stringify({
+        ing_id: ing_id,
+    }),
+});
+
+// 買い物リストから材料を削除
+export const deleteIngFromShoppingList = (ing_id: number) => apiFetch(`/shoppingList/${ing_id}`, {
+    method: 'DELETE',
+});
+
+// 不足材料を買い物リストに追加
+export const addLackIngToShoppingList = (lack_ing_id_list: number[]) => apiFetch('/addLackIngToShoppingList', {
+    method: 'POST',
+    body: JSON.stringify({
+        lack_ing_id_list: lack_ing_id_list,
+    }),
 });

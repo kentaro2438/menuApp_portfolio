@@ -17,6 +17,7 @@ function AddDish() {
     const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]); // 選択された材料のIDリスト
     const [searchWord, setSearchWord] = useState<string>(""); // 材料検索
     const [showCatId, setShowCatId] = useState<string>(""); // カテゴリー絞り込み
+    const [newDishMemo, setNewDishMemo] = useState<string>(""); // 新しい料理のメモ
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -61,10 +62,11 @@ function AddDish() {
         }
 
         try {
-            await addDish(trimmedDishName, selectedIngIds);
+            await addDish(trimmedDishName, selectedIngIds, newDishMemo);
             showNotification("success", "料理が追加されました");
             setNewDishName('');
             setSelectedIngIds([]);
+            setNewDishMemo('');
             navigate("/list_dish");
         } catch (error: any) {
             showNotification("error", error.message);
@@ -82,12 +84,11 @@ function AddDish() {
 
     return (
         <div className="main add-dish-page">
-            <h2>料理を追加</h2>
+            <h2><Plus className='h2-icon'/> 料理を追加</h2>
             <hr />
             <br />
             <form onSubmit={handleNewDish}>
                 <h3>料理名を入力</h3>
-                <p>新しい料理の名前を入力してください</p>
                 <div className="input-area">
                     <Input
                         word={newDishName}
@@ -96,7 +97,6 @@ function AddDish() {
                     />
                 </div>
                 <h3>材料を選択</h3>
-                <p>必要な材料を全てチェックしてください</p>
                 <div className="input-area">
                     <Input
                         word={searchWord}
@@ -110,7 +110,7 @@ function AddDish() {
                     />
                 </div>
                 <div>
-                    <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                    <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
                     <div className='card-columns-container'>
                     
                         {filteredIngData
@@ -127,6 +127,12 @@ function AddDish() {
                     </div>
                 </div>
                 <br />
+                <h3>メモ</h3>
+                    <textarea
+                        value={newDishMemo}
+                        onChange={(e) => setNewDishMemo(e.target.value)}
+                        placeholder="メモを入力(任意)"
+                    />
                 <button type="submit"><Plus className='icon-in-main-btn' /> 追加</button>
             </form>
         </div>

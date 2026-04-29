@@ -9,6 +9,7 @@ import ListDish from "./pages/ListDish";
 import EditIng from "./pages/EditIng";
 import EditDish from "./pages/EditDish";
 import Refrigerator from "./pages/Refrigerator";
+import ShoppingList from "./pages/ShoppingList";
 import Layout from "./components/Layout";
 import { NotificationProvider } from "./context/NotificationContext";
 
@@ -28,6 +29,7 @@ function App() {
                         <Route path="/list_ing/edit/:ing_id" element={<EditIng />} />
                         <Route path="/list_dish/add" element={<AddDish />} />
                         <Route path="/list_dish/edit/:dish_id" element={<EditDish />} />
+                        <Route path="/shopping" element={<ShoppingList />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

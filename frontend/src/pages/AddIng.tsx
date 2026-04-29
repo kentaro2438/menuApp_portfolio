@@ -51,7 +51,7 @@ function AddIng() {
 
     return (
         <div className="main add-ing-page">
-            <h2>材料を追加</h2>
+            <h2><Plus className='h2-icon'/> 材料を追加</h2>
             <hr />
             <br />
             <form onSubmit={handleNewIng}>

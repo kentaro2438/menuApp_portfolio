@@ -7,6 +7,7 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
+import { Pencil } from 'lucide-react';
 
 function EditIng() {
     const { ing_id } = useParams();
@@ -62,7 +63,7 @@ function EditIng() {
 
     return (
         <div className="main edit-ing-page">
-            <h2>材料を編集</h2>
+            <h2><Pencil className='h2-icon'/> 材料を編集</h2>
             <hr />
             <br />
             <form onSubmit={handleEditedIng}>

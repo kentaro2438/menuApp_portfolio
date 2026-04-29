@@ -8,7 +8,9 @@ app = Flask(__name__)
 CORS(app)
 
 # データベース設定------------------------------------------------------------------------------------------------------------------------------------
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:yoneken812@localhost:5432/testdb"
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "postgresql://postgres:yoneken812@localhost:5432/testdb"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy()
 migrate = Migrate()
@@ -34,6 +36,7 @@ class Dish(db.Model):
     __tablename__ = "dish"
     dish_id = db.Column(db.Integer, primary_key=True)
     dish_name = db.Column(db.String(20), unique=True, nullable=False)
+    memo = db.Column(db.String(1000))
 
 
 class Ing_Dish_Set(db.Model):
@@ -47,6 +50,13 @@ class Refrigerator(db.Model):
     __tablename__ = "refrigerator"
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
+    ingredient = db.relationship("Ingredient")
+
+
+# 買い物リスト
+class ShoppingList(db.Model):
+    __tablename__ = "shopping_list"
+    ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
     ingredient = db.relationship("Ingredient")
 
 
@@ -141,6 +151,7 @@ def get_all_dish():
 @app.route("/api/dish/<int:dish_id>", methods=["GET"])
 def get_dish(dish_id):
     dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+    memo = dish.memo if dish.memo else ""
     ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
     ing_id_needed_list = []
     for ing_dish_list in ing_dish_set_list:
@@ -151,6 +162,7 @@ def get_dish(dish_id):
                 "dish_id": dish.dish_id,
                 "dish_name": dish.dish_name,
                 "ing_id_needed_list": ing_id_needed_list,
+                "dish_memo": memo,
             }
         ),
         200,
@@ -174,6 +186,9 @@ def new_dish():
         new_dish = Dish(dish_name=new_dish_name)
         db.session.add(new_dish)
         db.session.flush()
+
+        new_dish_memo = data["new_dish_memo"].strip()
+        new_dish.memo = new_dish_memo
 
         for ing_id_needed in ing_id_needed_list:
             new_ing_dish_set = Ing_Dish_Set(
@@ -200,6 +215,8 @@ def edit_dish(dish_id):
     if not dish_name:
         return jsonify({"message": "料理名を入力してください"}), 400
 
+    dish_memo = data["dish_memo"] if "dish_memo" in data else ""
+
     ing_id_needed_list = data["ing_id_needed_list"]
     if not ing_id_needed_list:
         return jsonify({"message": "材料を選択してください"}), 400
@@ -207,6 +224,7 @@ def edit_dish(dish_id):
     try:
         dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
         dish.dish_name = dish_name
+        dish.memo = dish_memo
 
         Ing_Dish_Set.query.filter_by(dish_id=dish_id).delete(synchronize_session=False)
 
@@ -282,14 +300,18 @@ def search_dish():
                 if lack_ing_name:
                     lack_ing_name_list.append(lack_ing_name.ing_name)
 
-            result_list.append([dish.dish_name, match_score, lack, lack_ing_name_list])
+            match_rate = round(match_score / ing_needed * 100) if ing_needed > 0 else 0
+
+            result_list.append(
+                [dish.dish_name, match_score, lack, lack_ing_name_list, lack_ing_id_list, match_rate]
+            )
 
     result_list.sort(key=lambda result: result[1], reverse=True)
 
     return jsonify({"result_list": result_list}), 200
 
 
-# 冷蔵庫の中身を取得するAPI
+# 冷蔵庫を取得するAPI
 @app.route("/api/ref", methods=["GET"])
 def get_refrigerator():
     ings_in_ref = Refrigerator.query.all()
@@ -329,6 +351,57 @@ def delete_ing_from_ref(ing_id):
     return jsonify({"message": "冷蔵庫から材料が削除されました"}), 200
 
 
-# # 冷蔵庫にある材料から料理を検索するAPI
-# @app.route("/api/searchDishFromRef", method=["GET"])
-# def search_dish_from_ref():
+# 買い物リストを取得するAPI
+@app.route("/api/shoppingList", methods=["GET"])
+def get_shopping_list():
+    shopping_list_data = ShoppingList.query.all()
+    shopping_list = []
+    for item in shopping_list_data:
+        shopping_list.append(
+            {
+                "ing_id": item.ing_id,
+                "ing_name": item.ingredient.ing_name,
+                "cat_id": item.ingredient.cat_id,
+            }
+        )
+    return jsonify({"shopping_list_json": shopping_list}), 200
+
+# 買い物リストに材料を追加するAPI
+@app.route("/api/shoppingList", methods=["POST"])
+def add_ing_to_shopping_list():
+    data = request.get_json()
+    ing_id = data["ing_id"]
+    existing = ShoppingList.query.filter_by(ing_id=ing_id).first()
+    if existing:
+        return jsonify({"message": "その材料はすでに買い物リストに入っています"}), 400
+    new_ing_to_shopping_list = ShoppingList(ing_id=ing_id)
+    db.session.add(new_ing_to_shopping_list)
+    db.session.commit()
+    return jsonify({"message": "買い物リストに材料が追加されました"}), 201
+
+# 買い物リストから材料を削除するAPI
+@app.route("/api/shoppingList/<int:ing_id>", methods=["DELETE"])
+def delete_ing_from_shopping_list(ing_id):
+    ing = ShoppingList.query.filter_by(ing_id=ing_id).first_or_404()
+    db.session.delete(ing)
+    db.session.commit()
+    return jsonify({"message": "買い物リストから材料が削除されました"}), 200
+
+# 不足材料を買い物リストに追加するAPI
+@app.route("/api/addLackIngToShoppingList", methods=["POST"])
+def add_lack_ing_to_shopping_list():
+    data = request.get_json()
+    lack_ing_id_list = data["lack_ing_id_list"]
+    new_ing_to_shopping_list = []
+    for ing_id in lack_ing_id_list:
+        existing = ShoppingList.query.filter_by(ing_id=ing_id).first()
+        if existing:
+            continue
+        new_ing_to_shopping_list.append(ShoppingList(ing_id=ing_id))
+    if new_ing_to_shopping_list == []:
+        return jsonify({"message": "すでに買い物リストに入っています"}), 400
+    for new_ing in new_ing_to_shopping_list:
+        db.session.add(new_ing)
+    db.session.commit()
+    return jsonify({"message": "不足している材料が買い物リストに追加されました"}), 201
+        

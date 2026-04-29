@@ -39,6 +39,22 @@ function ListDish() {
             <hr />
             <br />
             <p>登録済みの料理を編集・削除できます</p>
+            <br />
+            <div className='description'>
+                <div>
+                    <div className='icon-area edit'>
+                        <Pencil className='icon-size' />
+                    </div>
+                    料理を編集
+                </div>
+                <div>
+                    <div className='icon-area delete'>
+                        <Trash2 className='icon-size' />
+                    </div>
+                    料理を削除
+                </div>
+            </div>
+            <br />
             <div className="input-area">
                 <Input
                     word={search}
@@ -48,7 +64,7 @@ function ListDish() {
                 <Link to="/list_dish/add" className='btn btn-main'><Plus className='icon-in-main-btn' /> 料理を追加</Link>
             </div>
             <div>
-                <p className='ref-name'>料理一覧<span className='length'>{filteredDishes.length}</span></p>
+                <p className='card-header'>料理一覧<span className='length'>{filteredDishes.length}</span></p>
                 <div className="card-columns-container">
                     {filteredDishes.map((dish: dishType) => (
                         <div key={dish.dish_id} className='card dish-card'>

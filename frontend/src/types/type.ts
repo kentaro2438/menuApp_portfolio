@@ -13,5 +13,6 @@ export type ingType = {
 export type dishType = {
     dish_id: number;
     dish_name: string;
+    memo: string;
 };
 

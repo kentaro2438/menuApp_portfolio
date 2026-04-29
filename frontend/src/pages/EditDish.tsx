@@ -9,6 +9,7 @@ import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
+import { Pencil } from 'lucide-react';
 
 function EditDish() {
     const { dish_id } = useParams();
@@ -21,6 +22,7 @@ function EditDish() {
     const [catData, setCatData] = useState<catType[]>([]);
     const [searchWord, setSearchWord] = useState<string>("");
     const [showCatId, setShowCatId] = useState<string>("");
+    const [dishMemo, setDishMemo] = useState<string>("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,6 +44,7 @@ function EditDish() {
     const fetchGetDish = async () => {
         const data = await getDish(Number(dish_id));
         setDishName(data.dish_name);
+        setDishMemo(data.dish_memo);
         setSelectedIngIds(data.ing_id_needed_list);
     }
 
@@ -71,7 +74,7 @@ function EditDish() {
         }
 
         try {
-            await editDish(Number(dish_id), trimmedDishName, selectedIngIds);
+            await editDish(Number(dish_id), trimmedDishName, selectedIngIds, dishMemo);
             showNotification("success", "料理が編集されました");
             navigate('/list_dish');
         } catch (error: any) {
@@ -90,7 +93,7 @@ function EditDish() {
 
     return (
         <div className="main edit-dish-page">
-            <h2>料理を編集</h2>
+            <h2><Pencil className='h2-icon'/> 料理を編集</h2>
             <hr />
             <br />
             <form onSubmit={handleEditDish}>
@@ -118,7 +121,7 @@ function EditDish() {
                     />
                 </div>
                 <div>
-                    <p className='ref-name'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                    <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
                     <div className="card-columns-container">
                         {filteredIngData
                             .sort((a, b) => a.cat_id - b.cat_id)
@@ -134,6 +137,12 @@ function EditDish() {
                     </div>
                 </div>
                 <br />
+                <h3>メモ</h3>
+                    <textarea
+                        value={dishMemo}
+                        onChange={(e) => setDishMemo(e.target.value)}
+                        placeholder="メモを入力(任意)"
+                    />
                 <button type="submit">更新</button>
             </form>
         </div>

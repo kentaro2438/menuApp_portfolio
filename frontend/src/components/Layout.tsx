@@ -3,7 +3,7 @@ import './Layout.css';
 import { Outlet, NavLink } from "react-router-dom";
 import { useState } from "react";
 import Message from './Message.tsx';
-import { UtensilsCrossed, House, RefrigeratorIcon, SearchIcon, Apple, CookingPot } from 'lucide-react';
+import { UtensilsCrossed, House, RefrigeratorIcon, SearchIcon, Apple, CookingPot, ShoppingCart } from 'lucide-react';
 
 function Layout() {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +21,8 @@ function Layout() {
                 >
                     ☰
                 </button>
+                <h1><UtensilsCrossed className='h1-icon' /> MealMate</h1>
                 <div className="title-area">
-                    <h1><UtensilsCrossed className='h1-icon' /> MealMate</h1>
                     <nav className={isOpen ? "open" : ""}>
                         <NavLink to="/" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
                             <House className='nav-icon' /> ホーム
@@ -38,6 +38,9 @@ function Layout() {
                         </NavLink>
                         <NavLink to="/list_dish" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
                             <CookingPot className='nav-icon' /> 料理
+                        </NavLink>
+                        <NavLink to="/shopping" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
+                            <ShoppingCart className='nav-icon' /> 買い物リスト
                         </NavLink>
                     </nav>
                 </div>

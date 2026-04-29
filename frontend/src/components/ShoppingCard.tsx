@@ -1,15 +1,7 @@
 import { Plus, Trash2 } from 'lucide-react';
 import type { ingType } from '../types/type.ts';
 
-const getElaspedTime = (addedAt: string): string => {
-    const addedDate = new Date(addedAt);
-    const now = new Date();
-    const elapsedTime = now.getTime() - addedDate.getTime();
-    const elapsedDays = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
-    return `${elapsedDays}日前`;
-}
-
-function RefCard({ ing, catId, catName, type, onClick }: 
+function ShoppingCard({ ing, catId, catName, type, onClick }: 
     { ing: ingType, catId: number, catName: string, type: "add" | "delete", onClick: (id: number) => void }) {
     return (
         <div key={ing.ing_id} className="card inner-wrap">
@@ -17,7 +9,6 @@ function RefCard({ ing, catId, catName, type, onClick }:
                 <p className='name'>{ing.ing_name} </p>
                 <div className='inner-wrap'>
                     <p className={`cat-name cat-${catId}`}>{catName}</p>
-                    <p className='elapsed_time'>{getElaspedTime(ing.added_at)}</p>
                 </div>
             </div>
             <div className="btn-container">
@@ -29,4 +20,4 @@ function RefCard({ ing, catId, catName, type, onClick }:
     )
 }
 
-export default RefCard;
+export default ShoppingCard;

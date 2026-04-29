@@ -9,16 +9,8 @@
     background-color: white;
     padding: 10px;
     border-radius: 0 0 10px 10px;
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-}
-
-
-.ref-name {
-    font-weight: 600;
-    background-color: whitesmoke;
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-    padding: 15px 20px;
-    border-radius: 10px 10px 0 0;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: none;
 }
 
 .ref-search-btn {
@@ -30,26 +22,34 @@
 }
 
 .elapsed_time {
+    font-weight: 650;
+    font-size: 12px;
+    margin-top: 2px;
     color: rgb(160, 160, 160);
+    margin-left: 10px;
 }
 
-@media screen and (max-width: 800px) {
+.check {
+    background-color:rgb(0, 166, 255);
+}
+
+@media screen and (max-width: 900px) {
     .ref-columns-container {
         display: block;
     }
 
     .ref-search-btn {
-        width: 100%;
+        margin-right: 0;
     }
 
     .ref-name {
         padding: 15px 10px;
         border-radius: 10px 10px 0 0;
     }
+}
 
-    .length {
-        font-size: 10px;
-        padding: 2px 5px;
-        margin-left: 5px;
+@media screen and (max-width: 800px) {
+    .ref-search-btn {
+        width: 100%;
     }
 }

@@ -1,5 +1,5 @@
 import '../reset.css';
-import '../css/refrigerator.css';
+import '../css/refrigerator_shoppinglist.css';
 import { useEffect, useState } from "react";
 import { getAllIng, getCat, getRefIng, addIngToRef, deleteIngFromRef, searchDish } from '../api/api.js';
 import type { ingType, catType } from '../types/type.ts';
@@ -8,7 +8,7 @@ import Input from '../components/Input.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import RefCard from '../components/RefCard.tsx';
 import { useNavigate } from "react-router-dom";
-import { Refrigerator as RefrigeratorIcon, SearchIcon } from 'lucide-react';
+import { Refrigerator as RefrigeratorIcon, SearchIcon, Plus, Trash2 } from 'lucide-react';
 
 
 function Refrigerator() {
@@ -21,10 +21,6 @@ function Refrigerator() {
     const refIngIdSet = new Set(refIngData.map(ing => ing.ing_id)); //冷蔵庫の材料IDのセット（重複なし）
     const { showNotification } = useNotification();
     const navigate = useNavigate();
-
-    ingData.map(ing => {
-        console.log(ing.ing_name, ing.added_at);
-    });
 
     useEffect(() => {
         fetchGetAllIng();
@@ -107,7 +103,23 @@ function Refrigerator() {
             <h2><RefrigeratorIcon className='h2-icon' /> 冷蔵庫</h2>
             <hr />
             <br />
-            <p>登録済みの材料を編集・削除できます</p>
+            <p>冷蔵庫にある材料を管理できます．冷蔵庫にある材料で作れる料理を検索することもできます．</p>
+            <br />
+            <div className='description'>
+                <div>
+                    <div className='icon-area add'>
+                        <Plus className='icon-size' />
+                    </div>
+                    冷蔵庫に材料を追加
+                </div>
+                <div>
+                    <div className='icon-area delete'>
+                        <Trash2 className='icon-size' />
+                    </div>
+                    冷蔵庫から材料を削除
+                </div>
+            </div>
+            <br />
             <div className="input-area">
                 <Input
                     word={searchWord}
@@ -127,9 +139,9 @@ function Refrigerator() {
             </div>
             <div className='two-columns-container'>
                 <div className='not_in_ref'>
-                    <p className='ref-name'>冷蔵庫にない材料<span className='length'>{filteredIngData.length}</span></p>
+                    <p className='card-header'>冷蔵庫にない材料<span className='length'>{filteredIngData.length}</span></p>
                     <div className="ref-columns-container">
-                            {filteredIngData
+                        {filteredIngData
                             .sort((a, b) => a.cat_id - b.cat_id)
                             .map((ing: ingType) => {
                                 const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
@@ -148,22 +160,25 @@ function Refrigerator() {
                     </div>
                 </div>
                 <div className='in_ref'>
-                    <p className='ref-name'>冷蔵庫にある材料<span className='length'>{refIngData.length}</span></p>
+                    <p className='card-header'>冷蔵庫にある材料<span className='length'>{refIngData.length}</span></p>
                     <div className="ref-columns-container">
-                        {refIngData.map((ing: ingType) => {
-                            const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                            const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                            return (
-                                <RefCard
-                                    key={ing.ing_id}
-                                    ing={ing}
-                                    catId={catId}
-                                    catName={catName}
-                                    type="delete"
-                                    onClick={handleDeleteIngFromRef}
-                                />
-                            )
-                        })}
+                        {refIngData
+                            .sort((a, b) => {
+                                return new Date(a.added_at).getTime() - new Date(b.added_at).getTime();
+                            }).map((ing: ingType) => {
+                                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                                return (
+                                    <RefCard
+                                        key={ing.ing_id}
+                                        ing={ing}
+                                        catId={catId}
+                                        catName={catName}
+                                        type="delete"
+                                        onClick={handleDeleteIngFromRef}
+                                    />
+                                )
+                            })}
                     </div>
                 </div>
             </div>
