@@ -11,11 +11,27 @@ function ListDish() {
 
     const [dishesData, setDishesData] = useState<dishType[]>([]);
     const [search, setSearch] = useState('');
+    const [firstLoading, setFirstLoading] = useState<boolean>(false);
     const { showNotification } = useNotification();
 
+    //ローディング表示
     useEffect(() => {
-        fetchGetAllDish();
+        setFirstLoading(true);
+        const firstFetch = async () => {
+            await fetchGetAllDish();
+            setFirstLoading(false);
+        };
+        firstFetch();
     }, []);
+
+    if (firstLoading) {
+        return (
+            <div className="main loading-area">
+                <div className="spinner"></div>
+                <p>読み込み中...</p>
+            </div>
+        );
+    }
 
     const fetchGetAllDish = async () => {
         const data = await getAllDish();

@@ -16,3 +16,10 @@ export type dishType = {
     memo: string;
 };
 
+export type refIngType = {
+    ing_id: number;
+    ing_name: string;
+    cat_id: number;
+    added_at: string;
+};
+

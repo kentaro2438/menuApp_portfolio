@@ -23,6 +23,7 @@ function EditDish() {
     const [searchWord, setSearchWord] = useState<string>("");
     const [showCatId, setShowCatId] = useState<string>("");
     const [dishMemo, setDishMemo] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -60,16 +61,18 @@ function EditDish() {
 
     const handleEditDish = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        setLoading(true);
         const trimmedDishName = dishName.trim();
 
         if (!trimmedDishName) {
             showNotification("error", "料理名を入力してください");
+            setLoading(false);
             return;
         }
 
         if (selectedIngIds.length === 0) {
             showNotification("error", "材料を1つ以上選択してください");
+            setLoading(false);
             return;
         }
 
@@ -80,6 +83,8 @@ function EditDish() {
         } catch (error: any) {
             showNotification("error", error.message);
             return;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -143,7 +148,9 @@ function EditDish() {
                         onChange={(e) => setDishMemo(e.target.value)}
                         placeholder="メモを入力(任意)"
                     />
-                <button type="submit">更新</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? "更新中..." : "更新"}
+                </button>
             </form>
         </div>
     );

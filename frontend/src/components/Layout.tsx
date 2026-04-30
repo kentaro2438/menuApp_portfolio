@@ -16,12 +16,12 @@ function Layout() {
         <div>
             <header>
                 <button
-                    className="menu-btn"
                     onClick={() => setIsOpen(!isOpen)}
+                    className={isOpen ? "menu-btn open-color" : "menu-btn"}
                 >
                     ☰
                 </button>
-                <h1><UtensilsCrossed className='h1-icon' /> MealMate</h1>
+                <h1><UtensilsCrossed className='h1-icon' /> MealMate<span>毎日の食事を，もっとかしこく</span></h1>
                 <div className="title-area">
                     <nav className={isOpen ? "open" : ""}>
                         <NavLink to="/" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>

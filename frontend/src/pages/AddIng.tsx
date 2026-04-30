@@ -10,9 +10,10 @@ import { Plus } from 'lucide-react';
 
 function AddIng() {
     const { showNotification } = useNotification();
-    const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
-    const [newIngName, setNewIngName] = useState<string>(''); //新しい材料名
-    const [newIngCatId, setNewIngCatId] = useState<string>(''); //新しい材料のカテゴリーID
+    const [catData, setCatData] = useState<catType[]>([]); 
+    const [newIngName, setNewIngName] = useState<string>(''); 
+    const [newIngCatId, setNewIngCatId] = useState<string>(''); 
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
 
@@ -28,13 +29,16 @@ function AddIng() {
 
     const handleNewIng = async (e: any) => {
         e.preventDefault();
+        setLoading(true);
         const trimmednewIngName = newIngName.trim();
         if (!trimmednewIngName) {
             showNotification("error", "材料名を入力してください");
+            setLoading(false);
             return;
         }
         if (!newIngCatId) {
             showNotification("error", "カテゴリーを選択してください");
+            setLoading(false);
             return;
         }
         try {
@@ -46,6 +50,8 @@ function AddIng() {
         } catch (error: any) {
             showNotification("error", error.message);
             return;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -66,7 +72,9 @@ function AddIng() {
                         setShowCatId={setNewIngCatId}
                         catData={catData}
                     />
-                    <button type="submit"><Plus className='icon-in-main-btn' /> 追加</button>
+                    <button type="submit" disabled={loading}>
+                        {loading ? "追加中..." : <><Plus className='icon-in-main-btn' /> 追加</>}
+                    </button>
                 </div>
             </form>
         </div>

@@ -1,16 +1,21 @@
 header {
-    background-color: #568f21;
+    background: linear-gradient(to right,
+            #8dc500,
+            rgba(138, 196, 62, 0.6));
+    backdrop-filter: blur(3px);
     padding: 20px;
     position: relative;
     z-index: 100;
 }
 
-
-
 h1 {
-    color: white;
     margin-left: 2.5%;
-    margin-right: 20px;
+    color: white;
+}
+
+h1 span {
+    font-size: 50%;
+    margin-left: 20px;
 }
 
 .h1-icon {
@@ -30,9 +35,11 @@ nav a {
     text-align: center;
     width: 12vw;
     padding: 10px;
-    color: white;
     text-decoration: none;
     border-radius: 10px;
+    position: relative;
+    padding-bottom: 5px;
+    text-decoration: none;
 }
 
 .nav-icon {
@@ -42,13 +49,6 @@ nav a {
     margin-right: 2px;
 }
 
-/* 現在いるページを示す下線のスタイル */
-nav a {
-    position: relative;
-    padding-bottom: 5px;
-    text-decoration: none;
-    color: white;
-}
 
 /* 現在いるページを示す下線のスタイル */
 nav a.active::after {
@@ -115,7 +115,7 @@ nav a.active::after {
         justify-content: flex-start;
         gap: 16px;
 
-        background-color: rgb(64, 147, 0);
+        background-color: rgba(255, 255, 255);
         box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
 
         transform: translateX(-100%);
@@ -136,17 +136,21 @@ nav a.active::after {
         font-size: 14px;
         text-align: left;
         margin-left: 28px;
+        color: #4f4f4f;
     }
 
     nav a.active::after {
-    left: 45%;
-    width: 80%;
-}
+        left: 45%;
+        width: 80%;
+    }
 
     .overlay {
         position: fixed;
         inset: 0;
-        background-color: rgba(0, 0, 0, 0.4);
         z-index: 999;
+    }
+
+    .open-color {
+        color: #72b717
     }
 }

@@ -16,8 +16,30 @@ function Search() {
     const [searchWord, setSearchWord] = useState<string>("");
     const [showCatId, setShowCatId] = useState<string>("");
     const { showNotification } = useNotification();
+    const [loading, setLoading] = useState<boolean>(false);
+    const [firstLoading, setFirstLoading] = useState<boolean>(false);
 
     const navigate = useNavigate();
+
+    //ローディング表示
+    useEffect(() => {
+        const firstFetch = async () => {
+            setFirstLoading(true);
+            await fetchGetAllIng();
+            await fetchGetCat();
+            setFirstLoading(false);
+        };
+        firstFetch();
+    }, []);
+
+    if (firstLoading) {
+        return (
+            <div className="main loading-area">
+                <div className="spinner"></div>
+                <p>読み込み中...</p>
+            </div>
+        );
+    }
 
     // 全ての材料を取得
     const fetchGetAllIng = async () => {
@@ -31,11 +53,6 @@ function Search() {
         setCatData(data.cat_list_json);
     };
 
-    useEffect(() => {
-        fetchGetAllIng();
-        fetchGetCat();
-    }, []);
-
     const handleCheckboxChange = (ingId: number) => {
         setSelectedIngIds((prev) => {
             if (prev.includes(ingId)) {
@@ -46,8 +63,10 @@ function Search() {
     };
 
     const handleSearch = async () => {
+        setLoading(true);
         if (selectedIngIds.length === 0) {
             showNotification("error", "材料を1つ以上選択してください");
+            setLoading(false);  
             return;
         }
         try {
@@ -60,6 +79,8 @@ function Search() {
             });
         } catch (error: any) {
             showNotification("error", error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -88,7 +109,9 @@ function Search() {
                     setShowCatId={setShowCatId}
                     catData={catData}
                 />
-                <button onClick={handleSearch}><SearchIcon className='icon-in-main-btn' /> 検索</button>
+                <button onClick={handleSearch} disabled={loading}>
+                    {loading ? "検索中..." : <><SearchIcon className='icon-in-main-btn' /> 検索</>}
+                </button>
             </div>
             <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
             <div className="card-columns-container">

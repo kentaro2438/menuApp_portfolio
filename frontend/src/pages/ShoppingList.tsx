@@ -13,20 +13,35 @@ import { Check } from 'lucide-react';
 
 function ShoppingList() {
 
-    const [ingData, setIngData] = useState<ingType[]>([]); //全ての材料
-    const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
-    const [showCatId, setShowCatId] = useState(""); //初期状態では全てのカテゴリーを表示
+    const [ingData, setIngData] = useState<ingType[]>([]); 
+    const [catData, setCatData] = useState<catType[]>([]); 
+    const [showCatId, setShowCatId] = useState(""); 
     const [searchWord, setSearchWord] = useState(""); //検索文字
     const [shoppingList, setShoppingList] = useState<ingType[]>([]); //買い物リストにある材料   
+    const [firstLoading, setFirstLoading] = useState<boolean>(false); 
     const shoppingListIngIdSet = new Set(shoppingList.map(ing => ing.ing_id)); //買い物リストにある材料IDのセット（重複なし）
     const { showNotification } = useNotification();
 
-
+    //ローディング表示
     useEffect(() => {
-        fetchGetAllIng();
-        fetchGetCat();
-        fetchGetShoppingList();
+        const firstFetch = async () => {
+            setFirstLoading(true);
+            await fetchGetAllIng();
+            await fetchGetCat();
+            await fetchGetShoppingList();
+            setFirstLoading(false);
+        };
+        firstFetch();
     }, []);
+
+    if (firstLoading) {
+        return (
+            <div className="main loading-area">
+                <div className="spinner"></div>
+                <p>読み込み中...</p>
+            </div>
+        );
+    };
 
     //全ての材料を取得
     const fetchGetAllIng = async () => {
@@ -90,13 +105,13 @@ function ShoppingList() {
                     <div className='icon-area add'>
                         <Plus className='icon-size' />
                     </div>
-                    買い物リストに材料を追加
+                    買い物リストに追加
                 </div>
                 <div>
                     <div className='icon-area check'>
                         <Check className='icon-size' />
                     </div>
-                    購入済みにして材料を買い物リストから削除
+                    購入済みにする
                 </div>
             </div>
             <br />

@@ -11,13 +11,14 @@ import { Plus } from 'lucide-react';
 
 function AddDish() {
     const { showNotification } = useNotification();
-    const [ingData, setIngData] = useState<ingType[]>([]); // 全ての材料
-    const [catData, setCatData] = useState<catType[]>([]); // カテゴリー
-    const [newDishName, setNewDishName] = useState<string>(""); // 新しい料理名
-    const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]); // 選択された材料のIDリスト
+    const [ingData, setIngData] = useState<ingType[]>([]); 
+    const [catData, setCatData] = useState<catType[]>([]); 
+    const [newDishName, setNewDishName] = useState<string>(""); 
+    const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]); // 検索用に選択された材料のIDリスト
     const [searchWord, setSearchWord] = useState<string>(""); // 材料検索
     const [showCatId, setShowCatId] = useState<string>(""); // カテゴリー絞り込み
-    const [newDishMemo, setNewDishMemo] = useState<string>(""); // 新しい料理のメモ
+    const [newDishMemo, setNewDishMemo] = useState<string>(""); 
+    const [loading, setLoading] = useState<boolean>(false); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,16 +49,18 @@ function AddDish() {
 
     const handleNewDish = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        setLoading(true);
         const trimmedDishName = newDishName.trim();
 
         if (!trimmedDishName) {
             showNotification("error", "料理名を入力してください");
+            setLoading(false);
             return;
         }
 
         if (selectedIngIds.length === 0) {
             showNotification("error", "材料を1つ以上選択してください");
+            setLoading(false);
             return;
         }
 
@@ -71,6 +74,8 @@ function AddDish() {
         } catch (error: any) {
             showNotification("error", error.message);
             return;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -133,7 +138,9 @@ function AddDish() {
                         onChange={(e) => setNewDishMemo(e.target.value)}
                         placeholder="メモを入力(任意)"
                     />
-                <button type="submit"><Plus className='icon-in-main-btn' /> 追加</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? "追加中..." : <><Plus className='icon-in-main-btn' /> 追加</>}
+                </button>
             </form>
         </div>
     );

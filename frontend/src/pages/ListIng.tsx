@@ -1,7 +1,7 @@
 import '../reset.css';
 import '../css/category.css';
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { getAllIng, getCat } from '../api/api.js';
 import type { ingType, catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
@@ -13,11 +13,28 @@ function ListIng() {
     const [catData, setCatData] = useState<catType[]>([]); // カテゴリー
     const [showCatId, setShowCatId] = useState(""); // 初期状態では全てのカテゴリーを表示
     const [searchWord, setSearchWord] = useState(""); // 検索文字
+    const [firstLoading, setFirstLoading] = useState<boolean>(false);
 
+
+    //ローディング表示
     useEffect(() => {
-        fetchGetAllIng();
-        fetchGetCat();
+        const firstFetch = async () => {
+            setFirstLoading(true);
+            await fetchGetAllIng();
+            await fetchGetCat();
+            setFirstLoading(false);
+        };
+        firstFetch();
     }, []);
+
+    if (firstLoading) {
+        return (
+            <div className="main loading-area">
+                <div className="spinner"></div>
+                <p>読み込み中...</p>
+            </div>
+        );
+    }
 
     // 全ての材料を取得
     const fetchGetAllIng = async () => {
@@ -44,7 +61,7 @@ function ListIng() {
             <hr />
             <br />
             <p>新しく材料を追加したり，登録済みの材料を編集したりできます．</p>
-                        <br />
+            <br />
             <div className='description'>
                 <div>
                     <div className='icon-area edit'>

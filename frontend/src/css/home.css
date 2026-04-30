@@ -1,0 +1,67 @@
+section {
+    margin-top: 20px;
+    padding: 20px 30px;
+    border-radius: 10px;
+    background-color: aquamarine;
+}
+
+section h3 {
+    margin-bottom: 15px;
+}
+
+.flex-container {
+    display: flex;
+    margin-bottom: 20px;
+    height: 80px;
+}
+
+.flex-container p {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.inner-container {
+    display: flex;
+    gap: 20px;
+}
+
+.inner-container>div {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 30px;
+    padding-bottom: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inner-container .icon-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: rgb(96, 165, 66);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.inner-container .icon-area .icon-size {
+    width: 50%;
+    height: 50%;
+    stroke-width: 2.5;
+}
+
+.inner-container .btn {
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media screen  and (max-width: 900px) {
+    .inner-container {
+        flex-direction: column;
+    }
+}

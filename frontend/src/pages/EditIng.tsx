@@ -17,6 +17,7 @@ function EditIng() {
     const [editedIngCatId, setEditedIngCatId] = useState<string>('');
     const [catData, setCatData] = useState<catType[]>([]);
     const { showNotification } = useNotification();
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,13 +40,16 @@ function EditIng() {
 
     const handleEditedIng = async (e: any) => {
         e.preventDefault();
+        setLoading(true);
         const trimmedEditedIngName = editedIngName.trim();
         if (!trimmedEditedIngName) {
             showNotification("error", "材料名を入力してください");
+            setLoading(false);
             return;
         }
         if (!editedIngCatId) {
             showNotification("error", "カテゴリーを選択してください");
+            setLoading(false);
             return;
         }
         try {
@@ -57,6 +61,8 @@ function EditIng() {
         } catch (error: any) {
             showNotification("error", error.message);
             return;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -78,7 +84,9 @@ function EditIng() {
                         setShowCatId={setEditedIngCatId}
                         catData={catData}
                     />
-                    <button type="submit">保存</button>
+                    <button type="submit" disabled={loading}>
+                        {loading ? "保存中..." : "保存"}
+                    </button>
                 </div>
             </form>
         </div>

@@ -2,7 +2,7 @@ import '../reset.css';
 import '../css/refrigerator_shoppinglist.css';
 import { useEffect, useState } from "react";
 import { getAllIng, getCat, getRefIng, addIngToRef, deleteIngFromRef, searchDish } from '../api/api.js';
-import type { ingType, catType } from '../types/type.ts';
+import type { ingType, catType, refIngType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
@@ -17,16 +17,33 @@ function Refrigerator() {
     const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
     const [showCatId, setShowCatId] = useState(""); //初期状態では全てのカテゴリーを表示
     const [searchWord, setSearchWord] = useState(""); //検索文字
-    const [refIngData, setRefIngData] = useState<ingType[]>([]); //冷蔵庫の材料
+    const [refIngData, setRefIngData] = useState<refIngType[]>([]); //冷蔵庫の材料
     const refIngIdSet = new Set(refIngData.map(ing => ing.ing_id)); //冷蔵庫の材料IDのセット（重複なし）
+    const [firstLoading, setFirstLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const { showNotification } = useNotification();
     const navigate = useNavigate();
 
+    //ローディング表示  
     useEffect(() => {
-        fetchGetAllIng();
-        fetchGetCat();
-        fetchGetRefIng();
+        const firstFetch = async () => {
+            setFirstLoading(true);
+            await fetchGetAllIng();
+            await fetchGetCat();
+            await fetchGetRefIng();
+            setFirstLoading(false);
+        };
+        firstFetch();
     }, []);
+
+    if (firstLoading) {
+        return (
+            <div className="main loading-area">
+                <div className="spinner"></div>
+                <p>読み込み中...</p>
+            </div>
+        );
+    }
 
     //全ての材料を取得
     const fetchGetAllIng = async () => {
@@ -80,9 +97,11 @@ function Refrigerator() {
 
     //冷蔵庫にある材料で作れる料理を検索
     const handleSearch = async () => {
+        setLoading(true);
         const refIngIds = refIngData.map(ing => ing.ing_id);
         if (refIngIds.length === 0) {
             showNotification("error", "冷蔵庫に材料がありません");
+            setLoading(false);
             return;
         }
         try {
@@ -95,6 +114,8 @@ function Refrigerator() {
             });
         } catch (error: any) {
             showNotification("error", error.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -131,10 +152,10 @@ function Refrigerator() {
                     setShowCatId={setShowCatId}
                     catData={catData}
                 />
-                <button onClick={handleSearch}
+                <button onClick={handleSearch} disabled={loading}
                     className='ref-search-btn'>
                     <SearchIcon className='icon-in-main-btn' />
-                    冷蔵庫の材料で作れる料理を検索
+                    {loading ? "検索中..." : "冷蔵庫の材料で作れる料理を検索"}
                 </button>
             </div>
             <div className='two-columns-container'>
