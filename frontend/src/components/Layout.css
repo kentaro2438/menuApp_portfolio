@@ -67,8 +67,8 @@ nav a.active::after {
     display: none;
 }
 
-/* 800px以下だけサイドメニュー化 */
-@media (max-width: 800px) {
+/* 700px以下だけサイドメニュー化 */
+@media (max-width: 700px) {
     header {
         display: flex;
         align-items: center;

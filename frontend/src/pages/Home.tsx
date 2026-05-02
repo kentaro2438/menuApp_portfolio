@@ -1,8 +1,7 @@
 import '../reset.css';
 import '../css/home.css';
-import { Apple, House, Search, TriangleAlert } from 'lucide-react';
+import { Apple, House, Search, TriangleAlert, CookingPot, Refrigerator, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { searchDish, getRefIng, getDish, getAllDish, getShoppingList } from '../api/api.js';
 import type { refIngType } from '../types/type.ts';
@@ -140,7 +139,7 @@ function Home() {
                     <div>
                         <div className='flex-container'>
                             <div className='icon-area'>
-                                <Plus className='icon-size' />
+                                <Apple className='icon-size' />
                             </div>
                             <div>
                                 <h4>材料を追加</h4>
@@ -153,7 +152,7 @@ function Home() {
                     <div>
                         <div className='flex-container'>
                             <div className='icon-area'>
-                                <Plus className='icon-size' />
+                                <CookingPot className='icon-size' />
                             </div>
                             <div>
                                 <h4>料理を追加</h4>
@@ -166,16 +165,16 @@ function Home() {
                 </div>
             </section>
             <section className='ref-summary-section'>
-                <h3>冷蔵庫のサマリー</h3>
+                <h3>サマリー</h3>
                 <div className='inner-container'>
                     <div>
                         <div className='flex-container'>
                             <div className='icon-area'>
-                                <Apple className='icon-size' />
+                                <Refrigerator className='icon-size' />
                             </div>
                             <div>
                                 <h4>冷蔵庫の材料数</h4>
-                                <p>{refIngData.length}</p>
+                                <p>{refIngData.length}<span>個</span></p>
                             </div>
                         </div>
                     </div>
@@ -186,18 +185,18 @@ function Home() {
                             </div>
                             <div>
                                 <h4>1週間以上未使用の材料数</h4>
-                                <p>{getDengerIngCount()}</p>
+                                <p>{getDengerIngCount()}<span>個</span></p>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div className='flex-container'>
                             <div className='icon-area'>
-                                <TriangleAlert className='icon-size' />
+                                <ShoppingCart className='icon-size' />
                             </div>
                             <div>
                                 <h4>買い物リストの材料数</h4>
-                                <p>{shoppingList.length}</p>
+                                <p>{shoppingList.length}<span>個</span></p>
                             </div>
                         </div>
                     </div>

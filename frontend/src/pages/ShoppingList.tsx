@@ -129,7 +129,7 @@ function ShoppingList() {
             </div>
             <div className='two-columns-container'>
                 <div className='not_purchased'>
-                    <p className='card-header'>買い物リストにない材料<span className='length'>{filteredIngData.length}</span></p>
+                    <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
                     <div className="ref-columns-container">
                         {filteredIngData
                             .sort((a, b) => a.cat_id - b.cat_id)

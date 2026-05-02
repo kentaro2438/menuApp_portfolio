@@ -13,6 +13,10 @@ body {
     color: #4f4f4f;
 }
 
+.hidden {
+    display: none;
+}   
+
 .loading-area {
     display: flex;
     flex-direction: column;
@@ -117,6 +121,34 @@ button {
 button:hover {
     opacity: 0.6;
 }
+
+.form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: violet;
+    width: 50%;
+    margin: 20px auto;
+    padding: 40px 0;
+    border-radius: 20px;
+}
+
+.form-card>div {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.form-card input {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-card button {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+
 
 /* Linkタグボタン */
 .btn {
@@ -316,19 +348,13 @@ textarea:focus {
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
     body {
         font-size: 12px;
     }
 
     .main {
         padding: 20px 30px;
-    }
-
-    .card-columns-container {
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 10px;
-        /* 2列 */
     }
 
     .card {
@@ -375,5 +401,13 @@ textarea:focus {
         font-size: 10px;
         padding: 2px 5px;
         margin-left: 5px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .card-columns-container {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+        /* 2列 */
     }
 }

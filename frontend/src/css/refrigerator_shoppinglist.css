@@ -13,6 +13,12 @@
     border-top: none;
 }
 
+.flex-columns-container {
+    display: flex;
+    flex: 1;
+    column-gap: 10px;
+}
+
 .ref-search-btn {
     width: 300px;
 }
@@ -30,26 +36,58 @@
 }
 
 .check {
-    background-color:#2e7d32d4;
+    background-color: #2e7d32d4;
 }
 
-@media screen and (max-width: 900px) {
-    .ref-columns-container {
-        display: block;
-    }
 
-    .ref-search-btn {
-        margin-right: 0;
-    }
-
-    .ref-name {
-        padding: 15px 10px;
-        border-radius: 10px 10px 0 0;
-    }
-}
-
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
     .ref-search-btn {
         width: 100%;
+    }
+
+    .two-columns-container {
+        display: block;
+    }
+}
+
+
+
+/* タブ全体 */
+.ref-tabs {
+    display: flex;
+    margin: 10px 0;
+    border: 2px solid rgb(142, 196, 71);
+    border-radius: 12px;
+}
+
+/* ボタン */
+.tab {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    color: #4f4f4f;
+    cursor: pointer;
+    transition: ease 0.2s;
+}
+
+
+
+/* 選択中 */
+.tab.active {
+    background: rgb(142, 196, 71);
+    color: white;
+}
+
+/* ホバー */
+.tab:hover {
+    opacity: 1;
+}
+
+/* PCではタブ非表示 */
+@media (min-width: 641px) {
+    .ref-tabs {
+        display: none;
     }
 }

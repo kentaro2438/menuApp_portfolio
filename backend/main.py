@@ -1,22 +1,61 @@
 from flask import Flask, redirect, request, flash, jsonify
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
+)
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
 from datetime import datetime
+import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(
+    app,
+    resources={r"/api/*": {"origins": "http://localhost:5173"}},
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+)
 
-# データベース設定------------------------------------------------------------------------------------------------------------------------------------
+
+# ログイン機能
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+# データベース設定
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     "postgresql://postgres:yoneken812@localhost:5432/testdb"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key")
 db = SQLAlchemy()
 migrate = Migrate()
 
 db.init_app(app)
 migrate.init_app(app, db)
+
+# flask --app main db migrate -m "comment"
+# flask --app main db upgrade
+
+
+class User(UserMixin, db.Model):
+    __tablename__ = "user"
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password_hash = db.Column(db.String(1000), nullable=False)
+
+    def get_id(self):
+        return str(self.user_id)
 
 
 class Ingredient(db.Model):
@@ -45,7 +84,6 @@ class Ing_Dish_Set(db.Model):
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
 
 
-# 冷蔵庫
 class Refrigerator(db.Model):
     __tablename__ = "refrigerator"
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
@@ -53,14 +91,90 @@ class Refrigerator(db.Model):
     ingredient = db.relationship("Ingredient")
 
 
-# 買い物リスト
 class ShoppingList(db.Model):
     __tablename__ = "shopping_list"
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
     ingredient = db.relationship("Ingredient")
 
 
-# API------------------------------------------------------------------------------------------------------------------------------------
+# API
+# ログイン機能
+@app.route("/api/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"]
+    user = User.query.filter_by(username=username).first()
+    if user and user.password_hash == password:
+        login_user(user)
+        return jsonify({"message": "ログインに成功しました"}), 200
+    else:
+        return jsonify({"message": "ユーザー名またはパスワードが間違っています"}), 401
+
+
+# サインアップ機能
+@app.route("/api/signup", methods=["POST"])
+def signup():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"]
+    existing_user = User.query.filter_by(username=username).first()
+    if existing_user:
+        return jsonify({"message": "このユーザー名はすでに使用されています"}), 400
+    new_user = User(username=username, password_hash=password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "ユーザー登録が完了しました"}), 201
+
+
+# ログアウト機能
+@app.route("/api/logout", methods=["POST"])
+@login_required
+def logout():
+    logout_user()
+    return jsonify({"message": "ログアウトしました"}), 200
+
+
+# ユーザー情報の取得機能
+@app.route("/api/user", methods=["GET"])
+@login_required
+def get_user():
+    return (
+        jsonify({"user_id": current_user.user_id, "username": current_user.username}),
+        200,
+    )
+
+
+# ユーザー情報の編集機能
+@app.route("/api/user", methods=["PUT"])
+@login_required
+def edit_user():
+    data = request.get_json()
+    new_username = data["username"]
+    new_password = data["password"]
+    if new_username:
+        existing_user = User.query.filter_by(username=new_username).first()
+        if existing_user and existing_user.user_id != current_user.user_id:
+            return jsonify({"message": "このユーザー名はすでに使用されています"}), 400
+        current_user.username = new_username
+    if new_password:
+        current_user.password_hash = new_password
+    db.session.commit()
+    return jsonify({"message": "ユーザー情報が更新されました"}), 200
+
+
+# ユーザー削除機能
+@app.route("/api/user", methods=["DELETE"])
+@login_required
+def delete_user():
+    user = User.query.get(current_user.user_id)
+    # 後々ユーザーに関連するデータも削除するようにする
+    db.session.delete(user)
+    db.session.commit()
+    logout_user()
+    return jsonify({"message": "ユーザーが削除されました"}), 200
+
+
 # 全ての材料を取得するAPI
 @app.route("/api/getAllIng", methods=["GET"])
 def get_all_ing():
@@ -303,7 +417,14 @@ def search_dish():
             match_rate = round(match_score / ing_needed * 100) if ing_needed > 0 else 0
 
             result_list.append(
-                [dish.dish_name, match_score, lack, lack_ing_name_list, lack_ing_id_list, match_rate]
+                [
+                    dish.dish_name,
+                    match_score,
+                    lack,
+                    lack_ing_name_list,
+                    lack_ing_id_list,
+                    match_rate,
+                ]
             )
 
     result_list.sort(key=lambda result: result[1], reverse=True)
@@ -366,6 +487,7 @@ def get_shopping_list():
         )
     return jsonify({"shopping_list_json": shopping_list}), 200
 
+
 # 買い物リストに材料を追加するAPI
 @app.route("/api/shoppingList", methods=["POST"])
 def add_ing_to_shopping_list():
@@ -379,6 +501,7 @@ def add_ing_to_shopping_list():
     db.session.commit()
     return jsonify({"message": "買い物リストに材料が追加されました"}), 201
 
+
 # 買い物リストから材料を削除するAPI
 @app.route("/api/shoppingList/<int:ing_id>", methods=["DELETE"])
 def delete_ing_from_shopping_list(ing_id):
@@ -386,6 +509,7 @@ def delete_ing_from_shopping_list(ing_id):
     db.session.delete(ing)
     db.session.commit()
     return jsonify({"message": "買い物リストから材料が削除されました"}), 200
+
 
 # 不足材料を買い物リストに追加するAPI
 @app.route("/api/addLackIngToShoppingList", methods=["POST"])
@@ -404,4 +528,3 @@ def add_lack_ing_to_shopping_list():
         db.session.add(new_ing)
     db.session.commit()
     return jsonify({"message": "不足している材料が買い物リストに追加されました"}), 201
-        

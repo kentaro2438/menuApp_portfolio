@@ -14,6 +14,25 @@ const apiFetch = async (URL: string, options: RequestInit = {}) => {
     return data;
 };
 
+
+// サインアップ
+export const signUp = (username: string, password: string) => apiFetch('/signup', {
+    method: 'POST',
+    body: JSON.stringify({
+        username: username,
+        password: password,
+    }),
+});
+
+// ログイン
+export const login = (username: string, password: string) => apiFetch('/login', {
+    method: 'POST',
+    body: JSON.stringify({
+        username: username,
+        password: password,
+    }),
+});
+
 // 全ての材料を取得
 export const getAllIng = () => apiFetch('/getAllIng');
 
@@ -27,7 +46,7 @@ export const getCat = () => apiFetch('/getCat');
 export const getAllDish = () => apiFetch('/getAllDish');
 
 //特定の料理を取得
-export const getDish = (dish_id: number) => apiFetch(`/dish/${dish_id}`)
+export const getDish = (dish_id: number) => apiFetch(`/dish/${dish_id}`);
 
 // 材料を追加
 export const addIng = (new_ing_name: string, new_ing_cat_id: number) => apiFetch('/ing', {

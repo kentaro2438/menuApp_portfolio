@@ -17,6 +17,8 @@ function Refrigerator() {
     const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
     const [showCatId, setShowCatId] = useState(""); //初期状態では全てのカテゴリーを表示
     const [searchWord, setSearchWord] = useState(""); //検索文字
+    const [isOpenRef, setIsOpenRef] = useState<boolean>(true); //冷蔵庫の開閉状態
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 700); //画面サイズが700px以下かどうか
     const [refIngData, setRefIngData] = useState<refIngType[]>([]); //冷蔵庫の材料
     const refIngIdSet = new Set(refIngData.map(ing => ing.ing_id)); //冷蔵庫の材料IDのセット（重複なし）
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
@@ -34,6 +36,15 @@ function Refrigerator() {
             setFirstLoading(false);
         };
         firstFetch();
+    }, []);
+
+    //画面サイズの変更を監視してisMobileを更新
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 700);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     if (firstLoading) {
@@ -155,11 +166,30 @@ function Refrigerator() {
                 <button onClick={handleSearch} disabled={loading}
                     className='ref-search-btn'>
                     <SearchIcon className='icon-in-main-btn' />
-                    {loading ? "検索中..." : "冷蔵庫の材料で作れる料理を検索"}
+                    {loading ? "検索中..." : "冷蔵庫の材料から料理を検索"}
                 </button>
+                <br />
+                <div className="ref-tabs">
+                    <button
+                        className={!isOpenRef ? "tab active" : "tab"}
+                        onClick={() => setIsOpenRef(false)}
+                    >
+                        冷蔵庫にない
+                    </button>
+                    <button
+                        className={isOpenRef ? "tab active" : "tab"}
+                        onClick={() => setIsOpenRef(true)}
+                    >
+                        冷蔵庫にある
+                    </button>
+                </div>
             </div>
             <div className='two-columns-container'>
-                <div className='not_in_ref'>
+                <div className={
+                    isMobile
+                        ? (isOpenRef ? 'not_in_ref hidden' : 'not_in_ref')
+                        : 'not_in_ref'
+                }>
                     <p className='card-header'>冷蔵庫にない材料<span className='length'>{filteredIngData.length}</span></p>
                     <div className="ref-columns-container">
                         {filteredIngData
@@ -180,7 +210,10 @@ function Refrigerator() {
                             })}
                     </div>
                 </div>
-                <div className='in_ref'>
+                <div className={isMobile
+                    ? (isOpenRef ? 'in_ref' : 'in_ref hidden')
+                    : 'in_ref'
+                }>
                     <p className='card-header'>冷蔵庫にある材料<span className='length'>{refIngData.length}</span></p>
                     <div className="ref-columns-container">
                         {refIngData

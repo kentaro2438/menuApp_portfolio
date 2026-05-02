@@ -24,7 +24,7 @@ function Layout() {
                 <h1><UtensilsCrossed className='h1-icon' /> MealMate<span>毎日の食事を，もっとかしこく</span></h1>
                 <div className="title-area">
                     <nav className={isOpen ? "open" : ""}>
-                        <NavLink to="/" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
+                        <NavLink to="/home" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
                             <House className='nav-icon' /> ホーム
                         </NavLink>
                         <NavLink to="/refrigerator" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
