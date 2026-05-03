@@ -14,13 +14,16 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key")
 CORS(
     app,
-    resources={r"/api/*": {"origins": "http://localhost:5173"}},
+    resources={
+        r"/api/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173"]}
+    },
+    supports_credentials=True,
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization"],
 )
-
 
 # ログイン機能
 login_manager = LoginManager()
@@ -32,12 +35,16 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+@login_manager.unauthorized_handler
+def unauthorized():
+    return jsonify({"message": "ログインしてください"}), 401
+
+
 # データベース設定
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     "postgresql://postgres:yoneken812@localhost:5432/testdb"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key")
 db = SQLAlchemy()
 migrate = Migrate()
 
@@ -98,21 +105,7 @@ class ShoppingList(db.Model):
 
 
 # API
-# ログイン機能
-@app.route("/api/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    username = data["username"]
-    password = data["password"]
-    user = User.query.filter_by(username=username).first()
-    if user and user.password_hash == password:
-        login_user(user)
-        return jsonify({"message": "ログインに成功しました"}), 200
-    else:
-        return jsonify({"message": "ユーザー名またはパスワードが間違っています"}), 401
-
-
-# サインアップ機能
+# サインアップ
 @app.route("/api/signup", methods=["POST"])
 def signup():
     data = request.get_json()
@@ -127,15 +120,40 @@ def signup():
     return jsonify({"message": "ユーザー登録が完了しました"}), 201
 
 
-# ログアウト機能
+# ログイン
+@app.route("/api/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"]
+    user = User.query.filter_by(username=username).first()
+    if user and user.password_hash == password:
+        login_user(user)
+        # デバッグ用
+        print("login後:", current_user.is_authenticated)
+        return jsonify({"message": "ログインしました"}), 200
+    else:
+        return jsonify({"message": "ユーザー名またはパスワードが間違っています"}), 401
+
+
+# ログイン判定
+@app.route("/api/isLoggedIn", methods=["GET"])
+def is_logged_in():
+    if current_user.is_authenticated:
+        return jsonify({"isLoggedIn": True}), 200
+    else:
+        return jsonify({"isLoggedIn": False}), 200
+
+
+# ログアウト
 @app.route("/api/logout", methods=["POST"])
-@login_required
+# @login_required
 def logout():
     logout_user()
     return jsonify({"message": "ログアウトしました"}), 200
 
 
-# ユーザー情報の取得機能
+# ユーザー情報の取得
 @app.route("/api/user", methods=["GET"])
 @login_required
 def get_user():
@@ -145,7 +163,7 @@ def get_user():
     )
 
 
-# ユーザー情報の編集機能
+# ユーザー情報の編集
 @app.route("/api/user", methods=["PUT"])
 @login_required
 def edit_user():
@@ -163,7 +181,7 @@ def edit_user():
     return jsonify({"message": "ユーザー情報が更新されました"}), 200
 
 
-# ユーザー削除機能
+# ユーザー情報の削除
 @app.route("/api/user", methods=["DELETE"])
 @login_required
 def delete_user():

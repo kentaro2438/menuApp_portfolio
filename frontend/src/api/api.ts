@@ -2,10 +2,11 @@ const BASE_URL = 'http://127.0.0.1:5000/api';
 
 const apiFetch = async (URL: string, options: RequestInit = {}) => {
     const result = await fetch(`${BASE_URL}${URL}`, {
+        ...options,
         headers: {
             'Content-Type': 'application/json',
         },
-        ...options,
+        credentials: 'include', // クッキーを送信するためのオプション
     });
     const data = await result.json();
     if (!result.ok) {
@@ -13,6 +14,7 @@ const apiFetch = async (URL: string, options: RequestInit = {}) => {
     }
     return data;
 };
+
 
 
 // サインアップ
@@ -32,6 +34,29 @@ export const login = (username: string, password: string) => apiFetch('/login', 
         password: password,
     }),
 });
+
+
+// ログイン判定
+export const isLoggedIn = async () => {
+    const result = await fetch(`${BASE_URL}/isLoggedIn`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    });
+    const data = await result.json();
+    if (!result.ok) {
+        return null; // ログイン状態の確認に失敗した場合はnullを返す
+    }
+    return data;
+};
+
+// ログアウト
+export const logout = () => apiFetch('/logout', {
+    method: 'POST',
+});
+
+
 
 // 全ての材料を取得
 export const getAllIng = () => apiFetch('/getAllIng');

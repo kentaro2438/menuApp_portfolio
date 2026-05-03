@@ -126,7 +126,10 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: violet;
+    background-color: white;
+        box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.12);
     width: 50%;
     margin: 20px auto;
     padding: 40px 0;

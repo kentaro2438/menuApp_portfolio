@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Layout from "./components/Layout";
 import Layout2 from "./components/Layout2";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { NotificationProvider } from "./context/NotificationContext";
 
 function App() {
@@ -21,19 +22,21 @@ function App() {
         <NotificationProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Layout />}>
-                        <Route path="/home" element={<Home />} />
-                        <Route path="/refrigerator" element={<Refrigerator />} />
-                        <Route path="/search" element={<Search />} />
-                        <Route path="/result" element={<Result />} />
-                        <Route path="/list_ing" element={<ListIng />} />
-                        <Route path="/list_dish" element={<ListDish />} />
-                        <Route path="/list_ing/add" element={<AddIng />} />
-                        <Route path="/list_ing/edit/:ing_id" element={<EditIng />} />
-                        <Route path="/list_dish/add" element={<AddDish />} />
-                        <Route path="/list_dish/edit/:dish_id" element={<EditDish />} />
-                        <Route path="/shopping" element={<ShoppingList />} />
-                    </Route>
+                        <Route element={<ProtectedRoute />}>
+                            <Route path="/" element={<Layout />}>
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/refrigerator" element={<Refrigerator />} />
+                                <Route path="/search" element={<Search />} />
+                                <Route path="/result" element={<Result />} />
+                                <Route path="/list_ing" element={<ListIng />} />
+                                <Route path="/list_dish" element={<ListDish />} />
+                                <Route path="/list_ing/add" element={<AddIng />} />
+                                <Route path="/list_ing/edit/:ing_id" element={<EditIng />} />
+                                <Route path="/list_dish/add" element={<AddDish />} />
+                                <Route path="/list_dish/edit/:dish_id" element={<EditDish />} />
+                                <Route path="/shopping" element={<ShoppingList />} />
+                            </Route>
+                        </Route>
                     <Route path="/" element={<Layout2 />}>
                         <Route index element={<Login />} />
                         <Route path="/signup" element={<SignUp />} />

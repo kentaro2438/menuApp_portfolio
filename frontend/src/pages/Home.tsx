@@ -7,6 +7,7 @@ import { searchDish, getRefIng, getDish, getAllDish, getShoppingList } from '../
 import type { refIngType } from '../types/type.ts';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { logout } from '../api/api.js';
 
 function Home() {
 
@@ -37,6 +38,17 @@ function Home() {
                 <p>読み込み中...</p>
             </div>
         );
+    };
+
+    //ログアウト
+    const fetchLogout = async () => {
+        try {
+            await logout();
+            showNotification("success", "ログアウトしました");
+            navigate("/");
+        } catch (error: any) {
+            showNotification("error", error.message);
+        }
     };
 
     //すべての料理を取得
@@ -115,6 +127,10 @@ function Home() {
         <div className="main home-page">
             <h2><House className='h2-icon' /> ホーム</h2>
             <hr />
+            <div>
+                ログイン機能テスト用エリア
+                <button onClick={fetchLogout}>ログアウト</button>
+            </div>
             <section>
                 <h3>今日のおすすめ</h3>
                 <p>{randomDishName}</p>

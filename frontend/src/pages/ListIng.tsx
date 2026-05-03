@@ -1,7 +1,7 @@
 import '../reset.css';
 import '../css/category.css';
 import { Link } from "react-router-dom";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllIng, getCat } from '../api/api.js';
 import type { ingType, catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
