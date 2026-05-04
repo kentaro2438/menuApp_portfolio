@@ -35,6 +35,9 @@ export const login = (username: string, password: string) => apiFetch('/login', 
     }),
 });
 
+// ユーザー情報の取得
+export const getUser = () => apiFetch('/user');
+
 
 // ログイン判定
 export const isLoggedIn = async () => {

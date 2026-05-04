@@ -1,16 +1,28 @@
 import '../reset.css';
 import './Layout.css';
 import { Outlet, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Message from './Message.tsx';
 import { UtensilsCrossed, House, RefrigeratorIcon, SearchIcon, Apple, CookingPot, ShoppingCart } from 'lucide-react';
+import { getUser } from '../api/api.js';
 
 function Layout() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>("");
 
     const closeMenu = () => {
         setIsOpen(false);
     };
+
+    const fetchGetUser = async () => {
+        const data = await getUser();
+        setUsername(data.username);
+        return data;
+    }
+
+    useEffect(() => {
+        fetchGetUser();
+    }, []);
 
     return (
         <div>
@@ -21,7 +33,10 @@ function Layout() {
                 >
                     ☰
                 </button>
-                <h1><UtensilsCrossed className='h1-icon' /> MealMate<span>毎日の食事を，もっとかしこく</span></h1>
+                <h1><UtensilsCrossed className='h1-icon' /> MealMate
+                    <span>毎日の食事を，もっとかしこく</span>
+                    <span>ようこそ，{username}さん</span>
+                </h1>
                 <div className="title-area">
                     <nav className={isOpen ? "open" : ""}>
                         <NavLink to="/home" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>

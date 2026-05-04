@@ -93,14 +93,18 @@ class Ing_Dish_Set(db.Model):
 
 class Refrigerator(db.Model):
     __tablename__ = "refrigerator"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user = db.relationship("User")
     ingredient = db.relationship("Ingredient")
 
 
 class ShoppingList(db.Model):
     __tablename__ = "shopping_list"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
+    user = db.relationship("User")
     ingredient = db.relationship("Ingredient")
 
 
@@ -147,7 +151,6 @@ def is_logged_in():
 
 # ログアウト
 @app.route("/api/logout", methods=["POST"])
-# @login_required
 def logout():
     logout_user()
     return jsonify({"message": "ログアウトしました"}), 200
@@ -450,10 +453,13 @@ def search_dish():
     return jsonify({"result_list": result_list}), 200
 
 
-# 冷蔵庫を取得するAPI
+# 冷蔵庫に関するAPI------------------------------------------------------------------------------------------------------------
+# ログイン中のユーザーの冷蔵庫を取得するAPI
 @app.route("/api/ref", methods=["GET"])
+@login_required
 def get_refrigerator():
-    ings_in_ref = Refrigerator.query.all()
+    user_id = current_user.user_id
+    ings_in_ref = Refrigerator.query.filter_by(user_id=user_id).all()
     ings_in_ref_list = []
     for ref in ings_in_ref:
         ings_in_ref_list.append(
@@ -469,13 +475,17 @@ def get_refrigerator():
 
 # 冷蔵庫に材料を追加するAPI
 @app.route("/api/ref", methods=["POST"])
+@login_required
 def add_ing_to_ref():
+    user_id = current_user.user_id
     data = request.get_json()
     ing_id = data["ing_id"]
-    existing = Refrigerator.query.filter_by(ing_id=ing_id).first()
+    existing = Refrigerator.query.filter_by(user_id=user_id, ing_id=ing_id).first()
     if existing:
         return jsonify({"message": "その材料はすでに冷蔵庫に入っています"}), 400
-    new_ing_to_ref = Refrigerator(ing_id=ing_id, added_at=datetime.now())
+    new_ing_to_ref = Refrigerator(
+        user_id=user_id, ing_id=ing_id, added_at=datetime.now()
+    )
     db.session.add(new_ing_to_ref)
     db.session.commit()
     return jsonify({"message": "冷蔵庫に材料が追加されました"}), 201
@@ -483,8 +493,10 @@ def add_ing_to_ref():
 
 # 冷蔵庫から材料を削除するAPI
 @app.route("/api/ref/<int:ing_id>", methods=["DELETE"])
+@login_required
 def delete_ing_from_ref(ing_id):
-    ing = Refrigerator.query.filter_by(ing_id=ing_id).first_or_404()
+    user_id = current_user.user_id
+    ing = Refrigerator.query.filter_by(user_id=user_id, ing_id=ing_id).first_or_404()
     db.session.delete(ing)
     db.session.commit()
     return jsonify({"message": "冷蔵庫から材料が削除されました"}), 200
@@ -492,8 +504,10 @@ def delete_ing_from_ref(ing_id):
 
 # 買い物リストを取得するAPI
 @app.route("/api/shoppingList", methods=["GET"])
+@login_required
 def get_shopping_list():
-    shopping_list_data = ShoppingList.query.all()
+    user_id = current_user.user_id
+    shopping_list_data = ShoppingList.query.filter_by(user_id=user_id).all()
     shopping_list = []
     for item in shopping_list_data:
         shopping_list.append(
@@ -509,12 +523,13 @@ def get_shopping_list():
 # 買い物リストに材料を追加するAPI
 @app.route("/api/shoppingList", methods=["POST"])
 def add_ing_to_shopping_list():
+    user_id = current_user.user_id
     data = request.get_json()
     ing_id = data["ing_id"]
-    existing = ShoppingList.query.filter_by(ing_id=ing_id).first()
+    existing = ShoppingList.query.filter_by(user_id=user_id, ing_id=ing_id).first()
     if existing:
         return jsonify({"message": "その材料はすでに買い物リストに入っています"}), 400
-    new_ing_to_shopping_list = ShoppingList(ing_id=ing_id)
+    new_ing_to_shopping_list = ShoppingList(user_id=user_id, ing_id=ing_id)
     db.session.add(new_ing_to_shopping_list)
     db.session.commit()
     return jsonify({"message": "買い物リストに材料が追加されました"}), 201
@@ -523,7 +538,8 @@ def add_ing_to_shopping_list():
 # 買い物リストから材料を削除するAPI
 @app.route("/api/shoppingList/<int:ing_id>", methods=["DELETE"])
 def delete_ing_from_shopping_list(ing_id):
-    ing = ShoppingList.query.filter_by(ing_id=ing_id).first_or_404()
+    user_id = current_user.user_id
+    ing = ShoppingList.query.filter_by(user_id=user_id, ing_id=ing_id).first_or_404()
     db.session.delete(ing)
     db.session.commit()
     return jsonify({"message": "買い物リストから材料が削除されました"}), 200
@@ -532,14 +548,15 @@ def delete_ing_from_shopping_list(ing_id):
 # 不足材料を買い物リストに追加するAPI
 @app.route("/api/addLackIngToShoppingList", methods=["POST"])
 def add_lack_ing_to_shopping_list():
+    user_id = current_user.user_id
     data = request.get_json()
     lack_ing_id_list = data["lack_ing_id_list"]
     new_ing_to_shopping_list = []
     for ing_id in lack_ing_id_list:
-        existing = ShoppingList.query.filter_by(ing_id=ing_id).first()
+        existing = ShoppingList.query.filter_by(user_id=user_id, ing_id=ing_id).first()
         if existing:
             continue
-        new_ing_to_shopping_list.append(ShoppingList(ing_id=ing_id))
+        new_ing_to_shopping_list.append(ShoppingList(user_id=user_id, ing_id=ing_id))
     if new_ing_to_shopping_list == []:
         return jsonify({"message": "すでに買い物リストに入っています"}), 400
     for new_ing in new_ing_to_shopping_list:

@@ -5,6 +5,7 @@ import { getAllIng, getCat, getShoppingList, addIngToShoppingList, deleteIngFrom
 import type { ingType, catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { Plus, ShoppingCart } from 'lucide-react';
 import ShoppingCard from '../components/ShoppingCard.tsx';
@@ -13,12 +14,12 @@ import { Check } from 'lucide-react';
 
 function ShoppingList() {
 
-    const [ingData, setIngData] = useState<ingType[]>([]); 
-    const [catData, setCatData] = useState<catType[]>([]); 
-    const [showCatId, setShowCatId] = useState(""); 
+    const [ingData, setIngData] = useState<ingType[]>([]);
+    const [catData, setCatData] = useState<catType[]>([]);
+    const [showCatId, setShowCatId] = useState("");
     const [searchWord, setSearchWord] = useState(""); //検索文字
     const [shoppingList, setShoppingList] = useState<ingType[]>([]); //買い物リストにある材料   
-    const [firstLoading, setFirstLoading] = useState<boolean>(false); 
+    const [firstLoading, setFirstLoading] = useState<boolean>(false);
     const shoppingListIngIdSet = new Set(shoppingList.map(ing => ing.ing_id)); //買い物リストにある材料IDのセット（重複なし）
     const { showNotification } = useNotification();
 
@@ -35,12 +36,7 @@ function ShoppingList() {
     }, []);
 
     if (firstLoading) {
-        return (
-            <div className="main loading-area">
-                <div className="spinner"></div>
-                <p>読み込み中...</p>
-            </div>
-        );
+        return <LoadingSpinner />;
     };
 
     //全ての材料を取得
@@ -81,7 +77,7 @@ function ShoppingList() {
         }
     }
 
-    //買い物リストから材料を削除
+    //買い物リストから材料を削除して冷蔵庫に入れる
     const handleDeleteIngFromShoppingList = async (ing_id: number) => {
         try {
             await deleteIngFromShoppingList(ing_id);

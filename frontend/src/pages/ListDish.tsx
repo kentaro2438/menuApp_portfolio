@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getAllDish, deleteDish } from '../api/api.js';
 import type { dishType } from '../types/type.ts';
 import Input from '../components/Input.tsx';
+import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { Pencil, Trash2, CookingPot, Plus } from 'lucide-react';
 import { useNotification } from '../context/NotificationContext.tsx';
 
@@ -25,12 +26,7 @@ function ListDish() {
     }, []);
 
     if (firstLoading) {
-        return (
-            <div className="main loading-area">
-                <div className="spinner"></div>
-                <p>読み込み中...</p>
-            </div>
-        );
+        return <LoadingSpinner />;
     }
 
     const fetchGetAllDish = async () => {

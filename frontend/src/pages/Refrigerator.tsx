@@ -5,6 +5,7 @@ import { getAllIng, getCat, getRefIng, addIngToRef, deleteIngFromRef, searchDish
 import type { ingType, catType, refIngType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import RefCard from '../components/RefCard.tsx';
 import { useNavigate } from "react-router-dom";
@@ -48,12 +49,7 @@ function Refrigerator() {
     }, []);
 
     if (firstLoading) {
-        return (
-            <div className="main loading-area">
-                <div className="spinner"></div>
-                <p>読み込み中...</p>
-            </div>
-        );
+        return <LoadingSpinner />;
     }
 
     //全ての材料を取得
@@ -156,7 +152,7 @@ function Refrigerator() {
                 <Input
                     word={searchWord}
                     setWord={setSearchWord}
-                    placeholder="材料名を検索"
+                    placeholder="冷蔵庫にない材料から検索"
                 />
                 <Select
                     showCatId={showCatId}
@@ -174,13 +170,13 @@ function Refrigerator() {
                         className={!isOpenRef ? "tab active" : "tab"}
                         onClick={() => setIsOpenRef(false)}
                     >
-                        冷蔵庫にない
+                        冷蔵庫にない材料
                     </button>
                     <button
                         className={isOpenRef ? "tab active" : "tab"}
                         onClick={() => setIsOpenRef(true)}
                     >
-                        冷蔵庫にある
+                        冷蔵庫にある材料
                     </button>
                 </div>
             </div>
