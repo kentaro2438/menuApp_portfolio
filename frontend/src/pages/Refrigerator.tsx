@@ -10,6 +10,8 @@ import { useNotification } from '../context/NotificationContext.tsx';
 import RefCard from '../components/RefCard.tsx';
 import { useNavigate } from "react-router-dom";
 import { Refrigerator as RefrigeratorIcon, SearchIcon, Plus, Trash2 } from 'lucide-react';
+import PlusIcon from '../img/Plus.svg';
+import DeleteIcon from '../img/Delete.svg';
 
 
 function Refrigerator() {
@@ -128,31 +130,13 @@ function Refrigerator() {
 
     return (
         <div className="main refrigerator-page">
-            <h2><RefrigeratorIcon className='h2-icon' /> 冷蔵庫</h2>
-            <hr />
-            <br />
+            <h2><RefrigeratorIcon className='h2-icon' />冷蔵庫</h2>
             <p>冷蔵庫にある材料を管理できます．冷蔵庫にある材料で作れる料理を検索することもできます．</p>
-            <br />
-            <div className='description'>
-                <div>
-                    <div className='icon-area add'>
-                        <Plus className='icon-size' />
-                    </div>
-                    冷蔵庫に材料を追加
-                </div>
-                <div>
-                    <div className='icon-area delete'>
-                        <Trash2 className='icon-size' />
-                    </div>
-                    冷蔵庫から材料を削除
-                </div>
-            </div>
-            <br />
             <div className="input-area">
                 <Input
                     word={searchWord}
                     setWord={setSearchWord}
-                    placeholder="冷蔵庫にない材料から検索"
+                    placeholder="材料を検索"
                 />
                 <Select
                     showCatId={showCatId}
@@ -160,25 +144,24 @@ function Refrigerator() {
                     catData={catData}
                 />
                 <button onClick={handleSearch} disabled={loading}
-                    className='ref-search-btn'>
-                    <SearchIcon className='icon-in-main-btn' />
+                    className='btn search-from-ref-btn'>
+                    <SearchIcon className='icon-in-btn' />
                     {loading ? "検索中..." : "冷蔵庫の材料から料理を検索"}
                 </button>
-                <br />
-                <div className="ref-tabs">
-                    <button
-                        className={!isOpenRef ? "tab active" : "tab"}
-                        onClick={() => setIsOpenRef(false)}
-                    >
-                        冷蔵庫にない材料
-                    </button>
-                    <button
-                        className={isOpenRef ? "tab active" : "tab"}
-                        onClick={() => setIsOpenRef(true)}
-                    >
-                        冷蔵庫にある材料
-                    </button>
-                </div>
+            </div>
+            <div className="tabs">
+                <button
+                    className={!isOpenRef ? "tab active" : "tab"}
+                    onClick={() => setIsOpenRef(false)}
+                >
+                    冷蔵庫にない材料
+                </button>
+                <button
+                    className={isOpenRef ? "tab active" : "tab"}
+                    onClick={() => setIsOpenRef(true)}
+                >
+                    冷蔵庫にある材料
+                </button>
             </div>
             <div className='two-columns-container'>
                 <div className={
@@ -186,7 +169,14 @@ function Refrigerator() {
                         ? (isOpenRef ? 'not_in_ref hidden' : 'not_in_ref')
                         : 'not_in_ref'
                 }>
-                    <p className='card-header'>冷蔵庫にない材料<span className='length'>{filteredIngData.length}</span></p>
+                    <div className='card-header'>
+                        冷蔵庫にない材料
+                        <span className='length'>{filteredIngData.length}</span>
+                        <span className='icon-hint'>
+                            <img src={PlusIcon} alt="編集" />
+                            冷蔵庫に追加
+                        </span>
+                    </div>
                     <div className="ref-columns-container">
                         {filteredIngData
                             .sort((a, b) => a.cat_id - b.cat_id)
@@ -210,7 +200,14 @@ function Refrigerator() {
                     ? (isOpenRef ? 'in_ref' : 'in_ref hidden')
                     : 'in_ref'
                 }>
-                    <p className='card-header'>冷蔵庫にある材料<span className='length'>{refIngData.length}</span></p>
+                    <div className='card-header'>
+                        冷蔵庫にある材料
+                        <span className='length'>{refIngData.length}</span>
+                        <span className='icon-hint'>
+                            <img src={DeleteIcon} alt="削除" />
+                            冷蔵庫から削除
+                        </span>
+                    </div>
                     <div className="ref-columns-container">
                         {refIngData
                             .sort((a, b) => {

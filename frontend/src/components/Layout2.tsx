@@ -1,5 +1,5 @@
 import '../reset.css';
-import './Layout.css';
+import '../css/Layout.css';
 import { Outlet } from "react-router-dom";
 import Message from './Message.tsx';
 import { UtensilsCrossed } from 'lucide-react';

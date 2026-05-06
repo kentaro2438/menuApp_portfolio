@@ -1,6 +1,6 @@
 import '../reset.css';
-import '../css/home.css';
-import { Apple, House, Search, TriangleAlert, CookingPot, Refrigerator, ShoppingCart } from 'lucide-react';
+import '../css/Home.css';
+import { Apple, House, Search, TriangleAlert, CookingPot, Refrigerator, ShoppingCart, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { searchDish, getRefIng, getDish, getAllDish, getShoppingList } from '../api/api.js';
@@ -8,6 +8,7 @@ import type { refIngType } from '../types/type.ts';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { logout } from '../api/api.js';
+import LoadingSpinner from '../components/LoadingSpinner.tsx';
 
 function Home() {
 
@@ -32,13 +33,8 @@ function Home() {
     }, []);
 
     if (firstLoading) {
-        return (
-            <div className="main loading-area">
-                <div className="spinner"></div>
-                <p>読み込み中...</p>
-            </div>
-        );
-    };
+        return <LoadingSpinner />;
+    }
 
     //ログアウト
     const fetchLogout = async () => {
@@ -125,8 +121,8 @@ function Home() {
 
     return (
         <div className="main home-page">
-            <h2><House className='h2-icon' /> ホーム</h2>
-            <hr />
+            <h2><House className='h2-icon' />ホーム</h2>
+            <p>今日のおすすめやクイックアクションを確認できます</p>
             <div>
                 ログイン機能テスト用エリア
                 <button onClick={fetchLogout}>ログアウト</button>
@@ -137,7 +133,7 @@ function Home() {
             </section>
             <section className='quick-action-section'>
                 <h3>クイックアクション</h3>
-                <div className='inner-container'>
+                <div className='section-inner-container'>
                     <div>
                         <div className='flex-container'>
                             <div className='icon-area'>
@@ -148,8 +144,8 @@ function Home() {
                                 <p>冷蔵庫の材料から料理を検索します</p>
                             </div>
                         </div>
-                        <button className='btn btn-main' onClick={() => handleSearch()} disabled={loading}>
-                            {loading ? "検索中..." : "検索する"}
+                        <button className='btn' onClick={() => handleSearch()} disabled={loading}>
+                            {loading ? "検索中..." : <><Search className='icon-in-btn' />検索する</>}
                         </button>
                     </div>
                     <div>
@@ -163,7 +159,7 @@ function Home() {
                                 <br />
                             </div>
                         </div>
-                        <Link to="/list_ing/add" className='btn btn-main'>追加する</Link>
+                        <Link to="/list_ing/add" className='btn'><Plus className='icon-in-btn' />追加する</Link>
                     </div>
                     <div>
                         <div className='flex-container'>
@@ -176,13 +172,13 @@ function Home() {
                                 <br />
                             </div>
                         </div>
-                        <Link to="/list_dish/add" className='btn btn-main'>追加する</Link>
+                        <Link to="/list_dish/add" className='btn'><Plus className='icon-in-btn' />追加する</Link>
                     </div>
                 </div>
             </section>
             <section className='ref-summary-section'>
                 <h3>サマリー</h3>
-                <div className='inner-container'>
+                <div className='section-inner-container'>
                     <div>
                         <div className='flex-container'>
                             <div className='icon-area'>

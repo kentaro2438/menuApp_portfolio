@@ -40,14 +40,15 @@ function Login() {
 
     return (
         <div className="main login-page">
-            <h2><User className='h2-icon' /> ログイン</h2>
-            <hr />
+            <h2><User className='h2-icon' />ログイン</h2>
             <AuthForm
+                formTitle="ログイン"
                 handle={handleLogin}
                 username={username}
                 setUsername={setUsername}
                 password={password}
                 setPassword={setPassword}
+                lucideIcon={<User className='icon-in-btn' />}
                 buttonLabel="ログイン"
             />
         </div>

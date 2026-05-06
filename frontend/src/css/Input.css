@@ -5,7 +5,7 @@ select {
     border-radius: 10px;
     margin-right: 10px;
     font-size: 16px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 input {
@@ -14,29 +14,28 @@ input {
 
 input:focus {
     outline: none;
-    border: 2px solid rgb(64, 147, 0);
+    border: 2px solid rgb(142, 196, 71);
 }
 
 select {
     width: 20vw;
+    color: rgba(0,0,0,0.7);
 }
 
 select:focus {
     outline: none;
-    border: 2px solid rgb(64, 147, 0);
+    border: 2px solid rgb(142, 196, 71);
 }
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
 @media screen and (max-width: 700px) {
 
+    
+
     input,
     select {
         font-size: 12px;
         width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .input-area {
-        flex-direction: column;
+        height: 30px;
     }
 }

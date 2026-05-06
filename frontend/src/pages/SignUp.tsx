@@ -38,14 +38,15 @@ function SignUp() {
 
     return (
         <div className="main signup-page">
-            <h2><UserPlus className='h2-icon' /> サインアップ</h2>
-            <hr />
+            <h2><UserPlus className='h2-icon' />サインアップ</h2>
             <AuthForm
+                formTitle="サインアップ"
                 handle={handleSignUp}
                 username={username}
                 setUsername={setUsername}
                 password={password}
                 setPassword={setPassword}
+                lucideIcon={<UserPlus className='icon-in-btn' />}
                 buttonLabel="サインアップ"
             />
         </div>

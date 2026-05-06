@@ -1,7 +1,7 @@
 header {
     background: linear-gradient(to right,
-            #8dc500,
-            rgba(138, 196, 62, 0.6));
+            #74A343,
+            #72b717c2);
     backdrop-filter: blur(3px);
     padding: 20px;
     position: relative;

@@ -7,9 +7,10 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
-import { Plus, ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import ShoppingCard from '../components/ShoppingCard.tsx';
-import { Check } from 'lucide-react';
+import PlusIcon from '../img/Plus.svg';
+import CheckIcon from '../img/Check.svg';
 
 
 function ShoppingList() {
@@ -18,6 +19,8 @@ function ShoppingList() {
     const [catData, setCatData] = useState<catType[]>([]);
     const [showCatId, setShowCatId] = useState("");
     const [searchWord, setSearchWord] = useState(""); //検索文字
+    const [isOpenShoppingList, setIsOpenShoppingList] = useState<boolean>(true); //買い物リストの開閉状態
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 700); //画面サイズが700px以下かどうか
     const [shoppingList, setShoppingList] = useState<ingType[]>([]); //買い物リストにある材料   
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
     const shoppingListIngIdSet = new Set(shoppingList.map(ing => ing.ing_id)); //買い物リストにある材料IDのセット（重複なし）
@@ -33,6 +36,15 @@ function ShoppingList() {
             setFirstLoading(false);
         };
         firstFetch();
+    }, []);
+
+        //画面サイズの変更を監視してisMobileを更新
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 700);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     if (firstLoading) {
@@ -91,26 +103,8 @@ function ShoppingList() {
 
     return (
         <div className="main shopping-list-page">
-            <h2><ShoppingCart className='h2-icon' /> 買い物リスト</h2>
-            <hr />
-            <br />
+            <h2><ShoppingCart className='h2-icon' />買い物リスト</h2>
             <p>買い物リストを管理できます．以下のリストで材料を追加・削除できます．</p>
-            <br />
-            <div className='description'>
-                <div>
-                    <div className='icon-area add'>
-                        <Plus className='icon-size' />
-                    </div>
-                    買い物リストに追加
-                </div>
-                <div>
-                    <div className='icon-area check'>
-                        <Check className='icon-size' />
-                    </div>
-                    購入済みにする
-                </div>
-            </div>
-            <br />
             <div className="input-area">
                 <Input
                     word={searchWord}
@@ -123,9 +117,34 @@ function ShoppingList() {
                     catData={catData}
                 />
             </div>
+            <div className='tabs'>
+                <button
+                className={!isOpenShoppingList ? 'tab active' : 'tab'}
+                onClick={() => setIsOpenShoppingList(false)}
+                >
+                    材料一覧
+                </button>
+                <button
+                className={isOpenShoppingList ? 'tab active' : 'tab'}
+                onClick={() => setIsOpenShoppingList(true)}
+                >
+                    買い物リスト
+                </button>
+            </div>
             <div className='two-columns-container'>
-                <div className='not_purchased'>
-                    <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                <div className={
+                    isMobile 
+                    ? (isOpenShoppingList ? 'not-purchased hidden' : 'not-purchased')
+                    : 'not-purchased'
+                }>
+                    <div className='card-header'>
+                        材料一覧
+                        <span className='length'>{filteredIngData.length}</span>
+                        <span className='icon-hint'>
+                            <img src={PlusIcon} alt="追加" />
+                            材料を冷蔵庫に追加
+                        </span>
+                    </div>
                     <div className="ref-columns-container">
                         {filteredIngData
                             .sort((a, b) => a.cat_id - b.cat_id)
@@ -145,27 +164,33 @@ function ShoppingList() {
                             })}
                     </div>
                 </div>
-                <div className='purchased'>
-                    <p className='card-header'>買い物リスト<span className='length'>{shoppingList.length}</span></p>
+                <div className={
+                    isMobile 
+                    ? (!isOpenShoppingList ? 'purchased hidden' : 'purchased')
+                    : 'purchased'
+                }>
+                    <div className='card-header'>
+                        買い物リスト
+                        <span className='length'>{shoppingList.length}</span>
+                        <span className='icon-hint'>
+                            <img src={CheckIcon} alt="購入済み" />
+                            購入済みにする
+                        </span>
+                    </div>
                     <div className="ref-columns-container">
                         {shoppingList
                             .map((ing: ingType) => {
                                 const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
                                 const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
                                 return (
-                                    <div key={ing.ing_id} className="card inner-wrap">
-                                        <div>
-                                            <p className='name'>{ing.ing_name} </p>
-                                            <div className='inner-wrap'>
-                                                <p className={`cat-name cat-${catId}`}>{catName}</p>
-                                            </div>
-                                        </div>
-                                        <div className="btn-container">
-                                            <button className="btn-sub check" onClick={() => handleDeleteIngFromShoppingList(ing.ing_id)}>
-                                                <Check className='lucide-icon' />
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <ShoppingCard
+                                        key={ing.ing_id}
+                                        ing={ing}
+                                        catId={catId}
+                                        catName={catName}
+                                        type="delete"
+                                        onClick={handleDeleteIngFromShoppingList}
+                                    />
                                 )
                             })}
                     </div>

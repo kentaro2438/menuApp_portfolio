@@ -57,9 +57,8 @@ function AddIng() {
 
     return (
         <div className="main add-ing-page">
-            <h2><Plus className='h2-icon'/> 材料を追加</h2>
-            <hr />
-            <br />
+            <h2><Plus className='h2-icon'/>材料を追加</h2>
+            <p>新しい材料を追加できます</p>
             <form onSubmit={handleNewIng}>
                 <div className="input-area">
                     <Input
@@ -72,8 +71,8 @@ function AddIng() {
                         setShowCatId={setNewIngCatId}
                         catData={catData}
                     />
-                    <button type="submit" disabled={loading}>
-                        {loading ? "追加中..." : <><Plus className='icon-in-main-btn' /> 追加</>}
+                    <button type="submit" disabled={loading} className='btn add-ing-btn'>
+                        {loading ? "追加中..." : <><Plus className='icon-in-btn' /> 追加</>}
                     </button>
                 </div>
             </form>

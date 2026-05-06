@@ -98,12 +98,10 @@ function EditDish() {
 
     return (
         <div className="main edit-dish-page">
-            <h2><Pencil className='h2-icon'/> 料理を編集</h2>
-            <hr />
-            <br />
+            <h2><Pencil className='h2-icon'/>料理を編集</h2>
+            <p>既存の料理を編集できます</p>
             <form onSubmit={handleEditDish}>
                 <h3>料理名を編集</h3>
-                <hr />
                 <div className="input-area">
                     <Input
                         word={dishName}
@@ -112,7 +110,6 @@ function EditDish() {
                     />
                 </div>
                 <h3>材料を選択</h3>
-                <hr />
                 <div className="input-area">
                     <Input
                         word={searchWord}
@@ -126,7 +123,7 @@ function EditDish() {
                     />
                 </div>
                 <div>
-                    <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                    <div className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></div>
                     <div className="card-columns-container">
                         {filteredIngData
                             .sort((a, b) => a.cat_id - b.cat_id)
@@ -141,15 +138,14 @@ function EditDish() {
                             ))}
                     </div>
                 </div>
-                <br />
                 <h3>メモ</h3>
                     <textarea
                         value={dishMemo}
                         onChange={(e) => setDishMemo(e.target.value)}
                         placeholder="メモを入力(任意)"
                     />
-                <button type="submit" disabled={loading}>
-                    {loading ? "更新中..." : "更新"}
+                <button type="submit" disabled={loading} className='btn edit-dish-btn'>
+                    {loading ? "更新中..." : <><Pencil className='icon-in-btn' />更新</>}
                 </button>
             </form>
         </div>

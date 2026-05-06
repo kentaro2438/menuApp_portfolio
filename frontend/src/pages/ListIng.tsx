@@ -8,6 +8,7 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { Pencil, Apple, Plus } from 'lucide-react';
+import EditIcon from '../img/Edit.svg';
 
 function ListIng() {
     const [ingData, setIngData] = useState<ingType[]>([]); // 全ての材料
@@ -53,20 +54,8 @@ function ListIng() {
 
     return (
         <div className="main list-ing-page">
-            <h2><Apple className='h2-icon' /> 材料</h2>
-            <hr />
-            <br />
-            <p>新しく材料を追加したり，登録済みの材料を編集したりできます．</p>
-            <br />
-            <div className='description'>
-                <div>
-                    <div className='icon-area edit'>
-                        <Pencil className='icon-size' />
-                    </div>
-                    材料を編集
-                </div>
-            </div>
-            <br />
+            <h2><Apple className='h2-icon' />材料</h2>
+            <p>登録済みの材料を確認できます．</p>
             <div className="input-area">
                 <Input
                     word={searchWord}
@@ -78,10 +67,17 @@ function ListIng() {
                     setShowCatId={setShowCatId}
                     catData={catData}
                 />
-                <Link to="/list_ing/add" className='btn btn-main'><Plus className='icon-in-main-btn' /> 材料を追加</Link>
+                <Link to="/list_ing/add" className='btn to-add-ing-btn'><Plus className='icon-in-btn' />材料を追加</Link>
             </div>
             <div>
-                <p className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></p>
+                <div className='card-header'>
+                    材料一覧
+                    <span className='length'>{filteredIngData.length}</span>
+                    <span className='icon-hint'>
+                        <img src={EditIcon} alt="編集" />
+                        材料を編集
+                    </span>
+                </div>
                 <div className="card-columns-container">
                     {filteredIngData
                         .sort((a, b) => a.cat_id - b.cat_id)
@@ -89,18 +85,23 @@ function ListIng() {
                             const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
                             const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
                             return (
-                                <div key={ing.ing_id} className="card inner-wrap">
-                                    <div>
-                                        <p className='name'>{ing.ing_name}</p>
-                                        <p className={`cat-name cat-${catId}`}>{catName}</p>
-                                    </div>
-                                    <div className="btn-container">
-                                        <Link
-                                            to={`/list_ing/edit/${ing.ing_id}`}
-                                            className='btn btn-sub edit'
-                                        >
-                                            <Pencil className='lucide-icon' />
-                                        </Link>
+                                <div key={ing.ing_id} className="card">
+                                    <div className='card-row'>
+                                        <p className='name'>
+                                            {ing.ing_name}
+                                        </p>
+                                        <div className='card-right'>
+                                            <span className={`cat-name cat-${catId}`}>
+                                                {catName}
+                                            </span>
+
+                                            <Link
+                                                to={`/list_ing/edit/${ing.ing_id}`}
+                                                className='icon-btn'
+                                            >
+                                                <img src={EditIcon} alt="Edit" className='icon' />
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             )

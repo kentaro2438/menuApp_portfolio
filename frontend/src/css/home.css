@@ -1,11 +1,11 @@
 section {
-    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 20px 30px;
     border-radius: 10px;
     background: #fff;
     box-shadow:
         0 2px 6px rgba(0, 0, 0, 0.08),
-        0 8px 24px rgba(0, 0, 0, 0.12);
+        0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 section h3 {
@@ -23,12 +23,12 @@ section h3 {
     margin-top: 10px;
 }
 
-.inner-container {
+.section-inner-container {
     display: flex;
     gap: 20px;
 }
 
-.inner-container>div {
+.section-inner-container>div {
     background: white;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -40,7 +40,7 @@ section h3 {
     justify-content: space-between;
 }
 
-.inner-container .icon-area {
+.section-inner-container .icon-area {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,16 +52,10 @@ section h3 {
     margin-right: 20px;
 }
 
-.inner-container .icon-area .icon-size {
+.section-inner-container .icon-area .icon-size {
     width: 50%;
     height: 50%;
     stroke-width: 2.5;
-}
-
-.inner-container .btn {
-    display: inline-block;
-    width: 100%;
-    margin: 0 auto;
 }
 
 .ref-summary-section .flex-container p{
@@ -75,7 +69,7 @@ section h3 {
 }
 
 @media screen and (max-width: 900px) {
-    .inner-container {
+    .section-inner-container {
         flex-direction: column;
     }
 }

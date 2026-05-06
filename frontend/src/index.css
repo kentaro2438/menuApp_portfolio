@@ -10,12 +10,12 @@ body {
     background-position: right top;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    color: #4f4f4f;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .hidden {
     display: none;
-}   
+}
 
 .loading-area {
     display: flex;
@@ -52,51 +52,30 @@ hr {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+h2 {
+    margin-bottom: 10px;
+}
+
 .h2-icon {
+    width: 28px;
+    height: 28px;
     stroke-width: 3;
-    color: rgb(142, 196, 71);
-    margin-bottom: -2px;
+    color: #74A343;
+    margin-right: 10px;
+    margin-bottom: -4px;
 }
 
-.description {
-    display: flex;
-    gap: 25px;
-    margin-top: 10px;
+.main>p {
+    margin-bottom: 20px;
 }
 
-.description div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+h3 {
+    margin-bottom: 10px;
 }
 
-.icon-area {
-    width: 25px;
-    height: 25px;
-    border-radius: 4px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 5px;
-}
 
-.icon-size {
-    width: 70%;
-    height: 70%;
-}
 
-.length {
-    display: inline-block;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 500;
-    background-color: rgb(142, 196, 71);
-    color: white;
-    margin-left: 10px;
-    padding: 2px 10px;
-    border-radius: 20px;
-}
+
 
 /* Linkタグ共通スタイル */
 a {
@@ -104,141 +83,50 @@ a {
     text-decoration: none;
 }
 
-button {
-    display: inline-block;
-    width: 150px;
-    height: 40px;
-    background-color: rgb(142, 196, 71);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 16px;
-    margin-left: auto;
-}
 
-button:hover {
-    opacity: 0.6;
-}
-
-.form-card {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: white;
-        box-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.08),
-        0 8px 24px rgba(0, 0, 0, 0.12);
-    width: 50%;
-    margin: 20px auto;
-    padding: 40px 0;
-    border-radius: 20px;
-}
-
-.form-card>div {
-    width: 70%;
-    margin: 0 auto;
-}
-
-.form-card input {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.form-card button {
-    margin: 0 auto;
-    margin-top: 20px;
-}
-
-
-
-/* Linkタグボタン */
 .btn {
     display: block;
+    min-width: 150px;
     height: 40px;
+    padding: 0 36px 0 20px;
+    background-color: #74A343;
     color: white;
-    border: none;
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
-    margin-left: auto;
     line-height: 40px;
-}
-
-.icon-in-main-btn {
-    /* width: 20px; */
-    height: 20px;
-    aspect-ratio: 1/1;
-    margin-bottom: -4px;
-    stroke-width: 2.5;
+    font-size: 16px;
 }
 
 .btn:hover {
     opacity: 0.7;
 }
 
-/* 編集ボタン，削除ボタンのコンテナ */
-div.btn-container {
-    display: flex;
+.icon-in-btn {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    margin-bottom: -3px;
+    stroke-width: 2;
+}
+
+.btn.add-dish-btn,
+.btn.add-ing-btn,
+.btn.edit-dish-btn,
+.btn.edit-ing-btn,
+.btn.to-add-dish-btn,
+.btn.to-add-ing-btn,
+.btn.search-from-ref-btn,
+.btn.search-btn {
     margin-left: auto;
 }
 
-.btn-main {
-    width: 150px;
-    background-color: rgb(142, 196, 71);
-}
-
-/* 編集および削除ボタン(共通) */
-.btn-sub {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    margin-right: 10px;
-    color: white;
-}
-
-/* 追加ボタン */
-.add {
-    background-color: rgb(142, 196, 71, 0.8);
-}
-
-/* 編集ボタン */
-.edit {
-    background-color: #ffe8c4;
-    color: #ff8400;
-}
-
-/* 削除ボタン */
-.delete {
-    background-color: rgba(255, 0, 0, 0.2);
-    color: red;
-}
-
-/* アイコンのサイズ */
-.add .lucide-icon {
-    width: 70%;
-}
-
-.edit .lucide-icon,
-.delete .lucide-icon {
-    width: 60%;
-}
 
 /* 入力エリア, カテゴリー選択 */
 .input-area {
     display: flex;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
-
-.input-area button {
-    margin-left: auto;
-    /* メインボタンを右端に配置 */
-}
-
 
 
 /* 材料カード */
@@ -251,16 +139,16 @@ div.btn-container {
 
 .card-columns-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* 4列 */
-    column-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3列 */
+    column-gap: 10px;
     max-height: 56.5vh;
     overflow-y: auto;
     background-color: white;
-    padding: 10px;
     border-radius: 0 0 10px 10px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-top: none;
+    margin-bottom: 20px;
 }
 
 .result-page .card-columns-container {
@@ -268,14 +156,64 @@ div.btn-container {
 }
 
 .card-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
     font-weight: 600;
-    background-color: #fff3e086;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 15px 20px;
     border-radius: 10px 10px 0 0;
 }
 
-.card {
+.card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-right {
+    display: flex;
+    align-items: center;
+}
+
+.length {
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: rgb(142, 196, 71);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+
+.icon-hint img {
+    width: 22px;
+    height: 22px;
+    margin-left: 10px;
+    display: block;
+}
+
+img.icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    margin-bottom: -6px;
+}
+
+.icon-hint {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+}
+
+/* .card {
     background: #fff;
     border-radius: 10px;
     box-shadow:
@@ -286,51 +224,49 @@ div.btn-container {
     margin-bottom: 10px;
     max-height: 68px;
     transition: 0.2s ease;
+} */
+
+.card {
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    max-height: 68px;
+    transition: 0.2s ease;
 }
 
-.card:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.10),
-        0 12px 28px rgba(0, 0, 0, 0.14);
-}
-
-.card p.name {
+.name {
+    display: inline-block;
     font-weight: 550;
     font-size: 15px;
 }
 
-.card p.cat-name {
-    width: 60px;
+.cat-name {
+    display: inline-block;
+    min-width: 60px;
     font-weight: 650;
     font-size: 12px;
-    margin-top: 2px;
-}
-
-.inner-wrap {
-    display: flex;
-    align-items: center;
+    padding: 2px 12px;
+    /* border: 1px solid; */
+    border-radius: 8px;
+    text-align: center;
 }
 
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    margin-right: 10px;
-    margin-left: auto;
+    margin: 0;
     cursor: pointer;
-}
-
-.dish-card {
-    padding: 10px 0 10px 20px;
+    margin-left: 10px;
 }
 
 textarea {
     width: 100%;
     height: 100px;
     padding: 10px;
+    margin-bottom: 20px;
     border-radius: 10px;
     border: 2px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
     resize: vertical;
     font-size: 16px;
 }
@@ -360,57 +296,68 @@ textarea:focus {
         padding: 20px 30px;
     }
 
+    .input-area {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .input-area>* {
+        margin-bottom: 10px;
+    }
+
+    .input-area>button {
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        font-size: 14px;
+    }
+
+    .card-columns-container {
+        display: block;
+    }
+
     .card {
         padding: 8px;
         padding-left: 15px;
-        margin-bottom: 5px;
     }
 
-    .card p.name {
+    .card .name {
         font-size: 12px;
     }
 
-    .card p.cat-name {
+    .card .cat-name {
         font-size: 10px;
         margin-top: 2px;
     }
 
-    input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        margin-right: 10px;
-    }
-
-    button {
+    .btn {
         width: 100%;
-        height: 40px;
-        font-size: 14px;
-        margin: 0 auto;
+        font-size: 12px;
+        height: 30px;
+        line-height: 30px;
     }
 
-    .btn-main {
-        width: 100%;
-        font-size: 14px;
-    }
-
-    .btn-sub {
-        width: 20px;
-        height: 20px;
-        border-radius: 5px;
-        margin-right: 5px;
+    .icon-in-btn {
+        width: 16px;
+        height: 16px;
     }
 
     .length {
         font-size: 10px;
         padding: 2px 5px;
-        margin-left: 5px;
     }
-}
 
-@media screen and (max-width: 600px) {
-    .card-columns-container {
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 10px;
-        /* 2列 */
+    .icon-hint img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .icon-hint {
+        font-size: 12px;
+    }
+
+    textarea {
+        font-size: 12px;
     }
 }

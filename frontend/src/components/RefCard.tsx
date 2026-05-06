@@ -1,5 +1,7 @@
-import { Plus, Trash2 } from 'lucide-react';
+import '../reset.css';
 import type { ingType } from '../types/type.ts';
+import PlusIcon from '../img/Plus.svg';
+import DeleteIcon from '../img/Delete.svg';
 
 const getElaspedTime = (addedAt: string): string => {
     const addedDate = new Date(addedAt);
@@ -9,21 +11,36 @@ const getElaspedTime = (addedAt: string): string => {
     return `${elapsedDays}日前`;
 }
 
-function RefCard({ ing, catId, catName, type, onClick }: 
+function RefCard({ ing, catId, catName, type, onClick }:
     { ing: ingType, catId: number, catName: string, type: "add" | "delete", onClick: (id: number) => void }) {
     return (
-        <div key={ing.ing_id} className="card inner-wrap">
-            <div>
-                <p className='name'>{ing.ing_name} </p>
-                <div className='inner-wrap'>
-                    <p className={`cat-name cat-${catId}`}>{catName}</p>
-                    <p className='elapsed_time'>{getElaspedTime(ing.added_at)}</p>
+        <div key={ing.ing_id} className="card">
+            <div className="card-row">
+                <p className='name'>
+                    {ing.ing_name}
+                </p>
+
+                <div className='card-right'>
+
+                    <span className='elapsed_time'>
+                        {getElaspedTime(ing.added_at)}
+                    </span>
+                    
+                    <span className={`cat-name cat-${catId}`}>
+                        {catName}
+                    </span>
+
+                    <button
+                        className='icon-btn'
+                        onClick={() => onClick(ing.ing_id)}
+                    >
+                        {type === "add"
+                            ? <img src={PlusIcon} alt="Add" className='icon' />
+                            : <img src={DeleteIcon} alt="Delete" className='icon' />
+                        }
+                    </button>
                 </div>
-            </div>
-            <div className="btn-container">
-                <button className={`btn-sub ${type}`} onClick={() => onClick(ing.ing_id)}>
-                    {type === "add" ? <Plus className='lucide-icon' /> : <Trash2 className='lucide-icon' />}
-                </button>
+
             </div>
         </div>
     )

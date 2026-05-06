@@ -1,0 +1,33 @@
+.form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.12);
+    width: 50%;
+    margin: 20px auto;
+    padding: 40px 0;
+    border-radius: 20px;
+}
+
+.form-card h3 {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.form-card>div {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.form-card input {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-card button {
+    margin: 0 auto;
+    margin-top: 20px;
+}

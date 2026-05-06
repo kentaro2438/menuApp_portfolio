@@ -54,7 +54,7 @@ migrate.init_app(app, db)
 # flask --app main db migrate -m "comment"
 # flask --app main db upgrade
 
-
+# ユーザー(ユーザー別)
 class User(UserMixin, db.Model):
     __tablename__ = "user"
     user_id = db.Column(db.Integer, primary_key=True)
@@ -64,33 +64,33 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return str(self.user_id)
 
-
+# 材料(共通マスタ)
 class Ingredient(db.Model):
     __tablename__ = "ingredient"
     ing_id = db.Column(db.Integer, primary_key=True)
     ing_name = db.Column(db.String(20), unique=True, nullable=False)
     cat_id = db.Column(db.Integer, db.ForeignKey("category.cat_id"), nullable=False)
 
-
+# カテゴリー(共通マスタ)
 class Category(db.Model):
     __tablename__ = "category"
     cat_id = db.Column(db.Integer, primary_key=True)
     cat_name = db.Column(db.String(20), unique=True, nullable=False)
 
-
+# 料理(共通マスタ)
 class Dish(db.Model):
     __tablename__ = "dish"
     dish_id = db.Column(db.Integer, primary_key=True)
     dish_name = db.Column(db.String(20), unique=True, nullable=False)
     memo = db.Column(db.String(1000))
 
-
+# 料理と材料の関連(共通マスタ)
 class Ing_Dish_Set(db.Model):
     __tablename__ = "ing_dish_set"
     dish_id = db.Column(db.Integer, db.ForeignKey("dish.dish_id"), primary_key=True)
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
 
-
+# 冷蔵庫(ユーザー別)
 class Refrigerator(db.Model):
     __tablename__ = "refrigerator"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
@@ -99,7 +99,7 @@ class Refrigerator(db.Model):
     user = db.relationship("User")
     ingredient = db.relationship("Ingredient")
 
-
+# 買い物リスト(ユーザー別)
 class ShoppingList(db.Model):
     __tablename__ = "shopping_list"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)

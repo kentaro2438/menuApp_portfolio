@@ -1,15 +1,9 @@
 .ref-columns-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2列 */
-    column-gap: 10px;
-    /* 以下はその他の設定 */
     max-height: 56.5vh;
     overflow-y: auto;
     background-color: white;
-    padding: 10px;
     border-radius: 0 0 10px 10px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-top: none;
 }
 
@@ -19,10 +13,6 @@
     column-gap: 10px;
 }
 
-.ref-search-btn {
-    width: 300px;
-}
-
 .not_in_ref .elapsed_time {
     display: none;
 }
@@ -30,41 +20,29 @@
 .elapsed_time {
     font-weight: 650;
     font-size: 12px;
-    margin-top: 2px;
     color: rgb(160, 160, 160);
-    margin-left: 10px;
+    margin-right: 10px;
 }
-
-.check {
-    background-color: #2e7d32d4;
-}
-
 
 @media screen and (max-width: 700px) {
-    .ref-search-btn {
-        width: 100%;
-    }
-
     .two-columns-container {
         display: block;
     }
 }
 
-
-
 /* タブ全体 */
-.ref-tabs {
+.tabs {
     display: flex;
-    margin: 10px 0;
-    border: 2px solid rgb(142, 196, 71);
-    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #74A343;
+    border-radius: 10px;
 }
 
 /* ボタン */
 .tab {
     flex: 1;
-    padding: 10px;
-    border-radius: 10px;
+    height: 26px;
+    border-radius: 9px;
     border: none;
     background-color: white;
     color: #4f4f4f;
@@ -72,11 +50,9 @@
     transition: ease 0.2s;
 }
 
-
-
 /* 選択中 */
 .tab.active {
-    background: rgb(142, 196, 71);
+    background: #74A343;
     color: white;
 }
 
@@ -86,8 +62,8 @@
 }
 
 /* PCではタブ非表示 */
-@media (min-width: 641px) {
-    .ref-tabs {
+@media (min-width: 700px) {
+    .tabs {
         display: none;
     }
 }

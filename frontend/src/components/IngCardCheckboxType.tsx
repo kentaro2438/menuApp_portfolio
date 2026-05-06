@@ -6,16 +6,24 @@ function IngCardCheckboxType({ ing, catData, selectedIngIds, handleCheckboxChang
     const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
     const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
     return (
-        <div key={ing.ing_id} className="card inner-wrap">
-            <div>
-                <p className='name'>{ing.ing_name}</p>
-                <p className={`cat-name cat-${catId}`}>{catName}</p>
+        <div key={ing.ing_id} className="card">
+            <div className='card-row'>
+                <p className='name'>
+                    {ing.ing_name}
+                </p>
+                <div className='card-right'>
+                    <span className={`cat-name cat-${catId}`}>
+                        {catName}
+                    </span>
+                    <input
+                        type="checkbox"
+                        checked={selectedIngIds.includes(ing.ing_id)}
+                        onChange={() => handleCheckboxChange(ing.ing_id)}
+                    />
+                </div>
+
             </div>
-            <input
-                type="checkbox"
-                checked={selectedIngIds.includes(ing.ing_id)}
-                onChange={() => handleCheckboxChange(ing.ing_id)}
-            />
+
         </div>
     );
 };
