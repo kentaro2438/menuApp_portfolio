@@ -1,9 +1,14 @@
+//css
 import '../reset.css';
 import '../css/Result.css';
+//context
 import { Link, useLocation } from "react-router-dom";
-import { ChefHat, ArrowLeft, Search as SearchIcon, Plus } from "lucide-react";
+//api
 import { addLackIngToShoppingList } from '../api/api';
+//context
 import { useNotification } from '../context/NotificationContext';
+//icons
+import { ChefHat, ArrowLeft, Search as SearchIcon, Plus } from "lucide-react";
 
 type ResultItemType = [string, number, number, string[], number[], number];
 // [料理名, 一致数, 不足数, 不足材料名リスト, 不足材料IDリスト, 一致率]

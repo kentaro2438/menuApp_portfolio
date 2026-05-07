@@ -1,36 +1,51 @@
+//css
 import '../reset.css';
+import '../css/Spinner.css';
 import '../css/Home.css';
-import { Apple, House, Search, TriangleAlert, CookingPot, Refrigerator, ShoppingCart, Plus } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useNotification } from '../context/NotificationContext.tsx';
-import { searchDish, getRefIng, getDish, getAllDish, getShoppingList } from '../api/api.js';
-import type { refIngType } from '../types/type.ts';
-import { useNavigate } from "react-router-dom";
+//react
 import { useEffect, useState } from 'react';
-import { logout } from '../api/api.js';
+//api
+import { getRefIng, getShoppingList, logout, searchDish } from '../api/api.js';
+//types
+import type { refIngType } from '../types/type.ts';
+//components
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
+//context
+import { useNotification } from '../context/NotificationContext.tsx';
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+//icons
+import { Apple, House, TriangleAlert, CookingPot, Refrigerator, ShoppingCart, ArrowRight } from 'lucide-react';
+
+
 
 function Home() {
 
     const [refIngData, setRefIngData] = useState<refIngType[]>([]); //冷蔵庫の材料
-    const [randomDishName, setRandomDishName] = useState(""); //ランダムで表示する料理名
+    const [possibleDishList, setPossibleDishList] = useState<string[]>([]); //冷蔵庫の材料で作れる料理のリスト  
     const [shoppingList, setShoppingList] = useState<refIngType[]>([]); //買い物リストにある材料
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
     const { showNotification } = useNotification();
     const navigate = useNavigate();
 
     //ローディング表示
-    useEffect(() => {
-        setFirstLoading(true);
-        const firstFetch = async () => {
-            await fetchGetRandomDish();
-            await fetchGetRefIng();
-            await fetchGetShoppingList();
+useEffect(() => {
+    const firstFetch = async () => {
+        try {
+            setFirstLoading(true);
+            fetchGetShoppingList();
+            const refData = await getRefIng();
+            const refIngs = refData.ings_in_ref_list_json;
+            setRefIngData(refIngs);
+            await fetchPossibleDishes(refIngs);
+        } catch (error: any) {
+            showNotification("error", error.message);
+        } finally {
             setFirstLoading(false);
-        };
-        firstFetch();
-    }, []);
+        }
+    };
+    firstFetch();
+}, []);
 
     if (firstLoading) {
         return <LoadingSpinner />;
@@ -47,40 +62,10 @@ function Home() {
         }
     };
 
-    //すべての料理を取得
-    const fetchGetAllDish = async () => {
-        const data = await getAllDish();
-        return data.dish_list_json;
-    };
-
     // 買い物リストの材料を取得
     const fetchGetShoppingList = async () => {
         const data = await getShoppingList();
         setShoppingList(data.shopping_list_json);
-    };
-
-    //ランダムで料理を1つ表示
-    const fetchGetRandomDish = async () => {
-        try {
-            const allDishes = await fetchGetAllDish();
-
-            if (!allDishes || allDishes.length === 0) {
-                showNotification("error", "登録されている料理がありません");
-                return;
-            }
-
-            const randomDish = allDishes[Math.floor(Math.random() * allDishes.length)];
-            const data = await getDish(randomDish.dish_id);
-            setRandomDishName(data.dish_name);
-        } catch (error: any) {
-            showNotification("error", error.message);
-        }
-    };
-
-    //冷蔵庫の材料を取得
-    const fetchGetRefIng = async () => {
-        const data = await getRefIng();
-        setRefIngData(data.ings_in_ref_list_json);
     };
 
     //冷蔵庫に追加してから1週間以上経過した材料数を表示
@@ -95,29 +80,22 @@ function Home() {
         return dengerIngList.length;
     }
 
-    //冷蔵庫にある材料で作れる料理を検索
-    const handleSearch = async () => {
-        setLoading(true);
-        const refIngIds = refIngData.map(ing => ing.ing_id);
+    //冷蔵庫の材料で作れる料理を取得
+    const fetchPossibleDishes = async (refIngs: refIngType[]) => {
+        const refIngIds = refIngs.map(ing => ing.ing_id);
+        console.log(refIngIds);
         if (refIngIds.length === 0) {
-            showNotification("error", "冷蔵庫に材料がありません");
-            setLoading(false);
+            setPossibleDishList([]);
             return;
         }
         try {
             const data = await searchDish(refIngIds);
-            navigate("/result", {
-                state: {
-                    selectedIngIds: refIngIds,
-                    resultList: data.result_list,
-                },
-            });
+            setPossibleDishList(data.result_list);
         } catch (error: any) {
             showNotification("error", error.message);
-        } finally {
-            setLoading(false);
         }
-    }
+    };
+
 
     return (
         <div className="main home-page">
@@ -125,95 +103,93 @@ function Home() {
             <p>今日のおすすめやクイックアクションを確認できます</p>
             <div>
                 ログイン機能テスト用エリア
-                <button onClick={fetchLogout}>ログアウト</button>
+                <button onClick={fetchLogout} className='btn'>ログアウト</button>
             </div>
-            <section>
-                <h3>今日のおすすめ</h3>
-                <p>{randomDishName}</p>
-            </section>
-            <section className='quick-action-section'>
-                <h3>クイックアクション</h3>
-                <div className='section-inner-container'>
-                    <div>
-                        <div className='flex-container'>
-                            <div className='icon-area'>
-                                <Search className='icon-size' />
+            <div className='section-container'>
+                <section className='recommend-section'>
+                    <h3>冷蔵庫の材料で作れる料理</h3>
+                    <div className='recommend-dish-container'>
+                        {possibleDishList.length === 0 ? (
+                            <p>作れる料理が見つかりませんでした</p>
+                        ) : (
+                            <ul>
+                                {possibleDishList.slice(0, 5).map((dish, index) => (
+                                    <li key={index}>{dish[0]}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </section>
+                <div className='quick-action-and-summary'>
+                    <section className='quick-action-section'>
+                        <h3>クイックアクション</h3>
+                        <div className='quick-action-container'>
+                            <div className='see-ref'>
+                                <div className='flex'>
+                                    <Refrigerator className='quick-action-icon' />
+                                    <div>
+                                        <h4>冷蔵庫を見る</h4>
+                                        <p>保存中の材料を確認</p>
+                                    </div>
+                                </div>
+                                <Link to="/refrigerator" className='quick-action-link'><ArrowRight /></Link>
                             </div>
-                            <div>
-                                <h4>料理を検索</h4>
-                                <p>冷蔵庫の材料から料理を検索します</p>
+                            <div className='add-ing'>
+                                <div className='flex'>
+                                    <Apple className='quick-action-icon' />
+                                    <div>
+                                        <h4>材料を追加</h4>
+                                        <p>新しい材料を追加</p>
+                                    </div>
+                                </div>
+                                <Link to="/list_ing/add" className='quick-action-link'><ArrowRight /></Link>
+                            </div>
+                            <div className='add-dish'>
+                                <div className='flex'>
+                                    <CookingPot className='quick-action-icon' />
+                                    <div>
+                                        <h4>料理を追加</h4>
+                                        <p>新しい料理を追加</p>
+                                    </div>
+                                </div>
+                                <Link to="/list_dish/add" className='quick-action-link'><ArrowRight /></Link>
                             </div>
                         </div>
-                        <button className='btn' onClick={() => handleSearch()} disabled={loading}>
-                            {loading ? "検索中..." : <><Search className='icon-in-btn' />検索する</>}
-                        </button>
-                    </div>
-                    <div>
-                        <div className='flex-container'>
-                            <div className='icon-area'>
-                                <Apple className='icon-size' />
+                    </section>
+                    <section className='summary-section'>
+                        <h3>サマリー</h3>
+                        <div className="summary-container">
+                            <div className='ing-in-ref'>
+                                <div className="flex">
+                                    <Refrigerator className='summary-icon' />
+                                    <div>
+                                        <h4>{refIngData.length}</h4>
+                                        <p>冷蔵庫の材料数</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h4>材料を追加</h4>
-                                <p>新しい材料を追加します</p>
-                                <br />
+                            <div className='denger-ing'>
+                                <div className="flex">
+                                    <TriangleAlert className='summary-icon' />
+                                    <div>
+                                        <h4>{getDengerIngCount()}</h4>
+                                        <p>賞味期限が近い材料</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='ing-in-shopping-list'>
+                                <div className="flex">
+                                    <ShoppingCart className='summary-icon' />
+                                    <div>
+                                        <h4>{shoppingList.length}</h4>
+                                        <p>買い物リストの材料数</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <Link to="/list_ing/add" className='btn'><Plus className='icon-in-btn' />追加する</Link>
-                    </div>
-                    <div>
-                        <div className='flex-container'>
-                            <div className='icon-area'>
-                                <CookingPot className='icon-size' />
-                            </div>
-                            <div>
-                                <h4>料理を追加</h4>
-                                <p>新しい料理を追加します</p>
-                                <br />
-                            </div>
-                        </div>
-                        <Link to="/list_dish/add" className='btn'><Plus className='icon-in-btn' />追加する</Link>
-                    </div>
+                    </section>
                 </div>
-            </section>
-            <section className='ref-summary-section'>
-                <h3>サマリー</h3>
-                <div className='section-inner-container'>
-                    <div>
-                        <div className='flex-container'>
-                            <div className='icon-area'>
-                                <Refrigerator className='icon-size' />
-                            </div>
-                            <div>
-                                <h4>冷蔵庫の材料数</h4>
-                                <p>{refIngData.length}<span>個</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className='flex-container'>
-                            <div className='icon-area'>
-                                <TriangleAlert className='icon-size' />
-                            </div>
-                            <div>
-                                <h4>1週間以上未使用の材料数</h4>
-                                <p>{getDengerIngCount()}<span>個</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className='flex-container'>
-                            <div className='icon-area'>
-                                <ShoppingCart className='icon-size' />
-                            </div>
-                            <div>
-                                <h4>買い物リストの材料数</h4>
-                                <p>{shoppingList.length}<span>個</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
     )
 };

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, flash, jsonify
+from flask import Flask, request, jsonify
 from flask_login import (
     LoginManager,
     UserMixin,

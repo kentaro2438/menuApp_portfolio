@@ -1,14 +1,22 @@
+//css
 import '../reset.css';
+import '../css/Spinner.css';
 import '../css/refrigerator_shoppinglist.css';
+//react
 import { useEffect, useState } from "react";
+//api
 import { getAllIng, getCat, getShoppingList, addIngToShoppingList, deleteIngFromShoppingList } from '../api/api.js';
+//types
 import type { ingType, catType } from '../types/type.ts';
+//components
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+import ShoppingCard from '../components/ShoppingCard.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
+//context
 import { useNotification } from '../context/NotificationContext.tsx';
 import { ShoppingCart } from 'lucide-react';
-import ShoppingCard from '../components/ShoppingCard.tsx';
+//icons
 import PlusIcon from '../img/Plus.svg';
 import CheckIcon from '../img/Check.svg';
 
@@ -142,7 +150,7 @@ function ShoppingList() {
                         <span className='length'>{filteredIngData.length}</span>
                         <span className='icon-hint'>
                             <img src={PlusIcon} alt="追加" />
-                            材料を冷蔵庫に追加
+                            買い物リストに追加
                         </span>
                     </div>
                     <div className="ref-columns-container">

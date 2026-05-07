@@ -1,14 +1,23 @@
+//css
 import '../reset.css';
-import '../css/category.css';
-import { Link } from "react-router-dom";
+import '../css/Spinner.css';
+import '../css/Category.css';
+//react
 import { useEffect, useState } from "react";
+//api
 import { getAllIng, getCat } from '../api/api.js';
+//types
 import type { ingType, catType } from '../types/type.ts';
+//components
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
-import { Pencil, Apple, Plus } from 'lucide-react';
+//context
+import { Link } from "react-router-dom";
+//icons
+import { Apple, Plus } from 'lucide-react';
 import EditIcon from '../img/Edit.svg';
+
 
 function ListIng() {
     const [ingData, setIngData] = useState<ingType[]>([]); // 全ての材料

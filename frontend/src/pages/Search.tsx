@@ -1,12 +1,20 @@
+//css
 import '../reset.css';
+import '../css/Spinner.css';
+//react
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+//api
 import { getAllIng, getCat, searchDish } from '../api/api.js';
+//types
 import type { ingType, catType } from "../types/type.ts";
+//components
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
+//context
 import { useNotification } from '../context/NotificationContext.tsx';
+import { useNavigate } from "react-router-dom";
+//icons
 import { Search as SearchIcon } from 'lucide-react';
 
 function Search() {

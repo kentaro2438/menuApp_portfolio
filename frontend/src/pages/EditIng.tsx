@@ -1,12 +1,19 @@
+//css
 import '../reset.css';
+//react
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+//api
 import { getCat, getIng, editIng } from '../api/api.js';
+//types
 import type { catType } from '../types/type.ts';
+//components
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+//context
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+//icons
 import { Pencil } from 'lucide-react';
 
 function EditIng() {

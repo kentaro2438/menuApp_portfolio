@@ -1,16 +1,15 @@
 header {
-    background: linear-gradient(to right,
-            #74A343,
-            #72b717c2);
+    background: rgba(245, 245, 245, 0.5);   
     backdrop-filter: blur(3px);
-    padding: 20px;
+    padding: 10px 25px;
     position: relative;
     z-index: 100;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    margin-left: 2.5%;
-    color: white;
+.title-icon {
+    width: 280px;
+    margin-bottom: -10px;
 }
 
 h1 span {
@@ -18,16 +17,9 @@ h1 span {
     margin-left: 20px;
 }
 
-.h1-icon {
-    width: 32px;
-    height: 32px;
-    stroke-width: 2.5;
-}
-
 nav {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
 }
 
 nav a {
@@ -40,6 +32,7 @@ nav a {
     position: relative;
     padding-bottom: 5px;
     text-decoration: none;
+    color: #4f4f4f;
 }
 
 .nav-icon {
@@ -59,7 +52,7 @@ nav a.active::after {
     transform: translateX(-50%);
     width: 100%;
     height: 2px;
-    background-color: white;
+    background-color: #4f4f4f;
 }
 
 /* PCではボタン非表示 */
@@ -92,7 +85,7 @@ nav a.active::after {
         padding: 0;
         background: none;
         border: none;
-        color: white;
+        color: #4f4f4f;
         font-size: 32px;
         cursor: pointer;
         z-index: 1001;
@@ -151,6 +144,6 @@ nav a.active::after {
     }
 
     .open-color {
-        color: #72b717
+        color: #4f4f4f;
     }
 }

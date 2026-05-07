@@ -1,16 +1,10 @@
 .ref-columns-container {
-    max-height: 56.5vh;
+    max-height: 50vh;
     overflow-y: auto;
     background-color: white;
     border-radius: 0 0 10px 10px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-top: none;
-}
-
-.flex-columns-container {
-    display: flex;
-    flex: 1;
-    column-gap: 10px;
 }
 
 .not_in_ref .elapsed_time {

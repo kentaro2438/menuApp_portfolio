@@ -1,14 +1,23 @@
+//css
 import '../reset.css';
-import { Link } from "react-router-dom";
+import '../css/Spinner.css';
+//react
 import { useEffect, useState } from "react";
+//api
 import { getAllDish, deleteDish } from '../api/api.js';
+//types
 import type { dishType } from '../types/type.ts';
+//components
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
-import { Pencil, Trash2, CookingPot, Plus } from 'lucide-react';
+//context
 import { useNotification } from '../context/NotificationContext.tsx';
+import { Link } from "react-router-dom";
+//icons
+import { CookingPot, Plus } from 'lucide-react';
 import DeleteIcon from '../img/Delete.svg';
 import EditIcon from '../img/Edit.svg';
+
 
 function ListDish() {
 
@@ -76,7 +85,7 @@ function ListDish() {
                             <div className="card-row">
                                 <p className='name'>
                                     {dish.dish_name}
-                                    </p>
+                                </p>
                                 <div className="card-right">
                                     <Link
                                         to={`/list_dish/edit/${dish.dish_id}`}

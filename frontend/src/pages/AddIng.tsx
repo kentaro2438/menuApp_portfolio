@@ -1,11 +1,18 @@
+//css
 import '../reset.css';
-import { useState, useEffect } from 'react';
+//react
+import { useState, useEffect } from "react";
+//api
 import { getCat, addIng } from '../api/api.js';
+//types
 import type { catType } from '../types/type.ts';
+//components
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
+//context
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
+//icons
 import { Plus } from 'lucide-react';
 
 function AddIng() {

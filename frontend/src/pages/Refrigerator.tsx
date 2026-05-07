@@ -1,15 +1,23 @@
+//css
 import '../reset.css';
+import '../css/Spinner.css';
 import '../css/refrigerator_shoppinglist.css';
+//react
 import { useEffect, useState } from "react";
+//api
 import { getAllIng, getCat, getRefIng, addIngToRef, deleteIngFromRef, searchDish } from '../api/api.js';
+//api
 import type { ingType, catType, refIngType } from '../types/type.ts';
+//components
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
-import { useNotification } from '../context/NotificationContext.tsx';
 import RefCard from '../components/RefCard.tsx';
+//context
+import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from "react-router-dom";
-import { Refrigerator as RefrigeratorIcon, SearchIcon, Plus, Trash2 } from 'lucide-react';
+//icon
+import { Refrigerator as RefrigeratorIcon, SearchIcon } from 'lucide-react';
 import PlusIcon from '../img/Plus.svg';
 import DeleteIcon from '../img/Delete.svg';
 

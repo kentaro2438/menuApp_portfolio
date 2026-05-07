@@ -1,14 +1,21 @@
+//css
 import '../reset.css';
-// import '../css/category.css';
+import '../css/Category.css';
+//react
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+//api
 import { getCat, getAllIng, getDish, editDish } from "../api/api.js";
+//types
 import type { catType, ingType } from "../types/type.ts";
+//components
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
+//context
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
+//icons
 import { Pencil } from 'lucide-react';
 
 function EditDish() {

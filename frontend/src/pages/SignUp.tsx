@@ -1,8 +1,13 @@
+//css
 import '../reset.css';
+//react
 import { useState } from 'react';
-import AuthForm from '../components/AuthForm.tsx';
-import { UserPlus } from 'lucide-react';
+//api
 import { signUp } from '../api/api.js';
+//components
+import AuthForm from '../components/AuthForm.tsx';
+//context
+import { UserPlus } from 'lucide-react';
 import { useNotification } from '../context/NotificationContext.tsx';
 
 function SignUp() {
