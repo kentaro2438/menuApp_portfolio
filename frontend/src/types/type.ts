@@ -23,3 +23,13 @@ export type refIngType = {
     added_at: string;
 };
 
+export type ResultItemType = [
+    string,
+    number,
+    number,
+    string[],
+    number[],
+    number
+];
+// [料理名, 一致数, 不足数, 不足材料名リスト, 不足材料IDリスト, 一致率]
+

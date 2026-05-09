@@ -73,9 +73,9 @@ function ListDish() {
                     料理一覧
                     <span className='length'>{filteredDishes.length}</span>
                     <span className='icon-hint'>
-                        <img src={EditIcon} alt="編集" />
+                        <img src={EditIcon} alt="編集"/>
                         料理を編集
-                        <img src={DeleteIcon} alt="削除" />
+                        <img src={DeleteIcon} alt="削除"/>
                         料理を削除
                     </span>
                 </div>
@@ -91,7 +91,7 @@ function ListDish() {
                                         to={`/list_dish/edit/${dish.dish_id}`}
                                         className='icon-btn'
                                     >
-                                        <img src={EditIcon} alt="編集" className='icon' />
+                                        <img src={EditIcon} alt="編集" className='icon edit' />
                                     </Link>
                                     <button
                                         onClick={async () => {
@@ -101,7 +101,7 @@ function ListDish() {
                                         }}
                                         className='icon-btn'
                                     >
-                                        <img src={DeleteIcon} alt="削除" className='icon' />
+                                        <img src={DeleteIcon} alt="削除" className='icon delete' />
                                     </button>
                                 </div>
                             </div>

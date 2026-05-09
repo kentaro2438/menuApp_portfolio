@@ -108,7 +108,7 @@ function ListIng() {
                                                 to={`/list_ing/edit/${ing.ing_id}`}
                                                 className='icon-btn'
                                             >
-                                                <img src={EditIcon} alt="Edit" className='icon' />
+                                                <img src={EditIcon} alt="Edit" className='icon edit' />
                                             </Link>
                                         </div>
                                     </div>

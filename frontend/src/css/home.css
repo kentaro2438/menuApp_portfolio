@@ -1,8 +1,14 @@
 section {
     margin-bottom: 20px;
-    padding: 20px 30px;
+    padding: 20px;
     border-radius: 10px;
-    background: #22abe6;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.home-page a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
 }
 
 .section-container {
@@ -14,16 +20,118 @@ section {
     margin-bottom: 20px;
 }
 
+/* セクション内のアイコン */
+.h3-icon {
+    margin-right: 10px;
+    margin-bottom: -5px;
+}
+
+.recommend-section .h3-icon {
+    color: rgb(95, 187, 35);
+}
+
+.quick-action-section .h3-icon {
+    color: #ffcc00;
+}
+
+.summary-section .h3-icon {
+    color: rgb(0, 183, 255)
+}
+
 .section-container h4 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+.summary-container h4 {
+    font-size: 28px;
+    margin-bottom: -4px;
+}
+
+.summary-container h4 span {
+    font-size: 14px;
+    margin-left: 6px;
 }
 
 .recommend-section {
-    width: 30%;
+    width: 35%;
+    height: 431px;
+    /* 左右で高さを合わせるために指定 */
+    overflow-y: auto;
+}
+
+.recommend-dish-card {
+    height: 110px;
+    border: 1.5px solid rgba(95, 187, 35, 0.4);
+    background-color: rgba(95, 187, 35, 0.07);
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+}
+
+.recommend-dish-card a:hover {
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+
+.recommend-dish-card .match-rate {
+    width: 90px;
+    height: 90px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    background-color: rgb(95, 187, 35);
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.recommend-dish-card .match-rate p {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.recommend-dish-card span {
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.dish-info {
+    margin-left: 10px;
+}
+
+.recommend-dish-card p.lack-ing_list {
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+a.see-recipe-btn {
+    display: block;
+    background-color: white;
+    color: rgb(95, 187, 35);
+    border: 1.5px solid rgba(95, 187, 35, 0.4);
+    padding: 5px 8px 5px 15px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.see-recipe-btn-arrow {
+    margin-left: 8px;
+    margin-bottom: -2px;
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.5;
 }
 
 .quick-action-and-summary {
-    width: 70%;
+    width: 65%;
 }
 
 .quick-action-container,
@@ -32,35 +140,103 @@ section {
     gap: 20px;
 }
 
-.quick-action-container>div,
+.quick-action-container>a,
 .summary-container>div {
     flex: 1;
-    background-color: white;
     border-radius: 10px;
     padding: 20px;
     position: relative;
+    transition: 0.2s ease;
+}
+
+.quick-action-container > a:hover {
+    transform: scale(1.05);
+}
+
+
+/* カードのスタイル */
+.see-ref,
+.ing-in-ref {
+    border: 1.5px solid rgba(95, 187, 35, 0.4);
+    background-color: rgba(95, 187, 35, 0.07);
+}
+
+.add-ing,
+.denger-ing {
+    border: 1.5px solid rgba(255, 204, 0, 0.8);
+    background-color: rgba(255, 204, 0, 0.07);
+}
+
+.add-dish,
+.ing-in-shopping-list {
+    border: 1.5px solid rgba(24, 167, 211, 0.4);
+    background-color: rgba(24, 167, 211, 0.07);
+}
+
+/* カード内先頭のアイコンのサイズ */
+.quick-action-icon,
+.summary-icon {
+    min-width: 35px;
+    min-height: 35px;
+    margin-right: 5px;
+}
+
+/* カード内先頭のアイコン色 */
+.see-ref .quick-action-icon,
+.ing-in-ref .summary-icon,
+.see-ref .quick-action-link {
+    color: rgb(95, 187, 35);
+}
+
+.add-ing .quick-action-icon,
+.denger-ing .summary-icon,
+.add-ing .quick-action-link {
+    color: rgb(255, 149, 0);
+}
+
+.add-dish .quick-action-icon,
+.ing-in-shopping-list .summary-icon,
+.add-dish .quick-action-link {
+    color: rgb(24, 167, 211);
+}
+
+/* カードのタイトルのスタイル */
+.see-ref h4,
+.ing-in-ref h4 {
+    color: rgb(95, 187, 35);
+}
+
+.add-ing h4,
+.denger-ing h4 {
+    color: rgb(255, 149, 0);
+}
+
+.add-dish h4,
+.ing-in-shopping-list h4 {
+    color: rgb(24, 167, 211);
 }
 
 .flex {
     display: flex;
     gap: 10px;
-    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quick-action-section .flex {
     margin-bottom: 30px;
 }
 
-.quick-action-icon,
-.summary-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-}
 
 .quick-action-container p,
 .summary-container p {
     font-size: 12px;
 }
 
-a.quick-action-link {
+.summary-container p {
+    text-align: center;
+}
+
+.quick-action-link {
     display: inline-block;
     /* 右下に配置 */
     position: absolute;
@@ -89,7 +265,7 @@ a.quick-action-link {
         display: block;
     }
 
-    .quick-action-container>div,
+    .quick-action-container>a,
     .summary-container>div {
         margin-top: 20px;
     }

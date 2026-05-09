@@ -174,8 +174,8 @@ function Refrigerator() {
             <div className='two-columns-container'>
                 <div className={
                     isMobile
-                        ? (isOpenRef ? 'not_in_ref hidden' : 'not_in_ref')
-                        : 'not_in_ref'
+                        ? (isOpenRef ? 'not-in-ref hidden' : 'not-in-ref')
+                        : 'not-in-ref'
                 }>
                     <div className='card-header'>
                         冷蔵庫にない材料
@@ -205,8 +205,8 @@ function Refrigerator() {
                     </div>
                 </div>
                 <div className={isMobile
-                    ? (isOpenRef ? 'in_ref' : 'in_ref hidden')
-                    : 'in_ref'
+                    ? (isOpenRef ? 'in-ref' : 'in-ref hidden')
+                    : 'in-ref'
                 }>
                     <div className='card-header'>
                         冷蔵庫にある材料

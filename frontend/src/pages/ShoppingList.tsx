@@ -142,8 +142,8 @@ function ShoppingList() {
             <div className='two-columns-container'>
                 <div className={
                     isMobile 
-                    ? (isOpenShoppingList ? 'not-purchased hidden' : 'not-purchased')
-                    : 'not-purchased'
+                    ? (isOpenShoppingList ? 'ing-list hidden' : 'ing-list')
+                    : 'ing-list'
                 }>
                     <div className='card-header'>
                         材料一覧
@@ -174,8 +174,8 @@ function ShoppingList() {
                 </div>
                 <div className={
                     isMobile 
-                    ? (!isOpenShoppingList ? 'purchased hidden' : 'purchased')
-                    : 'purchased'
+                    ? (!isOpenShoppingList ? 'shopping-list hidden' : 'shopping-list')
+                    : 'shopping-list'
                 }>
                     <div className='card-header'>
                         買い物リスト

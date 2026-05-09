@@ -22,7 +22,7 @@ function RefCard({ ing, catId, catName, type, onClick }:
 
                 <div className='card-right'>
 
-                    <span className='elapsed_time'>
+                    <span className='elapsed-time'>
                         {getElaspedTime(ing.added_at)}
                     </span>
                     
@@ -35,8 +35,8 @@ function RefCard({ ing, catId, catName, type, onClick }:
                         onClick={() => onClick(ing.ing_id)}
                     >
                         {type === "add"
-                            ? <img src={PlusIcon} alt="Add" className='icon' />
-                            : <img src={DeleteIcon} alt="Delete" className='icon' />
+                            ? <img src={PlusIcon} alt="Add" className='icon plus' />
+                            : <img src={DeleteIcon} alt="Delete" className='icon delete' />
                         }
                     </button>
                 </div>

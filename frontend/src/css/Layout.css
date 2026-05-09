@@ -1,5 +1,5 @@
 header {
-    background: rgba(245, 245, 245, 0.5);   
+    background: rgba(245, 245, 245, 0.5);
     backdrop-filter: blur(3px);
     padding: 10px 25px;
     position: relative;
@@ -42,6 +42,16 @@ nav a {
     margin-right: 2px;
 }
 
+nav a.active {
+    color: rgb(95, 187, 35);
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: rgb(95, 187, 35);
+    font-weight: 600;
+}
+
 
 /* 現在いるページを示す下線のスタイル */
 nav a.active::after {
@@ -52,7 +62,7 @@ nav a.active::after {
     transform: translateX(-50%);
     width: 100%;
     height: 2px;
-    background-color: #4f4f4f;
+    background-color: rgb(95, 187, 35);
 }
 
 /* PCではボタン非表示 */

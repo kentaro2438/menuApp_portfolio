@@ -12,9 +12,14 @@ input {
     width: 20vw;
 }
 
+input:hover,
+select:hover {
+    border: 2px solid rgb(100, 192, 35);
+}
+
 input:focus {
     outline: none;
-    border: 2px solid rgb(142, 196, 71);
+    border: 2px solid rgb(100, 192, 35);
 }
 
 select {
@@ -24,13 +29,11 @@ select {
 
 select:focus {
     outline: none;
-    border: 2px solid rgb(142, 196, 71);
+    border: 2px solid rgb(100, 192, 35);
 }
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
 @media screen and (max-width: 700px) {
-
-    
 
     input,
     select {

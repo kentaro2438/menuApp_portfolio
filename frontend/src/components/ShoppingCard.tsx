@@ -22,8 +22,8 @@ function ShoppingCard({ ing, catId, catName, type, onClick }:
                         onClick={() => onClick(ing.ing_id)}
                     >
                         {type === "add"
-                            ? <img src={PlusIcon} alt="Add" className='icon' />
-                            : <img src={CheckIcon} alt="Check" className='icon' />
+                            ? <img src={PlusIcon} alt="Add" className='icon plus' />
+                            : <img src={CheckIcon} alt="Check" className='icon check' />
                         }
                     </button>
                 </div>
