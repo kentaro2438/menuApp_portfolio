@@ -92,7 +92,9 @@ function Home() {
             <div className="contents-area">
                 <div className='section-container'>
                     <section className='recommend-section'>
-                        <h3><Star className='h3-icon' />今すぐ作れる料理</h3>
+                        <div className="card-header">
+                            <Star className='h3-icon' />今すぐ作れる料理
+                        </div>
                         <div className='recommend-dish-container'>
                             {possibleDishList.length === 0 ?
                                 <p>作れる料理が見つかりませんでした</p> :
@@ -117,7 +119,7 @@ function Home() {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className='see-recipe-btn'
-                                            >レシピを検索<ArrowRight className='see-recipe-btn-arrow'/></a>
+                                            >レシピを検索<ArrowRight className='see-recipe-btn-arrow' /></a>
                                         </div>
                                     ))
                             }
@@ -125,7 +127,9 @@ function Home() {
                     </section>
                     <div className='quick-action-and-summary'>
                         <section className='quick-action-section'>
-                            <h3><Zap className='h3-icon' />クイックアクション</h3>
+                            <div className='card-header yellow'>
+                                <Zap className='h3-icon' />クイックアクション
+                            </div>
                             <div className='quick-action-container'>
                                 <Link to="/refrigerator" className='see-ref'>
                                     <div className='flex'>
@@ -160,7 +164,9 @@ function Home() {
                             </div>
                         </section>
                         <section className='summary-section'>
-                            <h3><ChartColumn className='h3-icon' />サマリー</h3>
+                            <div className='card-header blue'>
+                                <ChartColumn className='h3-icon' />サマリー
+                            </div>
                             <div className="summary-container">
                                 <div className='ing-in-ref'>
                                     <div className="flex">
@@ -186,7 +192,7 @@ function Home() {
                             </div>
                         </section>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
     )

@@ -1,8 +1,6 @@
 .home-page section {
     margin-bottom: 20px;
-    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0px 5px 1px rgba(95, 187, 35, 0.4);
 }
 
 .home-page a {
@@ -22,34 +20,20 @@
 
 .recommend-section {
     width: 35%;
-    height: 440px;
-    overflow-y: auto;
+    box-shadow: 0 0px 5px 1px rgba(95, 187, 35, 0.4);
 }
 
 .quick-action-section {
-    min-height: 215px;
+    box-shadow: 0 0px 5px 1px rgba(255, 204, 0, 0.4);
 }
 
 .summary-section {
-    min-height: 205px;
+    box-shadow: 0 0px 5px 1px rgba(24, 167, 211, 0.4);
 }
 
 /* セクション内のアイコン */
 .h3-icon {
-    margin-right: 10px;
-    margin-bottom: -5px;
-}
-
-.recommend-section .h3-icon {
-    color: rgb(95, 187, 35);
-}
-
-.quick-action-section .h3-icon {
-    color: #ffcc00;
-}
-
-.summary-section .h3-icon {
-    color: rgb(0, 183, 255)
+    color: white;
 }
 
 .section-container h4 {
@@ -66,11 +50,17 @@
     margin-left: 6px;
 }
 
+.recommend-dish-container {
+    padding: 20px;
+    height: 382.5px;
+    overflow-y: auto;
+}
+
 
 .recommend-dish-card {
     height: 110px;
     border: 1.5px solid rgba(95, 187, 35, 0.4);
-    background-color: rgba(95, 187, 35, 0.07);
+    background-color: white;
     border-radius: 10px;
     padding: 10px;
     position: relative;
@@ -148,6 +138,8 @@ a.see-recipe-btn {
 .summary-container {
     display: flex;
     gap: 20px;
+    padding: 20px;
+    height: 160px;
 }
 
 .quick-action-container>a,
@@ -169,18 +161,21 @@ a.see-recipe-btn {
 .ing-in-ref {
     border: 1.5px solid rgba(95, 187, 35, 0.4);
     background-color: rgba(95, 187, 35, 0.07);
+    background-color: white;
 }
 
 .add-ing,
 .denger-ing {
     border: 1.5px solid rgba(255, 204, 0, 0.8);
     background-color: rgba(255, 204, 0, 0.07);
+    background-color: white;
 }
 
 .add-dish,
 .ing-in-shopping-list {
     border: 1.5px solid rgba(24, 167, 211, 0.4);
     background-color: rgba(24, 167, 211, 0.07);
+    background-color: white;
 }
 
 /* カード内先頭のアイコンのサイズ */
@@ -261,6 +256,14 @@ a.see-recipe-btn {
 
     .recommend-section {
         width: 100%;
+        
+    }
+
+    .recommend-dish-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 400px;
     }
 
     .quick-action-and-summary {
@@ -272,11 +275,9 @@ a.see-recipe-btn {
 
     .quick-action-container,
     .summary-container {
-        display: block;
-    }
-
-    .quick-action-container>a,
-    .summary-container>div {
-        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
     }
 }

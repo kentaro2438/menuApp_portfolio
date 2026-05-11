@@ -18,16 +18,16 @@ body {
     min-height: 80vh;
     margin: 0 auto;
     padding: 20px 40px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .contents-area {
     margin: 0 auto;
-    width: 92%;
+    width: 96%;
 }
 
 .main>p {
-    margin-left: 38px;
+    margin-left: 2vw;
     margin-bottom: 20px;
 }
 
@@ -112,7 +112,7 @@ h3 {
     grid-template-columns: repeat(3, 1fr);
     /* 3列 */
     padding: 10px 20px;
-    max-height: 325px;
+    max-height: 47.3vh;
     column-gap: 20px;
     overflow-y: auto;
     background-color: white;
@@ -123,6 +123,10 @@ h3 {
 
 .result-page .card-columns-container {
     grid-template-columns: repeat(3, 1fr);
+}
+
+section {
+    background-color: white;
 }
 
 section.ing-list {
@@ -144,10 +148,15 @@ section.shopping-list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    min-height: 50px;
     gap: 12px;
     font-weight: 600;
-    background-color: #75a34315;
     padding: 10px 20px;
+    background:
+        linear-gradient(180deg,
+            #73cd22 0%,
+            #63bf18 100%);
+    color: white;
     border-radius: 10px 10px 0 0;
 }
 
@@ -217,8 +226,8 @@ section.shopping-list .card:hover {
     text-align: center;
     font-size: 12px;
     font-weight: 600;
-    background-color: rgb(100, 192, 35);
-    color: white;
+    background-color: white;
+    color: #63bf18;
     padding: 2px 10px;
     border-radius: 20px;
 }
@@ -343,17 +352,17 @@ textarea:focus {
         min-height: none;
     }
 
+    .main>p {
+        margin-bottom: 20px;
+    }
+
     .input-area {
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     .input-area>* {
         margin-bottom: 10px;
-    }
-
-    .input-area>button {
-        margin-bottom: 20px;
     }
 
     .card-header {

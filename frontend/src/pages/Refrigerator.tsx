@@ -160,13 +160,13 @@ function Refrigerator() {
                 </div>
                 <div className="tabs">
                     <button
-                        className={!isOpenRef ? "tab active" : "tab"}
+                        className={!isOpenRef ? "tab active not-in-ref" : "tab"}
                         onClick={() => setIsOpenRef(false)}
                     >
                         冷蔵庫にない材料
                     </button>
                     <button
-                        className={isOpenRef ? "tab active" : "tab"}
+                        className={isOpenRef ? "tab active in-ref" : "tab"}
                         onClick={() => setIsOpenRef(true)}
                     >
                         冷蔵庫にある材料
@@ -212,7 +212,7 @@ function Refrigerator() {
                         : 'in-ref'
                     }>
                         <section className="ref-list">
-                            <div className='card-header'>
+                            <div className='card-header yellow'>
                                 冷蔵庫にある材料
                                 <span className='length'>{refIngData.length}</span>
                                 <span className='icon-hint'>

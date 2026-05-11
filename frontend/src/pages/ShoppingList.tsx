@@ -181,7 +181,7 @@ function ShoppingList() {
                         : 'shopping-list'
                     }>
                         <section className="shopping-list">
-                            <div className='card-header'>
+                            <div className='card-header blue'>
                                 買い物リスト
                                 <span className='length'>{shoppingList.length}</span>
                                 <span className='icon-hint'>

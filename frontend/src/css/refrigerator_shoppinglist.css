@@ -1,5 +1,5 @@
 .ref-columns-container {
-    max-height: 325px;
+    max-height: 47.3vh;
     padding: 10px 20px;
     overflow-y: auto;
     background-color: white;
@@ -12,13 +12,17 @@
     box-shadow: 0 0 8px #00000015;
 }
 
-.in-ref .card-header {
-    background-color: rgba(255, 204, 0, 0.07);
+.card-header.yellow {
+    background:
+        linear-gradient(180deg,
+            #ffbf00 0%,
+            #ff9900 100%);
+    color: white;
 }
 
-.in-ref .length {
-    background-color: rgb(255, 204, 0);
-    color: white;
+.card-header.yellow .length {
+    background-color: white;
+    color: #ff9900;
 }
 
 .not-in-ref .elapsed-time {
@@ -32,13 +36,17 @@
     margin-right: 2vw;
 }
 
-.shopping-list .card-header {
-    background-color: rgba(24, 167, 211, 0.07);
+.card-header.blue {
+    background:
+        linear-gradient(180deg,
+            #19c1f4 0%,
+            #0c91da 100%);
+    color: white;
 }
 
-.shopping-list .length {
-    background-color: #17A8D4;
-    color: white;
+.card-header.blue .length {
+    background-color: white;
+    color: #0c91da;
 }
 
 @media screen and (max-width: 700px) {
@@ -51,28 +59,46 @@
 .tabs {
     display: flex;
     margin-bottom: 20px;
-    border: 1px solid #63bf18;
-    border-radius: 10px;
+    height: 40px;
 }
 
 /* ボタン */
 .tab {
     flex: 1;
     height: 26px;
-    border-radius: 9px;
     border: none;
+    border-radius: 10px;
     background-color: white;
-    color: #4f4f4f;
+    color: #a0a0a0;
+    font-weight: 600;
     cursor: pointer;
     transition: ease 0.2s;
+    height: 40px;
 }
 
 /* 選択中 */
-.tab.active {
+.tab.active.not-in-ref {
     background:
         linear-gradient(180deg,
             #73cd22 0%,
             #63bf18 100%);
+    color: white;
+}
+
+.tab.active.in-ref {
+    /* 黄色系のグラデーション */
+    background:
+        linear-gradient(180deg,
+            #ffcc00 0%,
+            #ff9900 100%);
+    color: white;
+}
+
+.tab.active.in-shopping-list {
+    background:
+        linear-gradient(180deg,
+            #17A8D4 0%,
+            #0e7a9c 100%);
     color: white;
 }
 
@@ -82,8 +108,14 @@
 }
 
 /* PCではタブ非表示 */
-@media (min-width: 700px) {
+@media screen and (min-width: 700px) {
     .tabs {
         display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .ref-columns-container {
+        max-height: 38vh;
     }
 }
