@@ -66,23 +66,25 @@ function AddIng() {
         <div className="main add-ing-page">
             <h2><Plus className='h2-icon'/>材料を追加</h2>
             <p>新しい材料を追加できます</p>
-            <form onSubmit={handleNewIng}>
-                <div className="input-area">
-                    <Input
-                        word={newIngName}
-                        setWord={setNewIngName}
-                        placeholder="材料名を入力"
-                    />
-                    <Select
-                        showCatId={newIngCatId}
-                        setShowCatId={setNewIngCatId}
-                        catData={catData}
-                    />
-                    <button type="submit" disabled={loading} className='btn add-ing-btn'>
-                        {loading ? "追加中..." : <><Plus className='icon-in-btn' /> 追加</>}
-                    </button>
-                </div>
-            </form>
+            <div className="contents-area">
+                <form onSubmit={handleNewIng}>
+                    <div className="input-area">
+                        <Input
+                            word={newIngName}
+                            setWord={setNewIngName}
+                            placeholder="材料名を入力"
+                        />
+                        <Select
+                            showCatId={newIngCatId}
+                            setShowCatId={setNewIngCatId}
+                            catData={catData}
+                        />
+                        <button type="submit" disabled={loading} className='btn add-ing-btn'>
+                            {loading ? "追加中..." : <><Plus className='icon-in-btn' /> 追加</>}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

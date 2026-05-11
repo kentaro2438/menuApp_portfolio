@@ -140,102 +140,108 @@ function Refrigerator() {
         <div className="main refrigerator-page">
             <h2><RefrigeratorIcon className='h2-icon' />冷蔵庫</h2>
             <p>冷蔵庫にある材料を管理できます．冷蔵庫にある材料で作れる料理を検索することもできます．</p>
-            <div className="input-area">
-                <Input
-                    word={searchWord}
-                    setWord={setSearchWord}
-                    placeholder="材料を検索"
-                />
-                <Select
-                    showCatId={showCatId}
-                    setShowCatId={setShowCatId}
-                    catData={catData}
-                />
-                <button onClick={handleSearch} disabled={loading}
-                    className='btn search-from-ref-btn'>
-                    <SearchIcon className='icon-in-btn' />
-                    {loading ? "検索中..." : "冷蔵庫の材料から料理を検索"}
-                </button>
-            </div>
-            <div className="tabs">
-                <button
-                    className={!isOpenRef ? "tab active" : "tab"}
-                    onClick={() => setIsOpenRef(false)}
-                >
-                    冷蔵庫にない材料
-                </button>
-                <button
-                    className={isOpenRef ? "tab active" : "tab"}
-                    onClick={() => setIsOpenRef(true)}
-                >
-                    冷蔵庫にある材料
-                </button>
-            </div>
-            <div className='two-columns-container'>
-                <div className={
-                    isMobile
-                        ? (isOpenRef ? 'not-in-ref hidden' : 'not-in-ref')
-                        : 'not-in-ref'
-                }>
-                    <div className='card-header'>
+            <div className="contents-area">
+                <div className="input-area">
+                    <Input
+                        word={searchWord}
+                        setWord={setSearchWord}
+                        placeholder="材料を検索"
+                    />
+                    <Select
+                        showCatId={showCatId}
+                        setShowCatId={setShowCatId}
+                        catData={catData}
+                    />
+                    <button onClick={handleSearch} disabled={loading}
+                        className='btn search-from-ref-btn'>
+                        <SearchIcon className='icon-in-btn' />
+                        {loading ? "検索中..." : "冷蔵庫の材料から料理を検索"}
+                    </button>
+                </div>
+                <div className="tabs">
+                    <button
+                        className={!isOpenRef ? "tab active" : "tab"}
+                        onClick={() => setIsOpenRef(false)}
+                    >
                         冷蔵庫にない材料
-                        <span className='length'>{filteredIngData.length}</span>
-                        <span className='icon-hint'>
-                            <img src={PlusIcon} alt="編集" />
-                            冷蔵庫に追加
-                        </span>
-                    </div>
-                    <div className="ref-columns-container">
-                        {filteredIngData
-                            .sort((a, b) => a.cat_id - b.cat_id)
-                            .map((ing: ingType) => {
-                                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                                return (
-                                    <RefCard
-                                        key={ing.ing_id}
-                                        ing={ing}
-                                        catId={catId}
-                                        catName={catName}
-                                        type="add"
-                                        onClick={handleAddIngToRef}
-                                    />
-                                )
-                            })}
-                    </div>
-                </div>
-                <div className={isMobile
-                    ? (isOpenRef ? 'in-ref' : 'in-ref hidden')
-                    : 'in-ref'
-                }>
-                    <div className='card-header'>
+                    </button>
+                    <button
+                        className={isOpenRef ? "tab active" : "tab"}
+                        onClick={() => setIsOpenRef(true)}
+                    >
                         冷蔵庫にある材料
-                        <span className='length'>{refIngData.length}</span>
-                        <span className='icon-hint'>
-                            <img src={DeleteIcon} alt="削除" />
-                            冷蔵庫から削除
-                        </span>
-                    </div>
-                    <div className="ref-columns-container">
-                        {refIngData
-                            .sort((a, b) => {
-                                return new Date(a.added_at).getTime() - new Date(b.added_at).getTime();
-                            }).map((ing: ingType) => {
-                                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                                return (
-                                    <RefCard
-                                        key={ing.ing_id}
-                                        ing={ing}
-                                        catId={catId}
-                                        catName={catName}
-                                        type="delete"
-                                        onClick={handleDeleteIngFromRef}
-                                    />
-                                )
-                            })}
-                    </div>
+                    </button>
                 </div>
+                <div className='two-columns-container'>
+                    <div className={
+                        isMobile
+                            ? (isOpenRef ? 'not-in-ref hidden' : 'not-in-ref')
+                            : 'not-in-ref'
+                    }>
+                        <section className="ing-list">
+                            <div className='card-header'>
+                                冷蔵庫にない材料
+                                <span className='length'>{filteredIngData.length}</span>
+                                <span className='icon-hint'>
+                                    <img src={PlusIcon} alt="編集" />
+                                    冷蔵庫に追加
+                                </span>
+                            </div>
+                            <div className="ref-columns-container">
+                                {filteredIngData
+                                    .sort((a, b) => a.cat_id - b.cat_id)
+                                    .map((ing: ingType) => {
+                                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                                        return (
+                                            <RefCard
+                                                key={ing.ing_id}
+                                                ing={ing}
+                                                catId={catId}
+                                                catName={catName}
+                                                type="add"
+                                                onClick={handleAddIngToRef}
+                                            />
+                                        )
+                                    })}
+                            </div>
+                        </section>
+                    </div>
+                    <div className={isMobile
+                        ? (isOpenRef ? 'in-ref' : 'in-ref hidden')
+                        : 'in-ref'
+                    }>
+                        <section className="ref-list">
+                            <div className='card-header'>
+                                冷蔵庫にある材料
+                                <span className='length'>{refIngData.length}</span>
+                                <span className='icon-hint'>
+                                    <img src={DeleteIcon} alt="削除" />
+                                    冷蔵庫から削除
+                                </span>
+                            </div>
+                            <div className="ref-columns-container">
+                                {refIngData
+                                    .sort((a, b) => {
+                                        return new Date(a.added_at).getTime() - new Date(b.added_at).getTime();
+                                    }).map((ing: ingType) => {
+                                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                                        return (
+                                            <RefCard
+                                                key={ing.ing_id}
+                                                ing={ing}
+                                                catId={catId}
+                                                catName={catName}
+                                                type="delete"
+                                                onClick={handleDeleteIngFromRef}
+                                            />
+                                        )
+                                    })}
+                            </div>
+                        </section>
+                    </div>
+            </div>
             </div>
         </div>
     );

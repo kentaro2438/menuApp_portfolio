@@ -78,23 +78,25 @@ function EditIng() {
         <div className="main edit-ing-page">
             <h2><Pencil className='h2-icon'/>材料を編集</h2>
             <p>既存の材料を編集できます</p>
-            <form onSubmit={handleEditedIng}>
-                <div className="input-area">
-                    <Input
-                        word={editedIngName}
-                        setWord={setEditedIngName}
-                        placeholder="材料名を入力"
-                    />
-                    <Select
-                        showCatId={editedIngCatId}
-                        setShowCatId={setEditedIngCatId}
-                        catData={catData}
-                    />
-                    <button type="submit" disabled={loading} className='btn edit-ing-btn'>
-                        {loading ? "更新中..." : <><Pencil className='icon-in-btn' />更新</>}
-                    </button>
-                </div>
-            </form>
+            <div className="contents-area">
+                <form onSubmit={handleEditedIng}>
+                    <div className="input-area">
+                        <Input
+                            word={editedIngName}
+                            setWord={setEditedIngName}
+                            placeholder="材料名を入力"
+                        />
+                        <Select
+                            showCatId={editedIngCatId}
+                            setShowCatId={setEditedIngCatId}
+                            catData={catData}
+                        />
+                        <button type="submit" disabled={loading} className='btn edit-ing-btn'>
+                            {loading ? "更新中..." : <><Pencil className='icon-in-btn' />更新</>}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

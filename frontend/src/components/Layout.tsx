@@ -3,13 +3,17 @@ import '../css/Layout.css';
 import { Outlet, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Message from './Message.tsx';
-import { House, RefrigeratorIcon, SearchIcon, Apple, CookingPot, ShoppingCart } from 'lucide-react';
-import { getUser } from '../api/api.js';
+import { getUser, logout } from '../api/api.js';
 import TitleIcon from '../img/TitleIcon.svg';
+import { useNotification } from '../context/NotificationContext.tsx';
+import { useNavigate } from 'react-router-dom';
+import { LogOut } from 'lucide-react';
 
 function Layout() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [username, setUsername] = useState<string>("");
+    const { showNotification } = useNotification();
+    const navigate = useNavigate();
 
     const closeMenu = () => {
         setIsOpen(false);
@@ -20,6 +24,17 @@ function Layout() {
         setUsername(data.username);
         return data;
     }
+
+    //ログアウト
+    const fetchLogout = async () => {
+        try {
+            await logout();
+            showNotification("success", "ログアウトしました");
+            navigate("/");
+        } catch (error: any) {
+            showNotification("error", error.message);
+        }
+    };
 
     useEffect(() => {
         fetchGetUser();
@@ -35,28 +50,39 @@ function Layout() {
                     ☰
                 </button>
                 <h1>
-                    <img src={TitleIcon} alt="Title Icon" className='title-icon'/>
+                    <img src={TitleIcon} alt="Title Icon" className='title-icon' />
+                    <p className='username for-pc'>ようこそ，<span>{username}</span>さん</p>
+                    <button onClick={fetchLogout} className='logout-btn for-pc'>
+                        <LogOut />
+                        <span className="tooltip">ログアウト</span>
+                    </button>
                 </h1>
                 <div className="title-area">
                     <nav className={isOpen ? "open" : ""}>
+                        <p className='username for-mb'>ようこそ，<span>{username}</span>さん</p>
+                        
                         <NavLink to="/home" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
-                            <House className='nav-icon' /> ホーム
+                            ホーム
                         </NavLink>
                         <NavLink to="/refrigerator" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
-                            <RefrigeratorIcon className='nav-icon' /> 冷蔵庫
+                            冷蔵庫
                         </NavLink>
                         <NavLink to="/search" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
-                            <SearchIcon className='nav-icon' /> 検索
+                            検索
                         </NavLink>
                         <NavLink to="/list_ing" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
-                            <Apple className='nav-icon' /> 材料
+                            材料
                         </NavLink>
                         <NavLink to="/list_dish" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
-                            <CookingPot className='nav-icon' /> 料理
+                            料理
                         </NavLink>
                         <NavLink to="/shopping" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
-                            <ShoppingCart className='nav-icon' /> 買い物リスト
+                            買い物リスト
                         </NavLink>
+                        <button onClick={fetchLogout} className='logout-btn for-mb'>
+                            <LogOut />
+                            <span className="tooltip">ログアウト</span>
+                        </button>
                     </nav>
                 </div>
                 {isOpen && <div className="overlay" onClick={closeMenu}></div>}

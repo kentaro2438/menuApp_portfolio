@@ -65,57 +65,58 @@ function ListIng() {
         <div className="main list-ing-page">
             <h2><Apple className='h2-icon' />材料</h2>
             <p>登録済みの材料を確認できます．</p>
-            <div className="input-area">
-                <Input
-                    word={searchWord}
-                    setWord={setSearchWord}
-                    placeholder="材料名を検索"
-                />
-                <Select
-                    showCatId={showCatId}
-                    setShowCatId={setShowCatId}
-                    catData={catData}
-                />
-                <Link to="/list_ing/add" className='btn to-add-ing-btn'><Plus className='icon-in-btn' />材料を追加</Link>
-            </div>
-            <div>
-                <div className='card-header'>
-                    材料一覧
-                    <span className='length'>{filteredIngData.length}</span>
-                    <span className='icon-hint'>
-                        <img src={EditIcon} alt="編集" />
-                        材料を編集
-                    </span>
+            <div className="contents-area">
+                <div className="input-area">
+                    <Input
+                        word={searchWord}
+                        setWord={setSearchWord}
+                        placeholder="材料名を検索"
+                    />
+                    <Select
+                        showCatId={showCatId}
+                        setShowCatId={setShowCatId}
+                        catData={catData}
+                    />
+                    <Link to="/list_ing/add" className='btn to-add-ing-btn'><Plus className='icon-in-btn' />材料を追加</Link>
                 </div>
-                <div className="card-columns-container">
-                    {filteredIngData
-                        .sort((a, b) => a.cat_id - b.cat_id)
-                        .map((ing: ingType) => {
-                            const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                            const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                            return (
-                                <div key={ing.ing_id} className="card">
-                                    <div className='card-row'>
-                                        <p className='name'>
-                                            {ing.ing_name}
-                                        </p>
-                                        <div className='card-right'>
-                                            <span className={`cat-name cat-${catId}`}>
-                                                {catName}
-                                            </span>
-
-                                            <Link
-                                                to={`/list_ing/edit/${ing.ing_id}`}
-                                                className='icon-btn'
-                                            >
-                                                <img src={EditIcon} alt="Edit" className='icon edit' />
-                                            </Link>
+                <section className='ing-list'>
+                    <div className='card-header'>
+                        材料一覧
+                        <span className='length'>{filteredIngData.length}</span>
+                        <span className='icon-hint'>
+                            <img src={EditIcon} alt="編集" />
+                            材料を編集
+                        </span>
+                    </div>
+                    <div className="card-columns-container">
+                        {filteredIngData
+                            .sort((a, b) => a.cat_id - b.cat_id)
+                            .map((ing: ingType) => {
+                                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                                return (
+                                    <div key={ing.ing_id} className="card">
+                                        <div className='card-row'>
+                                            <p className='name'>
+                                                {ing.ing_name}
+                                            </p>
+                                            <div className='card-right'>
+                                                <span className={`cat-name cat-${catId}`}>
+                                                    {catName}
+                                                </span>
+                                                <Link
+                                                    to={`/list_ing/edit/${ing.ing_id}`}
+                                                    className='icon-btn'
+                                                >
+                                                    <img src={EditIcon} alt="Edit" className='icon edit' />
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })}
-                </div>
+                                )
+                            })}
+                    </div>
+                </section>
             </div>
         </div>
     );

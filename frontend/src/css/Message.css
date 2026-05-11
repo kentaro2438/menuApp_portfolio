@@ -11,15 +11,48 @@
     z-index: 1000;
     text-align: center;
     border: 3px solid white;
+    animation: slideIn 0.3s ease-out, fadeOut 0.3s ease-in 2.7s forwards;
+}
+
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-16px);
+    }
 }
 
 .message.success {
-    background-color: #4caf50;
+    background:
+        linear-gradient(180deg,
+            #73cd22 0%,
+            #63bf18 100%);
 }
 
 .message.error {
-    background-color: #f44336;
+    background:
+        linear-gradient(180deg,
+            #f44336 0%,
+            #d32f2f 100%);
 }
+
 
 @media screen and (max-width: 800px) {
     .message {

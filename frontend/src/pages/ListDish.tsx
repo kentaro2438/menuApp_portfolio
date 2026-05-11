@@ -60,54 +60,56 @@ function ListDish() {
         <div className="main list-dish-page">
             <h2><CookingPot className='h2-icon' />料理</h2>
             <p>登録済みの料理を確認できます</p>
-            <div className="input-area">
-                <Input
-                    word={search}
-                    setWord={setSearch}
-                    placeholder="料理名を検索"
-                />
-                <Link to="/list_dish/add" className='btn to-add-dish-btn'><Plus className='icon-in-btn' />料理を追加</Link>
-            </div>
-            <div>
-                <div className='card-header'>
-                    料理一覧
-                    <span className='length'>{filteredDishes.length}</span>
-                    <span className='icon-hint'>
-                        <img src={EditIcon} alt="編集"/>
-                        料理を編集
-                        <img src={DeleteIcon} alt="削除"/>
-                        料理を削除
-                    </span>
+            <div className="contents-area">
+                <div className="input-area">
+                    <Input
+                        word={search}
+                        setWord={setSearch}
+                        placeholder="料理名を検索"
+                    />
+                    <Link to="/list_dish/add" className='btn to-add-dish-btn'><Plus className='icon-in-btn' />料理を追加</Link>
                 </div>
-                <div className="card-columns-container">
-                    {filteredDishes.map((dish: dishType) => (
-                        <div key={dish.dish_id} className='card'>
-                            <div className="card-row">
-                                <p className='name'>
-                                    {dish.dish_name}
-                                </p>
-                                <div className="card-right">
-                                    <Link
-                                        to={`/list_dish/edit/${dish.dish_id}`}
-                                        className='icon-btn'
-                                    >
-                                        <img src={EditIcon} alt="編集" className='icon edit' />
-                                    </Link>
-                                    <button
-                                        onClick={async () => {
-                                            if (window.confirm('本当に削除しますか？')) {
-                                                await fetchDeleteDish(dish.dish_id);
-                                            }
-                                        }}
-                                        className='icon-btn'
-                                    >
-                                        <img src={DeleteIcon} alt="削除" className='icon delete' />
-                                    </button>
+                <section className='ing-list'>
+                    <div className='card-header'>
+                        料理一覧
+                        <span className='length'>{filteredDishes.length}</span>
+                        <span className='icon-hint'>
+                            <img src={EditIcon} alt="編集"/>
+                            料理を編集
+                            <img src={DeleteIcon} alt="削除"/>
+                            料理を削除
+                        </span>
+                    </div>
+                    <div className="card-columns-container">
+                        {filteredDishes.map((dish: dishType) => (
+                            <div key={dish.dish_id} className='card'>
+                                <div className="card-row">
+                                    <p className='name'>
+                                        {dish.dish_name}
+                                    </p>
+                                    <div className="card-right">
+                                        <Link
+                                            to={`/list_dish/edit/${dish.dish_id}`}
+                                            className='icon-btn'
+                                        >
+                                            <img src={EditIcon} alt="編集" className='icon edit' />
+                                        </Link>
+                                        <button
+                                            onClick={async () => {
+                                                if (window.confirm('本当に削除しますか？')) {
+                                                    await fetchDeleteDish(dish.dish_id);
+                                                }
+                                            }}
+                                            className='icon-btn'
+                                        >
+                                            <img src={DeleteIcon} alt="削除" className='icon delete' />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </section>
             </div>
         </div>
     )

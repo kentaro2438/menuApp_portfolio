@@ -98,54 +98,56 @@ function AddDish() {
         <div className="main add-dish-page">
             <h2><Plus className='h2-icon' />料理を追加</h2>
             <p>材料を選んで，新しく料理を追加できます</p>
-            <form onSubmit={handleNewDish}>
-                <h3>料理名を入力</h3>
-                <div className="input-area">
-                    <Input
-                        word={newDishName}
-                        setWord={setNewDishName}
-                        placeholder="料理名を入力"
-                    />
-                </div>
-                <h3>材料を選択</h3>
-                <div className="input-area">
-                    <Input
-                        word={searchWord}
-                        setWord={setSearchWord}
-                        placeholder="材料を検索"
-                    />
-                    <Select
-                        showCatId={showCatId}
-                        setShowCatId={setShowCatId}
-                        catData={catData}
-                    />
-                </div>
-                <div>
-                    <div className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></div>
-                    <div className='card-columns-container'>
-                        {filteredIngData
-                            .sort((a, b) => a.cat_id - b.cat_id)
-                            .map((ing: ingType) => (
-                                <IngCardCheckboxType
-                                    key={ing.ing_id}
-                                    ing={ing}
-                                    catData={catData}
-                                    selectedIngIds={selectedIngIds}
-                                    handleCheckboxChange={handleCheckboxChange}
-                                />
-                            ))}
+            <div className="contents-area">
+                <form onSubmit={handleNewDish}>
+                    <h3>料理名を入力</h3>
+                    <div className="input-area">
+                        <Input
+                            word={newDishName}
+                            setWord={setNewDishName}
+                            placeholder="料理名を入力"
+                        />
                     </div>
-                </div>
-                <h3>メモ</h3>
-                <textarea
-                    value={newDishMemo}
-                    onChange={(e) => setNewDishMemo(e.target.value)}
-                    placeholder="メモを入力(任意)"
-                />
-                <button type="submit" disabled={loading} className='btn add-dish-btn'>
-                    {loading ? "追加中..." : <><Plus className='icon-in-btn' />追加</>}
-                </button>
-            </form>
+                    <h3>材料を選択</h3>
+                    <div className="input-area">
+                        <Input
+                            word={searchWord}
+                            setWord={setSearchWord}
+                            placeholder="材料を検索"
+                        />
+                        <Select
+                            showCatId={showCatId}
+                            setShowCatId={setShowCatId}
+                            catData={catData}
+                        />
+                    </div>
+                    <div>
+                        <div className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></div>
+                        <div className='card-columns-container'>
+                            {filteredIngData
+                                .sort((a, b) => a.cat_id - b.cat_id)
+                                .map((ing: ingType) => (
+                                    <IngCardCheckboxType
+                                        key={ing.ing_id}
+                                        ing={ing}
+                                        catData={catData}
+                                        selectedIngIds={selectedIngIds}
+                                        handleCheckboxChange={handleCheckboxChange}
+                                    />
+                                ))}
+                        </div>
+                    </div>
+                    <h3>メモ</h3>
+                    <textarea
+                        value={newDishMemo}
+                        onChange={(e) => setNewDishMemo(e.target.value)}
+                        placeholder="メモを入力(任意)"
+                    />
+                    <button type="submit" disabled={loading} className='btn add-dish-btn'>
+                        {loading ? "追加中..." : <><Plus className='icon-in-btn' />追加</>}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

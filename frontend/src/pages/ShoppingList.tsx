@@ -113,94 +113,100 @@ function ShoppingList() {
         <div className="main shopping-list-page">
             <h2><ShoppingCart className='h2-icon' />買い物リスト</h2>
             <p>買い物リストを管理できます．以下のリストで材料を追加・削除できます．</p>
-            <div className="input-area">
-                <Input
-                    word={searchWord}
-                    setWord={setSearchWord}
-                    placeholder="材料名を検索"
-                />
-                <Select
-                    showCatId={showCatId}
-                    setShowCatId={setShowCatId}
-                    catData={catData}
-                />
-            </div>
-            <div className='tabs'>
-                <button
-                className={!isOpenShoppingList ? 'tab active' : 'tab'}
-                onClick={() => setIsOpenShoppingList(false)}
-                >
-                    材料一覧
-                </button>
-                <button
-                className={isOpenShoppingList ? 'tab active' : 'tab'}
-                onClick={() => setIsOpenShoppingList(true)}
-                >
-                    買い物リスト
-                </button>
-            </div>
-            <div className='two-columns-container'>
-                <div className={
-                    isMobile 
-                    ? (isOpenShoppingList ? 'ing-list hidden' : 'ing-list')
-                    : 'ing-list'
-                }>
-                    <div className='card-header'>
-                        材料一覧
-                        <span className='length'>{filteredIngData.length}</span>
-                        <span className='icon-hint'>
-                            <img src={PlusIcon} alt="追加" />
-                            買い物リストに追加
-                        </span>
-                    </div>
-                    <div className="ref-columns-container">
-                        {filteredIngData
-                            .sort((a, b) => a.cat_id - b.cat_id)
-                            .map((ing: ingType) => {
-                                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                                return (
-                                    <ShoppingCard
-                                        key={ing.ing_id}
-                                        ing={ing}
-                                        catId={catId}
-                                        catName={catName}
-                                        type="add"
-                                        onClick={handleAddIngToShoppingList}
-                                    />
-                                )
-                            })}
-                    </div>
+            <div className="contents-area">
+                <div className="input-area">
+                    <Input
+                        word={searchWord}
+                        setWord={setSearchWord}
+                        placeholder="材料名を検索"
+                    />
+                    <Select
+                        showCatId={showCatId}
+                        setShowCatId={setShowCatId}
+                        catData={catData}
+                    />
                 </div>
-                <div className={
-                    isMobile 
-                    ? (!isOpenShoppingList ? 'shopping-list hidden' : 'shopping-list')
-                    : 'shopping-list'
-                }>
-                    <div className='card-header'>
+                <div className='tabs'>
+                    <button
+                    className={!isOpenShoppingList ? 'tab active' : 'tab'}
+                    onClick={() => setIsOpenShoppingList(false)}
+                    >
+                        材料一覧
+                    </button>
+                    <button
+                    className={isOpenShoppingList ? 'tab active' : 'tab'}
+                    onClick={() => setIsOpenShoppingList(true)}
+                    >
                         買い物リスト
-                        <span className='length'>{shoppingList.length}</span>
-                        <span className='icon-hint'>
-                            <img src={CheckIcon} alt="購入済み" />
-                            購入済みにする
-                        </span>
+                    </button>
+                </div>
+                <div className='two-columns-container'>
+                    <div className={
+                        isMobile
+                        ? (isOpenShoppingList ? 'ing-list hidden' : 'ing-list')
+                        : 'ing-list'
+                    }>
+                        <section className="ing-list">
+                            <div className='card-header'>
+                                材料一覧
+                                <span className='length'>{filteredIngData.length}</span>
+                                <span className='icon-hint'>
+                                    <img src={PlusIcon} alt="追加" />
+                                    買い物リストに追加
+                                </span>
+                            </div>
+                            <div className="ref-columns-container">
+                                {filteredIngData
+                                    .sort((a, b) => a.cat_id - b.cat_id)
+                                    .map((ing: ingType) => {
+                                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                                        return (
+                                            <ShoppingCard
+                                                key={ing.ing_id}
+                                                ing={ing}
+                                                catId={catId}
+                                                catName={catName}
+                                                type="add"
+                                                onClick={handleAddIngToShoppingList}
+                                            />
+                                        )
+                                    })}
+                            </div>
+                        </section>
                     </div>
-                    <div className="ref-columns-container">
-                        {shoppingList
-                            .map((ing: ingType) => {
-                                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                                return (
-                                    <ShoppingCard
-                                        key={ing.ing_id}
-                                        ing={ing}
-                                        catId={catId}
-                                        catName={catName}
-                                        type="delete"
-                                        onClick={handleDeleteIngFromShoppingList}
-                                    />
-                                )
-                            })}
+                    <div className={
+                        isMobile
+                        ? (!isOpenShoppingList ? 'shopping-list hidden' : 'shopping-list')
+                        : 'shopping-list'
+                    }>
+                        <section className="shopping-list">
+                            <div className='card-header'>
+                                買い物リスト
+                                <span className='length'>{shoppingList.length}</span>
+                                <span className='icon-hint'>
+                                    <img src={CheckIcon} alt="購入済み" />
+                                    購入済みにする
+                                </span>
+                            </div>
+                            <div className="ref-columns-container">
+                                {shoppingList
+                                    .map((ing: ingType) => {
+                                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
+                                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
+                                        return (
+                                            <ShoppingCard
+                                                key={ing.ing_id}
+                                                ing={ing}
+                                                catId={catId}
+                                                catName={catName}
+                                                type="delete"
+                                                onClick={handleDeleteIngFromShoppingList}
+                                            />
+                                        )
+                                    })}
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>

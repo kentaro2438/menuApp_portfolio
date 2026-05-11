@@ -6,7 +6,7 @@
     max-height: 56.5vh;
     overflow-y: auto;
     background-color: white;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 0 0 10px 10px;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-top: none;
@@ -16,23 +16,29 @@
     background: #fff;
     padding: 20px;
     border-radius: 10px;
+    height: 200px;
     box-shadow:
         0 2px 6px rgba(0, 0, 0, 0.08),
         0 2px 6px rgba(0, 0, 0, 0.12);
     margin-bottom: 10px;
+    position: relative;
 }
 
 .result-card-btn-container {
     display: flex;
-    flex: 1;
     justify-content: space-between;
-    margin-top: 20px;
     gap: 10px;
+    margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }
 
 
 .result-card-btn-container>* {
     flex: 1;
+    width: 180px;
+    padding: 0;
 }
 
 
