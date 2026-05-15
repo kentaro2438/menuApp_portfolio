@@ -1,6 +1,5 @@
 //css
 import '../reset.css';
-import '../css/Category.css';
 //react
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
