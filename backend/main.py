@@ -11,19 +11,51 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
 from datetime import datetime
+from dotenv import load_dotenv
 import os
 
+load_dotenv()  # backend/.env を読む（ローカル用）
+print("DATABASE_URL:", os.getenv("DATABASE_URL"))
 app = Flask(__name__)
+
+# Secret key
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key")
+
+# CORS: カンマ区切りで複数設定できるようにする
+# 例: FRONTEND_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+origins_raw = os.getenv(
+    "FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
+)
+allowed_origins = [o.strip() for o in origins_raw.split(",") if o.strip()]
+
 CORS(
     app,
-    resources={
-        r"/api/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173"]}
-    },
+    resources={r"/api/*": {"origins": allowed_origins}},
     supports_credentials=True,
-    # methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    # allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
+
+# DB
+database_url = os.getenv("DATABASE_URL")
+if not database_url:
+    raise RuntimeError(
+        "DATABASE_URL が設定されていません。backend/.env または環境変数を確認してください。"
+    )
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# （本番Cookie運用を安定させたいなら追加推奨）
+# app.config["SESSION_COOKIE_SAMESITE"] = "None"
+# app.config["SESSION_COOKIE_SECURE"] = True
+
+db = SQLAlchemy()
+migrate = Migrate()
+
+db.init_app(app)
+migrate.init_app(app, db)
+
 
 # ログイン機能
 login_manager = LoginManager()
@@ -40,20 +72,6 @@ def unauthorized():
     return jsonify({"message": "ログインしてください"}), 401
 
 
-# データベース設定
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://postgres:yoneken812@localhost:5432/testdb"
-)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy()
-migrate = Migrate()
-
-db.init_app(app)
-migrate.init_app(app, db)
-
-# flask --app main db migrate -m "comment"
-# flask --app main db upgrade
-
 # ユーザー(ユーザー別)
 class User(UserMixin, db.Model):
     __tablename__ = "user"
@@ -64,6 +82,7 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return str(self.user_id)
 
+
 # 材料(共通マスタ)
 class Ingredient(db.Model):
     __tablename__ = "ingredient"
@@ -71,11 +90,13 @@ class Ingredient(db.Model):
     ing_name = db.Column(db.String(20), unique=True, nullable=False)
     cat_id = db.Column(db.Integer, db.ForeignKey("category.cat_id"), nullable=False)
 
+
 # カテゴリー(共通マスタ)
 class Category(db.Model):
     __tablename__ = "category"
     cat_id = db.Column(db.Integer, primary_key=True)
     cat_name = db.Column(db.String(20), unique=True, nullable=False)
+
 
 # 料理(共通マスタ)
 class Dish(db.Model):
@@ -84,11 +105,13 @@ class Dish(db.Model):
     dish_name = db.Column(db.String(20), unique=True, nullable=False)
     memo = db.Column(db.String(1000))
 
+
 # 料理と材料の関連(共通マスタ)
 class Ing_Dish_Set(db.Model):
     __tablename__ = "ing_dish_set"
     dish_id = db.Column(db.Integer, db.ForeignKey("dish.dish_id"), primary_key=True)
     ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
+
 
 # 冷蔵庫(ユーザー別)
 class Refrigerator(db.Model):
@@ -98,6 +121,7 @@ class Refrigerator(db.Model):
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
     user = db.relationship("User")
     ingredient = db.relationship("Ingredient")
+
 
 # 買い物リスト(ユーザー別)
 class ShoppingList(db.Model):
