@@ -1,6 +1,5 @@
 //css
 import '../reset.css';
-import '../css/spinner.css';
 //react
 import { useEffect, useState } from "react";
 //api

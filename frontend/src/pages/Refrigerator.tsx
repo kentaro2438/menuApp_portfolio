@@ -1,7 +1,5 @@
 //css
 import '../reset.css';
-import '../css/spinner.css';
-import '../css/refrigerator_shoppinglist.css';
 //react
 import { useEffect, useState } from "react";
 //api

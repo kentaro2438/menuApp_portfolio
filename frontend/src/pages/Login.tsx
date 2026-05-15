@@ -1,6 +1,5 @@
 //css
 import '../reset.css';
-import '../css/authform.css';
 //react
 import { useState } from 'react';
 //api

@@ -1,5 +1,4 @@
 import { useNotification } from "../context/NotificationContext";
-import '../css/message.css';
 
 function Message() {
     const { notification } = useNotification();

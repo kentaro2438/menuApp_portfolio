@@ -1,5 +1,4 @@
 import '../reset.css';
-import '../css/layout.css';
 import { Outlet } from "react-router-dom";
 import Message from './Message.tsx';
 import TitleIcon from '../img/TitleIcon.svg';
