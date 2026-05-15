@@ -14,17 +14,21 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # backend/.env を読む（ローカル用）
+load_dotenv()
 app = Flask(__name__)
 
-# Secret key
-app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key")
+app.secret_key = os.getenv("SECRET_KEY")
+if not app.secret_key:
+    raise RuntimeError(
+        "SECRET_KEY が設定されていません。backend/.env または環境変数を確認してください。"
+    )
 
-# CORS: カンマ区切りで複数設定できるようにする
-# 例: FRONTEND_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
-origins_raw = os.getenv(
-    "FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
-)
+origins_raw = os.getenv("FRONTEND_ORIGINS")
+if not origins_raw:
+    raise RuntimeError(
+        "FRONTEND_ORIGINS が設定されていません。backend/.env または環境変数を確認してください。"
+    )
+
 allowed_origins = [o.strip() for o in origins_raw.split(",") if o.strip()]
 
 CORS(
@@ -45,7 +49,6 @@ if not database_url:
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# （本番Cookie運用を安定させたいなら追加推奨）
 app.config["SESSION_COOKIE_SAMESITE"] = "None"
 app.config["SESSION_COOKIE_SECURE"] = True
 
