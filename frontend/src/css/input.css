@@ -1,0 +1,47 @@
+input,
+select {
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+input {
+    width: 20vw;
+}
+
+input:hover,
+select:hover {
+    border: 2px solid #93bc5c;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #93bc5c;
+}
+
+select {
+    width: 20vw;
+    color: rgba(0,0,0,0.7);
+}
+
+select:focus {
+    outline: none;
+    border: 2px solid #93bc5c;
+}
+
+/* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
+@media screen and (max-width: 700px) {
+
+    input,
+    select {
+        width: 100%;
+        margin-right: 0;
+        font-size: 14px;
+        height: 32px;
+        border-radius: 8px;
+    }
+}

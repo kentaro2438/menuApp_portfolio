@@ -456,3 +456,878 @@ textarea:focus {
         height: 18px;
     }
 }
+
+/* authform.css */
+.form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.12);
+    width: 50%;
+    margin: 20px auto;
+    padding: 40px 0;
+    border-radius: 20px;
+}
+
+.form-card h3 {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.form-card>div {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.form-card input {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-card button {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.form-card p {
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .form-card {
+        width: 90%;
+        padding: 20px 0;
+    }
+
+    .form-card>div {
+        width: 80%;
+    }
+
+    .form-card button {
+        width: 80%;
+    }
+}
+
+/* home.css */
+.home-page section {
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.home-page a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.section-container {
+    display: flex;
+    gap: 20px;
+}
+
+.section-container h3 {
+    margin-bottom: 20px;
+}
+
+.recommend-section {
+    width: 35%;
+}
+
+/* セクション内のアイコン */
+.h3-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    padding: 4px;
+    background-color: white;
+    color: #93bc5c;
+}
+
+.yellow .h3-icon {
+    color: #d4b487
+}
+
+.blue .h3-icon {
+    color: #7db0ce;
+}
+
+.section-container h4 {
+    margin-bottom: 5px;
+}
+
+.summary-container h4 {
+    font-size: 28px;
+    margin-bottom: -4px;
+}
+
+.summary-container h4 span {
+    font-size: 14px;
+    margin-left: 6px;
+}
+
+.recommend-dish-container {
+    padding: 20px;
+    height: 392px;
+    overflow-y: auto;
+}
+
+
+.recommend-dish-card {
+    border: 0.5px solid #93bc5c;
+    background-color: #93bc5c10;
+    border-radius: 20px;
+    padding: 10px;
+    position: relative;
+}
+
+.recommend-dish-card a:hover {
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+
+.recommend-dish-card .match-rate {
+    width: 80px;
+    height: 80px;
+    font-size: 12px;
+    text-align: center;
+    background-color: white;
+    background-color: #93bc5c;
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.recommend-dish-card .match-rate p {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.recommend-dish-card span {
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.dish-info {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.recommend-dish-card p.lack-ing_list {
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+a.see-recipe-btn {
+    display: block;
+    padding: 5px 8px 5px 15px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.2s ease;
+    background-color: #93bc5c;
+    color: white;
+    width: 120px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.see-recipe-btn-arrow {
+    margin-left: 8px;
+    margin-bottom: -2px;
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.5;
+}
+
+.quick-action-and-summary {
+    width: 65%;
+}
+
+
+.quick-action-container,
+.summary-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    height: 160px;
+}
+
+.quick-action-container>a,
+.summary-container>div {
+    flex: 1;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    transition: 0.2s ease;
+}
+
+.quick-action-container>a:hover {
+    transform: scale(1.05);
+}
+
+
+/* カードのスタイル */
+.see-ref,
+.ing-in-ref {
+    border: 0.5px solid #93bc5c;
+    background: #93bc5c10;
+}
+
+.add-ing,
+.denger-ing {
+    border: 0.5px solid rgba(255, 204, 0, 0.8);
+    background: #ffbf0010;
+}
+
+.add-dish,
+.ing-in-shopping-list {
+    border: 0.5px solid rgba(24, 167, 211, 0.4);
+    background: #19c1f410;
+}
+
+
+/* カード内先頭のアイコンのサイズ */
+.quick-action-icon,
+.summary-icon {
+    min-width: 35px;
+    min-height: 35px;
+    margin-right: 5px;
+}
+
+/* カード内先頭のアイコン色 */
+.see-ref .quick-action-icon,
+.ing-in-ref .summary-icon,
+.see-ref .quick-action-link {
+    color: #93bc5c;
+}
+
+.add-ing .quick-action-icon,
+.denger-ing .summary-icon,
+.add-ing .quick-action-link {
+    color: #d4b487;
+}
+
+.add-dish .quick-action-icon,
+.ing-in-shopping-list .summary-icon,
+.add-dish .quick-action-link {
+    color: #7db0ce;
+}
+
+/* カードのタイトルのスタイル */
+.see-ref h4,
+.ing-in-ref h4 {
+    color: #93bc5c;
+}
+
+.add-ing h4,
+.denger-ing h4 {
+    color: #d4b487;
+}
+
+.add-dish h4,
+.ing-in-shopping-list h4 {
+    color: #7db0ce;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.quick-action-section .flex {
+    margin-bottom: 30px;
+}
+
+
+.quick-action-container p,
+.summary-container p {
+    font-size: 12px;
+}
+
+.summary-container p {
+    text-align: center;
+}
+
+.quick-action-link {
+    background-color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+@media screen and (max-width: 1100px) {
+    .section-container {
+        display: block;
+    }
+
+    .recommend-section {
+        width: 100%;
+
+    }
+
+    .recommend-dish-container {
+        display: flex;
+        flex-direction: column;
+        height: 365px;
+    }
+
+    .quick-action-and-summary {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .quick-action-container,
+    .summary-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+    }
+}
+
+/* input.css */
+input,
+select {
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+input {
+    width: 20vw;
+}
+
+input:hover,
+select:hover {
+    border: 2px solid #93bc5c;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #93bc5c;
+}
+
+select {
+    width: 20vw;
+    color: rgba(0,0,0,0.7);
+}
+
+select:focus {
+    outline: none;
+    border: 2px solid #93bc5c;
+}
+
+/* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
+@media screen and (max-width: 700px) {
+
+    input,
+    select {
+        width: 100%;
+        margin-right: 0;
+        font-size: 14px;
+        height: 32px;
+        border-radius: 8px;
+    }
+}
+
+/* layout.css */
+header {
+    padding-top: 5px;
+    z-index: 100;
+    background-color: white;
+}
+
+.title-icon {
+    width: 240px;
+}
+
+h1 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+
+p.username {
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: auto;
+    padding: 10px 30px;
+    border-radius: 30px;
+    color: white;
+    background-color: #93bc5c;
+}
+
+p.username span {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.logout-btn {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 40px;
+    padding-top: 6px;
+    margin-left: 10px;
+    margin-right: 25px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    color: white;
+    background-color: #93bc5c;
+}
+
+.logout-btn:hover {
+    background-color: white;
+    color: #93bc5c;
+    font-weight: 550;
+    border: 2px solid #93bc5c;
+    transform: scale(1.1);
+}
+
+
+h1 span {
+    font-size: 50%;
+    margin-left: 20px;
+}
+
+.for-mb {
+    display: none;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: #F8F9F3;
+    backdrop-filter: blur(5px);
+}
+
+nav a {
+    display: block;
+    flex-basis: 150px;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    text-decoration: none;
+    color: #4f4f4f;
+    transition: all 0.2s ease;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: -3px;
+    margin-right: 2px;
+}
+
+nav a.active {
+    color: #93bc5c;
+    background-color: #e5eed2;
+    font-weight: 600;
+    box-shadow:
+        0 2px 10px rgba(126, 156, 70, 0.15);
+}
+
+nav a:hover {
+    background-color: #93bc5c;
+    color: #EFF4E4;
+}
+
+nav a.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 3px;
+    background-color: #93bc5c;
+}
+
+/* PCではボタン非表示 */
+.menu-btn {
+    display: none;
+}
+
+/* 700px以下だけサイドメニュー化 */
+@media (max-width: 700px) {
+    header {
+        padding: 30px;
+        position: relative;
+    }
+
+    h1 {
+        margin-bottom: 0px;
+    }
+
+    .title-icon {
+        display: none;
+    }
+
+    p.username {
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: auto;
+        padding: 5px 20px;
+        border-radius: 30px;
+    }
+
+    .menu-btn {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        display: block;
+        width: auto;
+        padding: 0;
+        background: none;
+        border: none;
+        color: #7eb03c;
+        font-size: 32px;
+        cursor: pointer;
+        z-index: 1001;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+    }
+
+    .for-mb {
+        display: block;
+    }
+
+    .for-pc {
+        display: none;
+    }
+
+    p.username {
+        margin: 0 auto;
+    }
+
+    .logout-btn {
+        margin-left: 24px;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        margin-top: 0;
+        padding: 80px 20px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 16px;
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        background-color: white;
+        z-index: 1000;
+    }
+
+    nav.open {
+        transform: translateX(0);
+    }
+
+    nav a {
+        flex-basis: auto;
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        font-size: 14px;
+        text-align: left;
+        margin-left: 14px;
+        color: #4f4f4f;
+    }
+
+    nav a.active::after {
+        left: 45%;
+        width: 80%;
+    }
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+    }
+
+    nav a.active {
+        color: #93bc5c;
+        background-color: white;
+        font-weight: 600;
+    }
+
+    nav a:hover {
+        background-color: white;
+        color: rgb(90, 90, 90);
+    }
+}
+
+/* message.css */
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    display: inline-block;
+    max-width: 80%;
+    transform: translateX(-50%);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+    border: 3px solid white;
+}
+
+
+
+.message.success {
+    background:
+        linear-gradient(180deg,
+            #73cd22 0%,
+            #63bf18 100%);
+}
+
+.message.error {
+    background:
+        linear-gradient(180deg,
+            #f44336 0%,
+            #d32f2f 100%);
+}
+
+
+@media screen and (max-width: 800px) {
+    .message {
+        width: 70%;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* refrigerator_shoppinglist.css */
+.ref-columns-container,
+.shopping-columns-container {
+    max-height: 40vh;
+    padding: 10px 20px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    border-top: none;
+}
+
+.not-in-ref .elapsed-time {
+    display: none;
+}
+
+.elapsed-time {
+    font-weight: 650;
+    font-size: 12px;
+    color: rgb(160, 160, 160);
+    margin-right: 2vw;
+}
+
+
+
+@media screen and (max-width: 700px) {
+    .two-columns-container {
+        display: block;
+    }
+}
+
+/* タブ全体 */
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    height: 30px;
+    box-shadow: 0 0 8px rgb(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+/* ボタン */
+.tab {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    color: #777777;
+    cursor: pointer;
+    transition: ease 0.2s;
+    height: 30px;
+}
+
+/* 選択中 */
+.tab.active.not-in-ref {
+    background: #93bc5c;
+    color: white;
+    border-radius: 10px 0px 0 10px;
+}
+
+.tab.active.in-ref {
+    background: #d4b487;
+    color: white;
+    border-radius: 0 10px 10px 0;
+}
+
+.tab.active.in-shopping-list {
+    color: white;
+    background-color: #7db0ce;
+    border-radius: 0 10px 10px 0;
+}
+
+/* ホバー */
+.tab:hover {
+    opacity: 1;
+}
+
+/* PCではタブ非表示 */
+@media screen and (min-width: 700px) {
+    .tabs {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .ref-columns-container {
+        max-height: 46vh;
+    }
+
+    .shopping-columns-container {
+        max-height: 49vh;
+    }
+}
+
+/* result.css */
+.result-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2列 */
+    column-gap: 20px;
+    max-height: 56.5vh;
+    overflow-y: auto;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 0 0 10px 10px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: none;
+}
+
+.result-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.12);
+    margin-bottom: 10px;
+}
+
+.result-card .inner-wrap {
+    margin-bottom: 15px;
+}
+
+.result-card-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+.result-card-btn-container>* {
+    padding: 0;
+    flex: 1;
+}
+
+
+
+.result-page .input-area {
+    display: flex;
+    gap: 10px;
+}
+
+.is-lack-ing-name {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.no-lack {
+    background-color: rgb(96, 165, 66);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.lack {
+    background-color: rgb(255, 104, 87);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+@media (max-width: 700px) {
+    .result-card-container {
+        grid-template-columns: 1fr;
+        /* 1列 */
+    }
+}
+
+/* spinner.css */
+.loading-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 80px;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 4px solid #e0e0e0;
+    border-top: 4px solid rgb(142, 196, 71);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,39 @@
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    display: inline-block;
+    max-width: 80%;
+    transform: translateX(-50%);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+    border: 3px solid white;
+}
+
+
+
+.message.success {
+    background:
+        linear-gradient(180deg,
+            #73cd22 0%,
+            #63bf18 100%);
+}
+
+.message.error {
+    background:
+        linear-gradient(180deg,
+            #f44336 0%,
+            #d32f2f 100%);
+}
+
+
+@media screen and (max-width: 800px) {
+    .message {
+        width: 70%;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
