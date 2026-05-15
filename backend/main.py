@@ -47,8 +47,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # （本番Cookie運用を安定させたいなら追加推奨）
-# app.config["SESSION_COOKIE_SAMESITE"] = "None"
-# app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "None"
+app.config["SESSION_COOKIE_SECURE"] = True
 
 db = SQLAlchemy()
 migrate = Migrate()
