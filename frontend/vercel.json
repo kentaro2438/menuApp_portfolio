@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://menuapp-backend-fzft.onrender.com/api/:path*"
+        }
+    ]
+}
