@@ -1,5 +1,5 @@
 import '../reset.css'
-import '../css/AuthForm.css'
+import '../css/authform.css';
 import { Link } from 'react-router-dom';
 
 type AuthFormProps = {

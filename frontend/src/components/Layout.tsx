@@ -1,5 +1,5 @@
 import '../reset.css';
-import '../css/Layout.css';
+import '../css/layout.css';
 import { Outlet, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Message from './Message.tsx';

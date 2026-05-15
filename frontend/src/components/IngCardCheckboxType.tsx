@@ -1,5 +1,4 @@
 import type { ingType, catType } from '../types/type.ts';
-import '../css/category.css';
 
 function IngCardCheckboxType({ ing, catData, selectedIngIds, handleCheckboxChange }:
     { ing: ingType, catData: catType[], selectedIngIds: number[], handleCheckboxChange: (id: number) => void }) {
