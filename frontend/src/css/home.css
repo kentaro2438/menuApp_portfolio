@@ -281,7 +281,7 @@ a.see-recipe-btn {
     .summary-container {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
         height: auto;
     }
 }
