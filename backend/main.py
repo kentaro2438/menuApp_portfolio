@@ -51,6 +51,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.config["SESSION_COOKIE_SAMESITE"] = "None"
 app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_NAME"] = "session"
 
 db = SQLAlchemy()
 migrate = Migrate()
