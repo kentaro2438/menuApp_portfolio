@@ -52,6 +52,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SESSION_COOKIE_SAMESITE"] = "None"
 app.config["SESSION_COOKIE_SECURE"] = True
 
+print("SECRET_KEY:", app.secret_key)
+print("FRONTEND_ORIGINS:", allowed_origins)
+
 db = SQLAlchemy()
 migrate = Migrate()
 
