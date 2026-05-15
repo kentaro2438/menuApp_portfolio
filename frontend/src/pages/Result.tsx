@@ -1,6 +1,6 @@
 //css
 import '../reset.css';
-import '../css/Result.css';
+import '../css/result.css';
 //context
 import { Link, useLocation } from "react-router-dom";
 //api

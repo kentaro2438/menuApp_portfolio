@@ -1,5 +1,6 @@
 //css
 import '../reset.css';
+import '../css/authform.css';
 //react
 import { useState } from 'react';
 //api
@@ -19,7 +20,7 @@ function Login() {
     const { showNotification } = useNotification();
     const navigate = useNavigate();
 
-    
+
     const handleLogin = async (e: any) => {
         e.preventDefault();
         const trimmedUsername = username.trim();
@@ -37,7 +38,7 @@ function Login() {
             showNotification("success", "ログインしました");
             setUsername("");
             setPassword("");
-            navigate("/home"); 
+            navigate("/home");
         } catch (error: any) {
             showNotification("error", error.message);
             return;
