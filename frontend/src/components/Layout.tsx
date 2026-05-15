@@ -3,7 +3,7 @@ import { Outlet, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Message from './Message.tsx';
 import { getUser, logout } from '../api/api.js';
-import TitleIcon from '../img/TitleIcon.png';
+import TitleIcon from '../img/TitleIcon.svg';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
