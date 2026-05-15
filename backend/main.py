@@ -15,7 +15,6 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()  # backend/.env を読む（ローカル用）
-print("DATABASE_URL:", os.getenv("DATABASE_URL"))
 app = Flask(__name__)
 
 # Secret key
