@@ -1,28 +1,11 @@
-.ref-columns-container {
-    max-height: 47.3vh;
+.ref-columns-container,
+.shopping-columns-container {
+    max-height: 40vh;
     padding: 10px 20px;
     overflow-y: auto;
     background-color: white;
     border-radius: 0 0 10px 10px;
     border-top: none;
-}
-
-.card-header,
-.ref-columns-container {
-    box-shadow: 0 0 8px #00000015;
-}
-
-.card-header.yellow {
-    background:
-        linear-gradient(180deg,
-            #ffbf00 0%,
-            #ff9900 100%);
-    color: white;
-}
-
-.card-header.yellow .length {
-    background-color: white;
-    color: #ff9900;
 }
 
 .not-in-ref .elapsed-time {
@@ -36,18 +19,7 @@
     margin-right: 2vw;
 }
 
-.card-header.blue {
-    background:
-        linear-gradient(180deg,
-            #19c1f4 0%,
-            #0c91da 100%);
-    color: white;
-}
 
-.card-header.blue .length {
-    background-color: white;
-    color: #0c91da;
-}
 
 @media screen and (max-width: 700px) {
     .two-columns-container {
@@ -59,47 +31,40 @@
 .tabs {
     display: flex;
     margin-bottom: 20px;
-    height: 40px;
+    height: 30px;
+    box-shadow: 0 0 8px rgb(0, 0, 0, 0.15);
+    border-radius: 10px;
 }
 
 /* ボタン */
 .tab {
     flex: 1;
-    height: 26px;
     border: none;
     border-radius: 10px;
     background-color: white;
-    color: #a0a0a0;
-    font-weight: 600;
+    color: #777777;
     cursor: pointer;
     transition: ease 0.2s;
-    height: 40px;
+    height: 30px;
 }
 
 /* 選択中 */
 .tab.active.not-in-ref {
-    background:
-        linear-gradient(180deg,
-            #73cd22 0%,
-            #63bf18 100%);
+    background: #93bc5c;
     color: white;
+    border-radius: 10px 0px 0 10px;
 }
 
 .tab.active.in-ref {
-    /* 黄色系のグラデーション */
-    background:
-        linear-gradient(180deg,
-            #ffcc00 0%,
-            #ff9900 100%);
+    background: #d4b487;
     color: white;
+    border-radius: 0 10px 10px 0;
 }
 
 .tab.active.in-shopping-list {
-    background:
-        linear-gradient(180deg,
-            #17A8D4 0%,
-            #0e7a9c 100%);
     color: white;
+    background-color: #7db0ce;
+    border-radius: 0 10px 10px 0;
 }
 
 /* ホバー */
@@ -116,6 +81,10 @@
 
 @media screen and (max-width: 700px) {
     .ref-columns-container {
-        max-height: 38vh;
+        max-height: 46vh;
+    }
+
+    .shopping-columns-container {
+        max-height: 49vh;
     }
 }

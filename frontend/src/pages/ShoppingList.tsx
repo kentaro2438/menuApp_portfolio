@@ -46,7 +46,7 @@ function ShoppingList() {
         firstFetch();
     }, []);
 
-        //画面サイズの変更を監視してisMobileを更新
+    //画面サイズの変更を監視してisMobileを更新
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 700);
@@ -112,30 +112,33 @@ function ShoppingList() {
     return (
         <div className="main shopping-list-page">
             <h2><ShoppingCart className='h2-icon' />買い物リスト</h2>
-            <p>買い物リストを管理できます．以下のリストで材料を追加・削除できます．</p>
+            <hr />
             <div className="contents-area">
+                <p>買い物リストを管理できます．以下のリストで材料を追加・削除できます．</p>
                 <div className="input-area">
-                    <Input
-                        word={searchWord}
-                        setWord={setSearchWord}
-                        placeholder="材料名を検索"
-                    />
-                    <Select
-                        showCatId={showCatId}
-                        setShowCatId={setShowCatId}
-                        catData={catData}
-                    />
+                    <div className="input-area-for-mb">
+                        <Input
+                            word={searchWord}
+                            setWord={setSearchWord}
+                            placeholder="材料名を検索"
+                        />
+                        <Select
+                            showCatId={showCatId}
+                            setShowCatId={setShowCatId}
+                            catData={catData}
+                        />
+                    </div>
                 </div>
                 <div className='tabs'>
                     <button
-                    className={!isOpenShoppingList ? 'tab active' : 'tab'}
-                    onClick={() => setIsOpenShoppingList(false)}
+                        className={!isOpenShoppingList ? 'tab active not-in-ref' : 'tab'}
+                        onClick={() => setIsOpenShoppingList(false)}
                     >
                         材料一覧
                     </button>
                     <button
-                    className={isOpenShoppingList ? 'tab active' : 'tab'}
-                    onClick={() => setIsOpenShoppingList(true)}
+                        className={isOpenShoppingList ? 'tab active in-shopping-list' : 'tab'}
+                        onClick={() => setIsOpenShoppingList(true)}
                     >
                         買い物リスト
                     </button>
@@ -143,8 +146,8 @@ function ShoppingList() {
                 <div className='two-columns-container'>
                     <div className={
                         isMobile
-                        ? (isOpenShoppingList ? 'ing-list hidden' : 'ing-list')
-                        : 'ing-list'
+                            ? (isOpenShoppingList ? 'ing-list hidden' : 'ing-list')
+                            : 'ing-list'
                     }>
                         <section className="ing-list">
                             <div className='card-header'>
@@ -155,7 +158,7 @@ function ShoppingList() {
                                     買い物リストに追加
                                 </span>
                             </div>
-                            <div className="ref-columns-container">
+                            <div className="shopping-columns-container">
                                 {filteredIngData
                                     .sort((a, b) => a.cat_id - b.cat_id)
                                     .map((ing: ingType) => {
@@ -177,10 +180,10 @@ function ShoppingList() {
                     </div>
                     <div className={
                         isMobile
-                        ? (!isOpenShoppingList ? 'shopping-list hidden' : 'shopping-list')
-                        : 'shopping-list'
+                            ? (!isOpenShoppingList ? 'shopping-list hidden' : 'shopping-list')
+                            : 'shopping-list'
                     }>
-                        <section className="shopping-list">
+                        <section className="shopping-list blue">
                             <div className='card-header blue'>
                                 買い物リスト
                                 <span className='length'>{shoppingList.length}</span>
@@ -189,7 +192,7 @@ function ShoppingList() {
                                     購入済みにする
                                 </span>
                             </div>
-                            <div className="ref-columns-container">
+                            <div className="shopping-columns-container">
                                 {shoppingList
                                     .map((ing: ingType) => {
                                         const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";

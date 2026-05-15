@@ -4,7 +4,7 @@ import { Outlet, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Message from './Message.tsx';
 import { getUser, logout } from '../api/api.js';
-import TitleIcon from '../img/TitleIcon.svg';
+import TitleIcon from '../img/TitleIcon.png';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
@@ -54,7 +54,6 @@ function Layout() {
                     <p className='username for-pc'>ようこそ，<span>{username}</span>さん</p>
                     <button onClick={fetchLogout} className='logout-btn for-pc'>
                         <LogOut />
-                        <span className="tooltip">ログアウト</span>
                     </button>
                 </h1>
                 <div className="title-area">
@@ -81,7 +80,6 @@ function Layout() {
                         </NavLink>
                         <button onClick={fetchLogout} className='logout-btn for-mb'>
                             <LogOut />
-                            <span className="tooltip">ログアウト</span>
                         </button>
                     </nav>
                 </div>

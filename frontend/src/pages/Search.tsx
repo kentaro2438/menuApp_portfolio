@@ -103,19 +103,22 @@ function Search() {
     return (
         <div className="main search-page">
             <h2><SearchIcon className='h2-icon' />検索</h2>
-            <p>選択した材料から作れる料理を検索できます．以下の材料リストで材料をチェックしてから，検索ボタンを押してください．</p>
+            <hr />
             <div className="contents-area">
+                <p>以下の材料リストで材料をチェックして検索してください．</p>
                 <div className="input-area">
-                    <Input
-                        word={searchWord}
-                        setWord={setSearchWord}
-                        placeholder="材料名を検索"
-                    />
-                    <Select
-                        showCatId={showCatId}
-                        setShowCatId={setShowCatId}
-                        catData={catData}
-                    />
+                    <div className='input-area-for-mb'>
+                        <Input
+                            word={searchWord}
+                            setWord={setSearchWord}
+                            placeholder="材料名を検索"
+                        />
+                        <Select
+                            showCatId={showCatId}
+                            setShowCatId={setShowCatId}
+                            catData={catData}
+                        />
+                    </div>
                     <button onClick={handleSearch} disabled={loading} className='btn search-btn'>
                         {loading ? "検索中..." : <><SearchIcon className='icon-in-btn' /> 検索</>}
                     </button>

@@ -20,20 +20,24 @@
 
 .recommend-section {
     width: 35%;
-    box-shadow: 0 0px 5px 1px rgba(95, 187, 35, 0.4);
-}
-
-.quick-action-section {
-    box-shadow: 0 0px 5px 1px rgba(255, 204, 0, 0.4);
-}
-
-.summary-section {
-    box-shadow: 0 0px 5px 1px rgba(24, 167, 211, 0.4);
 }
 
 /* セクション内のアイコン */
 .h3-icon {
-    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    padding: 4px;
+    background-color: white;
+    color: #93bc5c;
+}
+
+.yellow .h3-icon {
+    color: #d4b487
+}
+
+.blue .h3-icon {
+    color: #7db0ce;
 }
 
 .section-container h4 {
@@ -52,16 +56,15 @@
 
 .recommend-dish-container {
     padding: 20px;
-    height: 382.5px;
+    height: 392px;
     overflow-y: auto;
 }
 
 
 .recommend-dish-card {
-    height: 110px;
-    border: 1.5px solid rgba(95, 187, 35, 0.4);
-    background-color: white;
-    border-radius: 10px;
+    border: 0.5px solid #93bc5c;
+    background-color: #93bc5c10;
+    border-radius: 20px;
     padding: 10px;
     position: relative;
 }
@@ -73,20 +76,19 @@
 
 
 .recommend-dish-card .match-rate {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
     font-size: 12px;
-    font-weight: 600;
     text-align: center;
     background-color: white;
-    color: rgb(95, 187, 35);
-    border: 1.5px solid rgb(95, 187, 35);
-    border-radius: 10px;
+    background-color: #93bc5c;
+    color: white;
+    border-radius: 50%;
     padding: 10px;
 }
 
 .recommend-dish-card .match-rate p {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
     margin-top: 2px;
 }
@@ -98,6 +100,7 @@
 
 .dish-info {
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .recommend-dish-card p.lack-ing_list {
@@ -108,14 +111,15 @@
 
 a.see-recipe-btn {
     display: block;
-    background-color: white;
-    color: rgb(95, 187, 35);
-    border: 1.5px solid rgba(95, 187, 35, 0.4);
     padding: 5px 8px 5px 15px;
     border-radius: 8px;
     font-size: 12px;
     font-weight: 500;
     text-align: center;
+    transition: all 0.2s ease;
+    background-color: #93bc5c;
+    color: white;
+    width: 120px;
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -145,7 +149,7 @@ a.see-recipe-btn {
 .quick-action-container>a,
 .summary-container>div {
     flex: 1;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 20px;
     position: relative;
     transition: 0.2s ease;
@@ -159,24 +163,22 @@ a.see-recipe-btn {
 /* カードのスタイル */
 .see-ref,
 .ing-in-ref {
-    border: 1.5px solid rgba(95, 187, 35, 0.4);
-    background-color: rgba(95, 187, 35, 0.07);
-    background-color: white;
+    border: 0.5px solid #93bc5c;
+    background: #93bc5c10;
 }
 
 .add-ing,
 .denger-ing {
-    border: 1.5px solid rgba(255, 204, 0, 0.8);
-    background-color: rgba(255, 204, 0, 0.07);
-    background-color: white;
+    border: 0.5px solid rgba(255, 204, 0, 0.8);
+    background: #ffbf0010;
 }
 
 .add-dish,
 .ing-in-shopping-list {
-    border: 1.5px solid rgba(24, 167, 211, 0.4);
-    background-color: rgba(24, 167, 211, 0.07);
-    background-color: white;
+    border: 0.5px solid rgba(24, 167, 211, 0.4);
+    background: #19c1f410;
 }
+
 
 /* カード内先頭のアイコンのサイズ */
 .quick-action-icon,
@@ -190,41 +192,41 @@ a.see-recipe-btn {
 .see-ref .quick-action-icon,
 .ing-in-ref .summary-icon,
 .see-ref .quick-action-link {
-    color: rgb(95, 187, 35);
+    color: #93bc5c;
 }
 
 .add-ing .quick-action-icon,
 .denger-ing .summary-icon,
 .add-ing .quick-action-link {
-    color: rgb(255, 149, 0);
+    color: #d4b487;
 }
 
 .add-dish .quick-action-icon,
 .ing-in-shopping-list .summary-icon,
 .add-dish .quick-action-link {
-    color: rgb(24, 167, 211);
+    color: #7db0ce;
 }
 
 /* カードのタイトルのスタイル */
 .see-ref h4,
 .ing-in-ref h4 {
-    color: rgb(95, 187, 35);
+    color: #93bc5c;
 }
 
 .add-ing h4,
 .denger-ing h4 {
-    color: rgb(255, 149, 0);
+    color: #d4b487;
 }
 
 .add-dish h4,
 .ing-in-shopping-list h4 {
-    color: rgb(24, 167, 211);
+    color: #7db0ce;
 }
 
 .flex {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .quick-action-section .flex {
@@ -242,8 +244,11 @@ a.see-recipe-btn {
 }
 
 .quick-action-link {
-    display: inline-block;
-    /* 右下に配置 */
+    background-color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    padding: 4px;
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -256,14 +261,13 @@ a.see-recipe-btn {
 
     .recommend-section {
         width: 100%;
-        
+
     }
 
     .recommend-dish-container {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        height: 400px;
+        height: 365px;
     }
 
     .quick-action-and-summary {

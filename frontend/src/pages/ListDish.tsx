@@ -59,14 +59,17 @@ function ListDish() {
     return (
         <div className="main list-dish-page">
             <h2><CookingPot className='h2-icon' />料理</h2>
-            <p>登録済みの料理を確認できます</p>
+            <hr />
             <div className="contents-area">
+                <p>登録済みの料理を確認できます</p>
                 <div className="input-area">
-                    <Input
-                        word={search}
-                        setWord={setSearch}
-                        placeholder="料理名を検索"
-                    />
+                    <div className="input-area-for-mb">
+                        <Input
+                            word={search}
+                            setWord={setSearch}
+                            placeholder="料理名を検索"
+                        />
+                    </div>
                     <Link to="/list_dish/add" className='btn to-add-dish-btn'><Plus className='icon-in-btn' />料理を追加</Link>
                 </div>
                 <section className='ing-list'>

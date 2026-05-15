@@ -21,9 +21,9 @@ function AddDish() {
     const [ingData, setIngData] = useState<ingType[]>([]);
     const [catData, setCatData] = useState<catType[]>([]);
     const [newDishName, setNewDishName] = useState<string>("");
-    const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]); // 検索用に選択された材料のIDリスト
-    const [searchWord, setSearchWord] = useState<string>(""); // 材料検索
-    const [showCatId, setShowCatId] = useState<string>(""); // カテゴリー絞り込み
+    const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
+    const [searchWord, setSearchWord] = useState<string>("");
+    const [showCatId, setShowCatId] = useState<string>("");
     const [newDishMemo, setNewDishMemo] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -97,8 +97,9 @@ function AddDish() {
     return (
         <div className="main add-dish-page">
             <h2><Plus className='h2-icon' />料理を追加</h2>
-            <p>材料を選んで，新しく料理を追加できます</p>
+            <hr />
             <div className="contents-area">
+                <p>材料を選んで，新しく料理を追加できます</p>
                 <form onSubmit={handleNewDish}>
                     <h3>料理名を入力</h3>
                     <div className="input-area">
@@ -110,16 +111,18 @@ function AddDish() {
                     </div>
                     <h3>材料を選択</h3>
                     <div className="input-area">
-                        <Input
-                            word={searchWord}
-                            setWord={setSearchWord}
-                            placeholder="材料を検索"
-                        />
-                        <Select
-                            showCatId={showCatId}
-                            setShowCatId={setShowCatId}
-                            catData={catData}
-                        />
+                        <div className="input-area-for-mb">
+                            <Input
+                                word={searchWord}
+                                setWord={setSearchWord}
+                                placeholder="材料を検索"
+                            />
+                            <Select
+                                showCatId={showCatId}
+                                setShowCatId={setShowCatId}
+                                catData={catData}
+                            />
+                        </div>
                     </div>
                     <div>
                         <div className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></div>

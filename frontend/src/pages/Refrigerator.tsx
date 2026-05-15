@@ -24,14 +24,14 @@ import DeleteIcon from '../img/Delete.svg';
 
 function Refrigerator() {
 
-    const [ingData, setIngData] = useState<ingType[]>([]); //全ての材料
-    const [catData, setCatData] = useState<catType[]>([]); //カテゴリー
-    const [showCatId, setShowCatId] = useState(""); //初期状態では全てのカテゴリーを表示
-    const [searchWord, setSearchWord] = useState(""); //検索文字
-    const [isOpenRef, setIsOpenRef] = useState<boolean>(true); //冷蔵庫の開閉状態
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 700); //画面サイズが700px以下かどうか
-    const [refIngData, setRefIngData] = useState<refIngType[]>([]); //冷蔵庫の材料
-    const refIngIdSet = new Set(refIngData.map(ing => ing.ing_id)); //冷蔵庫の材料IDのセット（重複なし）
+    const [ingData, setIngData] = useState<ingType[]>([]);
+    const [catData, setCatData] = useState<catType[]>([]);
+    const [showCatId, setShowCatId] = useState("");
+    const [searchWord, setSearchWord] = useState("");
+    const [isOpenRef, setIsOpenRef] = useState<boolean>(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
+    const [refIngData, setRefIngData] = useState<refIngType[]>([]);
+    const refIngIdSet = new Set(refIngData.map(ing => ing.ing_id));
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const { showNotification } = useNotification();
@@ -80,6 +80,12 @@ function Refrigerator() {
         const matchSearch = ing.ing_name.includes(searchWord.trim());
         const notInRef = !refIngIdSet.has(ing.ing_id); //冷蔵庫にない材料のみ表示
         return matchCategory && matchSearch && notInRef;
+    });
+
+    const filteredRefIngData = refIngData.filter((ing: refIngType) => {
+        const matchCategory = showCatId === "" || ing.cat_id === Number(showCatId);
+        const matchSearch = ing.ing_name.includes(searchWord.trim());
+        return matchCategory && matchSearch;
     });
 
     //冷蔵庫の材料を取得
@@ -139,19 +145,22 @@ function Refrigerator() {
     return (
         <div className="main refrigerator-page">
             <h2><RefrigeratorIcon className='h2-icon' />冷蔵庫</h2>
-            <p>冷蔵庫にある材料を管理できます．冷蔵庫にある材料で作れる料理を検索することもできます．</p>
+            <hr />
             <div className="contents-area">
+                <p>冷蔵庫の材料を管理できます．冷蔵庫の材料で作れる料理を検索できます．</p>
                 <div className="input-area">
-                    <Input
-                        word={searchWord}
-                        setWord={setSearchWord}
-                        placeholder="材料を検索"
-                    />
-                    <Select
-                        showCatId={showCatId}
-                        setShowCatId={setShowCatId}
-                        catData={catData}
-                    />
+                    <div className='input-area-for-mb'>
+                        <Input
+                            word={searchWord}
+                            setWord={setSearchWord}
+                            placeholder="材料を検索"
+                        />
+                        <Select
+                            showCatId={showCatId}
+                            setShowCatId={setShowCatId}
+                            catData={catData}
+                        />
+                    </div>
                     <button onClick={handleSearch} disabled={loading}
                         className='btn search-from-ref-btn'>
                         <SearchIcon className='icon-in-btn' />
@@ -211,7 +220,7 @@ function Refrigerator() {
                         ? (isOpenRef ? 'in-ref' : 'in-ref hidden')
                         : 'in-ref'
                     }>
-                        <section className="ref-list">
+                        <section className="ref-list yellow">
                             <div className='card-header yellow'>
                                 冷蔵庫にある材料
                                 <span className='length'>{refIngData.length}</span>
@@ -221,7 +230,7 @@ function Refrigerator() {
                                 </span>
                             </div>
                             <div className="ref-columns-container">
-                                {refIngData
+                                {filteredRefIngData
                                     .sort((a, b) => {
                                         return new Date(a.added_at).getTime() - new Date(b.added_at).getTime();
                                     }).map((ing: ingType) => {
@@ -241,7 +250,7 @@ function Refrigerator() {
                             </div>
                         </section>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
     );

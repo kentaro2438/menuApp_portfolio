@@ -1,7 +1,7 @@
 .form-card {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     background-color: white;
     box-shadow:
         0 2px 6px rgba(0, 0, 0, 0.08),
@@ -30,4 +30,23 @@
 .form-card button {
     margin: 0 auto;
     margin-top: 20px;
+}
+
+.form-card p {
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .form-card {
+        width: 90%;
+        padding: 20px 0;
+    }
+
+    .form-card>div {
+        width: 80%;
+    }
+
+    .form-card button {
+        width: 80%;
+    }
 }

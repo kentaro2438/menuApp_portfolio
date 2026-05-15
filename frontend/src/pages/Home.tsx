@@ -5,7 +5,7 @@ import '../css/Home.css';
 //react
 import { useEffect, useState } from 'react';
 //api
-import { getRefIng, getShoppingList, logout, searchDish } from '../api/api.js';
+import { getRefIng, getShoppingList, searchDish } from '../api/api.js';
 //types
 import type { refIngType, ResultItemType } from '../types/type.ts';
 //components
@@ -19,9 +19,9 @@ import { Apple, House, TriangleAlert, CookingPot, Refrigerator, ShoppingCart, Ar
 
 function Home() {
 
-    const [refIngData, setRefIngData] = useState<refIngType[]>([]); //冷蔵庫の材料
-    const [possibleDishList, setPossibleDishList] = useState<ResultItemType[]>([]); //冷蔵庫の材料で作れる料理のリスト  
-    const [shoppingList, setShoppingList] = useState<refIngType[]>([]); //買い物リストにある材料
+    const [refIngData, setRefIngData] = useState<refIngType[]>([]);
+    const [possibleDishList, setPossibleDishList] = useState<ResultItemType[]>([]);
+    const [shoppingList, setShoppingList] = useState<refIngType[]>([]);
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
     const { showNotification } = useNotification();
 
@@ -48,8 +48,6 @@ function Home() {
         return <LoadingSpinner />;
     }
 
-    // <button onClick={fetchLogout} className=''>ログアウト</button>
-
     // 買い物リストの材料を取得
     const fetchGetShoppingList = async () => {
         const data = await getShoppingList();
@@ -71,7 +69,6 @@ function Home() {
     //冷蔵庫の材料で作れる料理を取得
     const fetchPossibleDishes = async (refIngs: refIngType[]) => {
         const refIngIds = refIngs.map(ing => ing.ing_id);
-        console.log(refIngIds);
         if (refIngIds.length === 0) {
             setPossibleDishList([]);
             return;
@@ -88,8 +85,9 @@ function Home() {
     return (
         <div className="main home-page">
             <h2><House className='h2-icon' />ホーム</h2>
-            <p>今日のおすすめやクイックアクションを確認できます</p>
+            <hr />
             <div className="contents-area">
+                <p>今日のおすすめやクイックアクションを確認できます</p>
                 <div className='section-container'>
                     <section className='recommend-section'>
                         <div className="card-header">
@@ -101,26 +99,29 @@ function Home() {
                                 possibleDishList
                                     .sort((a, b) => a[2] - b[2]) //不足数で昇順ソート
                                     .map((possibleDish, index) => (
+
                                         <div key={index} className='flex recommend-dish-card'>
                                             <div className='match-rate'>
                                                 一致率
-                                                <p>
-                                                    {possibleDish[5]}<span>%</span>
-                                                </p>
+                                                <p>{possibleDish[5]}</p>
                                             </div>
-                                            <div className='dish-info'>
-                                                <h4>{possibleDish[0]}</h4>
-                                                <p className='lack-ing_list'>
-                                                    {possibleDish[2] === 0 ? "不足なし" : `不足材料: ${possibleDish[3].join(", ")}`}
-                                                </p>
+                                            <div>
+                                                <div className='dish-info'>
+                                                    <h4>{possibleDish[0]}</h4>
+                                                    <p className='lack-ing_list'>
+                                                        {possibleDish[2] === 0 ? "不足なし" : `不足材料: ${possibleDish[3].join(", ")}`}
+                                                    </p>
+                                                </div>
+                                                <a
+                                                    href={`https://www.google.com/search?q=${encodeURIComponent(possibleDish[0] + ' レシピ')}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className='see-recipe-btn'
+                                                >レシピを検索<ArrowRight className='see-recipe-btn-arrow' />
+                                                </a>
                                             </div>
-                                            <a
-                                                href={`https://www.google.com/search?q=${encodeURIComponent(possibleDish[0] + ' レシピ')}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className='see-recipe-btn'
-                                            >レシピを検索<ArrowRight className='see-recipe-btn-arrow' /></a>
                                         </div>
+
                                     ))
                             }
                         </div>

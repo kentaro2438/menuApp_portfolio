@@ -8,7 +8,7 @@ import { addLackIngToShoppingList } from '../api/api';
 //context
 import { useNotification } from '../context/NotificationContext';
 //icons
-import { ChefHat, ArrowLeft, Search as SearchIcon, Plus } from "lucide-react";
+import { ChefHat, ArrowLeft } from "lucide-react";
 
 type ResultItemType = [string, number, number, string[], number[], number];
 // [料理名, 一致数, 不足数, 不足材料名リスト, 不足材料IDリスト, 一致率]
@@ -38,8 +38,9 @@ function Result() {
     return (
         <div className="main result-page">
             <h2><ChefHat className='h2-icon' />検索結果</h2>
-            <p>選択した材料に基づいて検索された料理の結果です</p>
+            <hr />
             <div className="contents-area">
+                <p>選択した材料に基づいて検索された料理の結果です</p>
                 <div className="input-area">
                     <Link to="/search">
                         <button type="button" className='btn'><ArrowLeft className='icon-in-btn' />検索に戻る</button>
@@ -58,18 +59,18 @@ function Result() {
                                     .sort((a, b) => a[2] - b[2]) //不足数で昇順ソート
                                     .map((result, index) => (
                                         <div key={index} className='result-card'>
-                                            <h3 className='dish-name'>{result[0]}</h3>
+                                            <h3>{result[0]}</h3>
                                             <div className="inner-wrap">
-                                                <div>
                                                     {result[2] === 0 ? (
-                                                        <p className='is-lack-ing-name no-lack'>不足なし</p>
+                                                        <div>
+                                                            <p className='is-lack-ing-name no-lack'>不足なし</p>
+                                                        </div>
                                                     ) : (
                                                         <div className='is-lack-ing-name'>
-                                                            <div className='no-lack'>一致率</div> {result[5]}% <br />
-                                                            <div className='is-lack-ing-name lack'>不足あり</div> {result[3].join("、")}
+                                                            <p className='no-lack'>一致率</p> {result[5]}% <br />
+                                                            <p className='is-lack-ing-name lack'>不足あり</p> {result[3].join("、")}
                                                         </div>
                                                     )}
-                                                </div>
                                             </div>
                                             <div className='result-card-btn-container'>
                                                 <button className='btn' onClick={handleAddLackIngToShoppingList}>

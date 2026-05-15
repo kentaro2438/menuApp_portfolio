@@ -1,36 +1,29 @@
 header {
-    background: rgba(245, 245, 245, 0.5);
-    backdrop-filter: blur(3px);
-    padding: 10px 0;
-    position: relative;
+    padding-top: 5px;
     z-index: 100;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 .title-icon {
-    width: 280px;
-    margin-left: 30px;
+    width: 240px;
 }
 
 h1 {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 20px;
-    margin-left: 25px;
+    margin-bottom: 10px;
+    margin-left: 15px;
 }
 
 p.username {
     font-size: 14px;
     font-weight: 500;
     margin-left: auto;
-    padding: 10px 20px;
+    padding: 10px 30px;
     border-radius: 30px;
-    background:
-        linear-gradient(180deg,
-            #73cd22 0%,
-            #63bf18 100%);
     color: white;
+    background-color: #93bc5c;
 }
 
 p.username span {
@@ -43,7 +36,6 @@ p.username span {
     display: block;
     width: 44px;
     height: 44px;
-    color: white;
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
@@ -54,47 +46,18 @@ p.username span {
     font-size: 15px;
     transition: all 0.2s ease;
     border: 2px solid transparent;
-    background:
-        linear-gradient(180deg,
-            #73cd22 0%,
-            #63bf18 100%);
+    color: white;
+    background-color: #93bc5c;
 }
 
 .logout-btn:hover {
-    background: white;
-    color: rgb(100, 192, 35);
+    background-color: white;
+    color: #93bc5c;
     font-weight: 550;
-    border: 2px solid rgb(100, 192, 35);
+    border: 2px solid #93bc5c;
     transform: scale(1.1);
 }
 
-.logout-btn {
-    position: relative;
-}
-
-.tooltip {
-    position: absolute;
-    width: 100px;
-    left: -50px;
-    top: 10px;
-    transform: translateX(-50%) translateY(6px);
-    padding: 4px 8px;
-    border-radius: 10px;
-
-    background: #333;
-    color: #fff;
-    font-size: 13px;
-
-    opacity: 0;
-    pointer-events: none;
-
-    transition: 0.2s ease;
-}
-
-.logout-btn:hover .tooltip {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
 
 h1 span {
     font-size: 50%;
@@ -103,29 +66,26 @@ h1 span {
 
 .for-mb {
     display: none;
-}   
+}
 
 nav {
     display: flex;
     justify-content: center;
-    background-color: #72cd222b;
     width: 100%;
+    background: #F8F9F3;
+    backdrop-filter: blur(5px);
 }
 
 nav a {
+    display: block;
     flex-basis: 150px;
+    padding: 10px 0;
     text-align: center;
-    width: 12vw;
-    padding: 10px;
     text-decoration: none;
-    border-radius: 10px;
     position: relative;
-    padding-bottom: 5px;
     text-decoration: none;
-    color: #7b7b7b;
+    color: #4f4f4f;
     transition: all 0.2s ease;
-    font-weight: 600;
-    font-size: 16px;
 }
 
 .nav-icon {
@@ -136,24 +96,27 @@ nav a {
 }
 
 nav a.active {
-    color: rgb(95, 187, 35);
+    color: #93bc5c;
+    background-color: #e5eed2;
+    font-weight: 600;
+    box-shadow:
+        0 2px 10px rgba(126, 156, 70, 0.15);
 }
 
 nav a:hover {
-    color: rgb(95, 187, 35);
+    background-color: #93bc5c;
+    color: #EFF4E4;
 }
 
-
-/* 現在いるページを示す下線のスタイル */
 nav a.active::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    height: 2px;
-    background-color: rgb(95, 187, 35);
+    height: 3px;
+    background-color: #93bc5c;
 }
 
 /* PCではボタン非表示 */
@@ -164,31 +127,45 @@ nav a.active::after {
 /* 700px以下だけサイドメニュー化 */
 @media (max-width: 700px) {
     header {
-        padding: 10px 20px 0px;
+        padding: 30px;
         position: relative;
     }
 
-    .title-icon {
-        width: 220px;
-        margin-left: 0;
-        margin: 0 auto;
+    h1 {
+        margin-bottom: 0px;
     }
 
+    .title-icon {
+        display: none;
+    }
 
+    p.username {
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: auto;
+        padding: 5px 20px;
+        border-radius: 30px;
+    }
 
     .menu-btn {
         position: absolute;
+        top: 15px;
+        left: 20px;
         display: block;
         width: auto;
         padding: 0;
         background: none;
         border: none;
-        color: #4f4f4f;
+        color: #7eb03c;
         font-size: 32px;
         cursor: pointer;
         z-index: 1001;
-        margin-right: 0px;
-        margin-left: 0;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
     }
 
     .for-mb {
@@ -215,18 +192,14 @@ nav a.active::after {
         height: 100vh;
         margin-top: 0;
         padding: 80px 20px 20px;
-
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         gap: 16px;
-
-        background-color: rgba(255, 255, 255);
         box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
-
         transform: translateX(-100%);
         transition: transform 0.3s ease;
-
+        background-color: white;
         z-index: 1000;
     }
 
@@ -256,8 +229,14 @@ nav a.active::after {
         z-index: 999;
     }
 
-    .open-color {
-        color: #4f4f4f;
+    nav a.active {
+        color: #93bc5c;
+        background-color: white;
+        font-weight: 600;
+    }
+
+    nav a:hover {
+        background-color: white;
+        color: rgb(90, 90, 90);
     }
 }
-

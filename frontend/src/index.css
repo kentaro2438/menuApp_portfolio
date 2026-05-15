@@ -1,13 +1,9 @@
 /* 全体のスタイル */
-
 body {
-    font-size: 15px;
-    background-image: url("./img/bg_img.png");
-    background-size: cover;
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: rgba(0, 0, 0, 0.7);
+    font-size: 16px;
+    background-color: #f7f7f4;
+    color: rgb(90, 90, 90);
+    backdrop-filter: blur(4px);
 }
 
 .hidden {
@@ -18,30 +14,38 @@ body {
     min-height: 80vh;
     margin: 0 auto;
     padding: 20px 40px;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
 }
 
 .contents-area {
     margin: 0 auto;
-    width: 96%;
-}
-
-.main>p {
-    margin-left: 2vw;
-    margin-bottom: 20px;
+    width: 94%;
 }
 
 h2 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    color: #93bc5c;
 }
 
 .h2-icon {
     width: 28px;
     height: 28px;
     stroke-width: 2.5;
-    color: rgb(100, 192, 35);
-    margin-right: 10px;
+    color: #93bc5c;
+    margin-right: 8px;
     margin-bottom: -4px;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #93bc5c;
+    margin-bottom: 20px;
+}
+
+/* ページ説明 */
+.contents-area>p {
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -57,21 +61,21 @@ h3 {
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
-    line-height: 36px;
-    font-size: 15px;
+    font-size: 16px;
     transition: all 0.2s ease;
     border: 2px solid transparent;
-    background:
-        linear-gradient(180deg,
-            #73cd22 0%,
-            #63bf18 100%);
+    background: #93bc5c;
+}
+
+a.btn {
+    line-height: 35px;
 }
 
 .btn:hover {
     background: white;
-    color: rgb(100, 192, 35);
+    color: #79914A;
     font-weight: 550;
-    border: 2px solid rgb(100, 192, 35);
+    border: 2px solid #79914A;
     transform: scale(1.05);
 }
 
@@ -110,9 +114,8 @@ h3 {
 .card-columns-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* 3列 */
     padding: 10px 20px;
-    max-height: 47.3vh;
+    max-height: 40vh;
     column-gap: 20px;
     overflow-y: auto;
     background-color: white;
@@ -122,26 +125,13 @@ h3 {
 }
 
 .result-page .card-columns-container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 section {
     background-color: white;
-}
-
-section.ing-list {
+    box-shadow: 0 0 8px rgb(0, 0, 0, 0.15);
     border-radius: 10px;
-    box-shadow: 0 0px 5px 1px rgba(95, 187, 35, 0.4);
-}
-
-section.ref-list {
-    border-radius: 10px;
-    box-shadow: 0 0px 5px 1px rgba(255, 204, 0, 0.4);
-}
-
-section.shopping-list {
-    border-radius: 10px;
-    box-shadow: 0 0px 5px 1px rgba(24, 167, 211, 0.4);
 }
 
 .card-header {
@@ -150,14 +140,30 @@ section.shopping-list {
     align-items: center;
     min-height: 50px;
     gap: 12px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 590;
     padding: 10px 20px;
-    background:
-        linear-gradient(180deg,
-            #73cd22 0%,
-            #63bf18 100%);
-    color: white;
     border-radius: 10px 10px 0 0;
+    background: #93bc5c;
+    color: white;
+}
+
+.yellow {
+    background: #d4b487;
+    color: white;
+}
+
+.yellow .length {
+    color: #d4b487;
+}
+
+.blue {
+    background: #7db0ce;
+    color: white;
+}
+
+.blue .length {
+    color: #7db0ce;
 }
 
 .card-row {
@@ -173,6 +179,7 @@ section.shopping-list {
 
 .card {
     background: #fff;
+    color: rgb(90, 90, 90);
     border-radius: 10px;
     padding: 10px 20px;
     transition: 0.2s ease;
@@ -180,28 +187,20 @@ section.shopping-list {
     margin-bottom: 10px;
 }
 
-/* .card:hover {
-    transform: scale(1.02);
-    transition: all 0.2s ease;
-} */
-
 section .card {
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d5d5d5;
 }
 
 section.ing-list .card:hover {
-    box-shadow: 0 0 2px 2px rgba(95, 187, 35, 0.4);
-    transform: scale(1.02);
+    border: 2px solid #93bc5c;
 }
 
 section.ref-list .card:hover {
-    box-shadow: 0 0 4px 2px rgba(255, 204, 0, 0.4);
-    transform: scale(1.02);
+    border: 2px solid #d4b487;
 }
 
 section.shopping-list .card:hover {
-    box-shadow: 0 0 4px 2px rgba(24, 167, 211, 0.4);
-    transform: scale(1.02);
+    border: 2px solid #7db0ce;
 }
 
 .name {
@@ -226,10 +225,11 @@ section.shopping-list .card:hover {
     text-align: center;
     font-size: 12px;
     font-weight: 600;
+    min-width: 25px;
     background-color: white;
-    color: #63bf18;
     padding: 2px 10px;
     border-radius: 20px;
+    color: #93bc5c;
 }
 
 .icon-hint {
@@ -241,14 +241,13 @@ section.shopping-list .card:hover {
     font-weight: 500;
     color: #666;
     background-color: white;
-    padding: 5px 15px 5px 5px;
+    padding: 5px;
     border-radius: 8px;
 }
 
 .icon-hint img {
-    width: 18px;
-    height: 18px;
-    margin-left: 10px;
+    width: 20px;
+    height: 20px;
     display: block;
 }
 
@@ -258,11 +257,12 @@ section.shopping-list .card:hover {
 }
 
 img.icon {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     margin-left: 2vw;
     transition: 0.2s ease;
     border-radius: 5px;
+    margin-top: -4px;
 }
 
 .list-dish-page img.icon {
@@ -282,15 +282,19 @@ img.icon {
 }
 
 img.icon.plus:hover {
-    border: 2px solid rgb(100, 192, 35);
+    border: 2px solid #93bc5c;
+}
+
+img.icon.edit {
+    margin-bottom: -2px;
 }
 
 img.icon.edit:hover {
-    border: 2px solid rgb(255, 174, 0);
+    border: 2px solid #d4b487;
 }
 
 img.icon.check:hover {
-    border: 2px solid #17A8D4;
+    border: 2px solid #7db0ce;
 }
 
 img.icon.delete:hover {
@@ -298,8 +302,8 @@ img.icon.delete:hover {
 }
 
 input[type="checkbox"] {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     margin: 0;
     cursor: pointer;
     margin-left: 10px;
@@ -336,7 +340,7 @@ textarea:focus {
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
 @media screen and (max-width: 1000px) {
     .card-columns-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         column-gap: 10px;
         /* 2列 */
     }
@@ -344,12 +348,17 @@ textarea:focus {
 
 @media screen and (max-width: 700px) {
     body {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .main {
-        padding: 20px 30px;
+        padding: 10px 20px;
         min-height: none;
+    }
+
+    .h2-icon {
+        width: 25px;
+        height: 25px;
     }
 
     .main>p {
@@ -361,7 +370,9 @@ textarea:focus {
         margin-bottom: 20px;
     }
 
-    .input-area>* {
+    .input-area-for-mb {
+        display: flex;
+        gap: 10px;
         margin-bottom: 10px;
     }
 
@@ -369,28 +380,31 @@ textarea:focus {
         font-size: 14px;
     }
 
+    .icon-hint {
+        margin-left: 0;
+    }
+
     .card-columns-container {
         display: block;
-        min-height: 66vh;
+        max-height: 55vh;
     }
 
     .card {
-        padding: 8px;
-        padding-left: 15px;
+        padding: 10px;
     }
 
     .card .name {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .card .cat-name {
-        font-size: 10px;
+        font-size: 12px;
         margin-top: 2px;
     }
 
     .btn {
         width: 100%;
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .icon-in-btn {
@@ -399,7 +413,7 @@ textarea:focus {
     }
 
     .length {
-        font-size: 10px;
+        font-size: 12px;
         padding: 2px 5px;
     }
 
@@ -410,9 +424,5 @@ textarea:focus {
     .icon-hint img {
         width: 18px;
         height: 18px;
-    }
-
-    textarea {
-        font-size: 12px;
     }
 }

@@ -1,5 +1,6 @@
 import '../reset.css'
 import '../css/AuthForm.css'
+import { Link } from 'react-router-dom';
 
 type AuthFormProps = {
     formTitle: string;
@@ -33,6 +34,11 @@ function AuthForm({ formTitle, handle, username, setUsername, password, setPassw
                         placeholder="パスワードを入力" /></label>
             </div>
             <button type="submit" className="btn">{lucideIcon}{buttonLabel}</button>
+            {formTitle === "ログイン" ? (
+                <p>アカウントをお持ちでない方は<Link to="/signup">こちら</Link></p>
+            ) : (
+                <p>すでにアカウントをお持ちの方は<Link to="/">こちら</Link></p>
+            )}
         </form>
     )
 }

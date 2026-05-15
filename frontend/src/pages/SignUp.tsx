@@ -44,6 +44,7 @@ function SignUp() {
     return (
         <div className="main signup-page">
             <h2><UserPlus className='h2-icon' />サインアップ</h2>
+            <hr />
             <AuthForm
                 formTitle="サインアップ"
                 handle={handleSignUp}

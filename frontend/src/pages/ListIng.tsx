@@ -20,10 +20,10 @@ import EditIcon from '../img/Edit.svg';
 
 
 function ListIng() {
-    const [ingData, setIngData] = useState<ingType[]>([]); // 全ての材料
-    const [catData, setCatData] = useState<catType[]>([]); // カテゴリー
-    const [showCatId, setShowCatId] = useState(""); // 初期状態では全てのカテゴリーを表示
-    const [searchWord, setSearchWord] = useState(""); // 検索文字
+    const [ingData, setIngData] = useState<ingType[]>([]); 
+    const [catData, setCatData] = useState<catType[]>([]); 
+    const [showCatId, setShowCatId] = useState(""); 
+    const [searchWord, setSearchWord] = useState(""); 
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
 
 
@@ -64,24 +64,27 @@ function ListIng() {
     return (
         <div className="main list-ing-page">
             <h2><Apple className='h2-icon' />材料</h2>
-            <p>登録済みの材料を確認できます．</p>
+            <hr />
             <div className="contents-area">
+                <p>登録済みの材料を確認できます．</p>
                 <div className="input-area">
-                    <Input
-                        word={searchWord}
-                        setWord={setSearchWord}
-                        placeholder="材料名を検索"
-                    />
-                    <Select
-                        showCatId={showCatId}
-                        setShowCatId={setShowCatId}
-                        catData={catData}
-                    />
+                    <div className="input-area-for-mb">
+                        <Input
+                            word={searchWord}
+                            setWord={setSearchWord}
+                            placeholder="材料名を検索"
+                        />
+                        <Select
+                            showCatId={showCatId}
+                            setShowCatId={setShowCatId}
+                            catData={catData}
+                        />
+                    </div>
                     <Link to="/list_ing/add" className='btn to-add-ing-btn'><Plus className='icon-in-btn' />材料を追加</Link>
                 </div>
                 <section className='ing-list'>
                     <div className='card-header'>
-                        材料一覧
+                        すべての材料
                         <span className='length'>{filteredIngData.length}</span>
                         <span className='icon-hint'>
                             <img src={EditIcon} alt="編集" />
