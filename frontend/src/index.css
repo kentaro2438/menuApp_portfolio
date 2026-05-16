@@ -72,12 +72,14 @@ a.btn {
     line-height: 35px;
 }
 
-.btn:hover {
-    background: white;
-    color: #79914A;
-    font-weight: 550;
-    border: 2px solid #79914A;
-    transform: scale(1.05);
+@media (hover: hover) {
+    .btn:hover {
+        background: white;
+        color: #93bc5c;
+        font-weight: 550;
+        border: 2px solid #93bc5c;
+        transform: scale(1.05);
+    }
 }
 
 .icon-in-btn {
@@ -192,21 +194,22 @@ section .card {
     border: 1px solid #d5d5d5;
 }
 
-section.ing-list .card:hover {
-    border: 2px solid #93bc5c;
-}
+@media (hover: hover) {
+    section.ing-list .card:hover {
+        border: 2px solid #93bc5c;
+    }
 
-section.ref-list .card:hover {
-    border: 2px solid #d4b487;
-}
+    section.ref-list .card:hover {
+        border: 2px solid #d4b487;
+    }
 
-section.shopping-list .card:hover {
-    border: 2px solid #7db0ce;
+    section.shopping-list .card:hover {
+        border: 2px solid #7db0ce;
+    }
 }
 
 .name {
     display: inline-block;
-    font-weight: 550;
     font-size: 15px;
 }
 
@@ -270,36 +273,40 @@ img.icon {
     margin-left: 1vw;
 }
 
-img.icon:hover {
-    /* サイズを大きくする */
-    transform: scale(1.3);
-    cursor: pointer;
-    border-radius: 5px;
-    border: 0px solid transparent;
+@media (hover: hover) {
+    img.icon:hover {
+        /* サイズを大きくする */
+        transform: scale(1.3);
+        cursor: pointer;
+        border-radius: 5px;
+        border: 0px solid transparent;
+    }
 }
 
 img.icon {
     border: 0px solid transparent;
 }
 
-img.icon.plus:hover {
-    border: 2px solid #93bc5c;
-}
+@media (hover: hover) {
+    img.icon.plus:hover {
+        border: 2px solid #93bc5c;
+    }
 
-img.icon.edit {
-    margin-bottom: -2px;
-}
+    img.icon.edit {
+        margin-bottom: -2px;
+    }
 
-img.icon.edit:hover {
-    border: 2px solid #d4b487;
-}
+    img.icon.edit:hover {
+        border: 2px solid #d4b487;
+    }
 
-img.icon.check:hover {
-    border: 2px solid #7db0ce;
-}
+    img.icon.check:hover {
+        border: 2px solid #7db0ce;
+    }
 
-img.icon.delete:hover {
-    border: 2px solid rgb(255, 94, 94);
+    img.icon.delete:hover {
+        border: 2px solid rgb(255, 94, 94);
+    }
 }
 
 input[type="checkbox"] {
@@ -310,9 +317,11 @@ input[type="checkbox"] {
     margin-left: 10px;
 }
 
-input[type="checkbox"]:hover {
-    transform: scale(1.2);
-    transition: 0.2s ease;
+@media (hover: hover) {
+    input[type="checkbox"]:hover {
+        transform: scale(1.2);
+        transition: 0.2s ease;
+    }
 }
 
 textarea {
@@ -327,8 +336,10 @@ textarea {
     font-size: 16px;
 }
 
-textarea:hover {
-    border: 2px solid rgb(100, 192, 35)
+@media (hover: hover) {
+    textarea:hover {
+        border: 2px solid rgb(100, 192, 35)
+    }
 }
 
 textarea:focus {
@@ -419,6 +430,7 @@ textarea:focus {
 
     .card {
         padding: 10px;
+        font-weight: 500;
     }
 
     .card .name {
@@ -427,7 +439,6 @@ textarea:focus {
 
     .card .cat-name {
         font-size: 12px;
-        margin-top: 2px;
     }
 
     .btn {
@@ -581,9 +592,11 @@ textarea:focus {
     position: relative;
 }
 
-.recommend-dish-card a:hover {
-    transform: scale(1.1);
-    transition: all 0.2s ease;
+@media (hover: hover) {
+    .recommend-dish-card a:hover {
+        transform: scale(1.1);
+        transition: all 0.2s ease;
+    }
 }
 
 
@@ -667,8 +680,10 @@ a.see-recipe-btn {
     transition: 0.2s ease;
 }
 
-.quick-action-container>a:hover {
-    transform: scale(1.05);
+@media (hover: hover) {
+    .quick-action-container>a:hover {
+        transform: scale(1.05);
+    }
 }
 
 
@@ -814,9 +829,12 @@ input {
     width: 20vw;
 }
 
-input:hover,
-select:hover {
-    border: 2px solid #93bc5c;
+@media (hover: hover) {
+
+    input:hover,
+    select:hover {
+        border: 2px solid #93bc5c;
+    }
 }
 
 input:focus {
@@ -900,12 +918,14 @@ p.username span {
     background-color: #93bc5c;
 }
 
-.logout-btn:hover {
-    background-color: white;
-    color: #93bc5c;
-    font-weight: 550;
-    border: 2px solid #93bc5c;
-    transform: scale(1.1);
+@media (hover: hover) {
+    .logout-btn:hover {
+        background-color: white;
+        color: #93bc5c;
+        font-weight: 550;
+        border: 2px solid #93bc5c;
+        transform: scale(1.1);
+    }
 }
 
 
@@ -951,9 +971,11 @@ nav a.active {
     font-weight: 600;
 }
 
-nav a:hover {
-    background-color: #93bc5c;
-    color: #EFF4E4;
+@media (hover: hover) {
+    nav a:hover {
+        background-color: #93bc5c;
+        color: #EFF4E4;
+    }
 }
 
 nav a.active::after {
@@ -1080,11 +1102,6 @@ nav a.active::after {
         background-color: white;
         font-weight: 600;
     }
-
-    nav a:hover {
-        background-color: white;
-        color: rgb(90, 90, 90);
-    }
 }
 
 /* message.css */
@@ -1200,8 +1217,10 @@ nav a.active::after {
 }
 
 /* ホバー */
-.tab:hover {
-    opacity: 1;
+@media (hover: hover) {
+    .tab:hover {
+        opacity: 1;
+    }
 }
 
 /* PCではタブ非表示 */
