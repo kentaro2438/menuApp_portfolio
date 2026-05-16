@@ -77,6 +77,12 @@ function ShoppingList() {
         return matchCategory && matchSearch && notInShoppingList;
     });
 
+    const filteredShoppingList = shoppingList.filter((ing: ingType) => {
+        const matchCategory = showCatId === "" || ing.cat_id === Number(showCatId);
+        const matchSearch = ing.ing_name.includes(searchWord.trim());
+        return matchCategory && matchSearch;
+    });
+
     // 買い物リストの材料を取得
     const fetchGetShoppingList = async () => {
         const data = await getShoppingList();
@@ -184,14 +190,14 @@ function ShoppingList() {
                         <section className="shopping-list blue">
                             <div className='card-header blue'>
                                 買い物リスト
-                                <span className='length'>{shoppingList.length}</span>
+                                <span className='length'>{filteredShoppingList.length}</span>
                                 <span className='icon-hint'>
                                     <img src={CheckIcon} alt="購入済み" />
                                     購入済みにする
                                 </span>
                             </div>
                             <div className="shopping-columns-container">
-                                {shoppingList
+                                {filteredShoppingList
                                     .map((ing: ingType) => {
                                         const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
                                         const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;

@@ -221,7 +221,7 @@ function Refrigerator() {
                         <section className="ref-list yellow">
                             <div className='card-header yellow'>
                                 冷蔵庫にある材料
-                                <span className='length'>{refIngData.length}</span>
+                                <span className='length'>{filteredRefIngData.length}</span>
                                 <span className='icon-hint'>
                                     <img src={DeleteIcon} alt="削除" />
                                     冷蔵庫から削除
