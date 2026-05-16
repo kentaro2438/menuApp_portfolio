@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Message from './Message.tsx';
 import { getUser, logout } from '../api/api.js';
 import TitleIcon from '../img/TitleIcon.svg';
+import TitleIconForMb from '../img/TitleIcon_for_mb.svg';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
@@ -50,6 +51,7 @@ function Layout() {
                 </button>
                 <h1>
                     <img src={TitleIcon} alt="Title Icon" className='title-icon' />
+                    <img src={TitleIconForMb} alt="Title Icon for Mobile" className='title-icon-for-mb' />
                     <p className='username for-pc'>ようこそ，<span>{username}</span>さん</p>
                     <button onClick={fetchLogout} className='logout-btn for-pc'>
                         <LogOut />
