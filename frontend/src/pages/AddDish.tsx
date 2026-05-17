@@ -124,8 +124,11 @@ function AddDish() {
                             />
                         </div>
                     </div>
-                    <div>
-                        <div className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></div>
+                    <section className='ing-list'>
+                        <div className='card-header'>
+                            材料一覧
+                            <span className='length'>{filteredIngData.length}</span>
+                        </div>
                         <div className='card-columns-container'>
                             {filteredIngData
                                 .sort((a, b) => a.cat_id - b.cat_id)
@@ -139,7 +142,7 @@ function AddDish() {
                                     />
                                 ))}
                         </div>
-                    </div>
+                    </section>
                     <h3>メモ</h3>
                     <textarea
                         value={newDishMemo}
