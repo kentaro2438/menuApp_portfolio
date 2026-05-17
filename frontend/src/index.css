@@ -457,10 +457,6 @@ textarea:focus {
         margin-bottom: 10px;
     }
 
-    .icon-hint {
-        margin-left: 0;
-    }
-
     .card-columns-container {
         display: block;
         max-height: 55vh;
