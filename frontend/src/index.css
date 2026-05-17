@@ -641,7 +641,7 @@ textarea:focus {
     color: white;
     border-radius: 50%;
     padding: 10px;
-    margin: 0 auto;
+    margin: auto 0;
 }
 
 .recommend-dish-card .match-rate p {
