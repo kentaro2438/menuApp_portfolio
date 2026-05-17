@@ -11,7 +11,6 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 //context
 import { useNotification } from '../context/NotificationContext.tsx';
-import { useNavigate } from 'react-router-dom';
 //icons
 import { Plus } from 'lucide-react';
 
@@ -21,7 +20,6 @@ function AddIng() {
     const [newIngName, setNewIngName] = useState<string>('');
     const [newIngCatId, setNewIngCatId] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -53,7 +51,6 @@ function AddIng() {
             showNotification("success", "材料が追加されました");
             setNewIngName('');
             setNewIngCatId('');
-            navigate("/list_ing");
         } catch (error: any) {
             showNotification("error", error.message);
             return;

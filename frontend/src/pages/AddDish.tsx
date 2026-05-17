@@ -12,7 +12,6 @@ import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 //context
 import { useNotification } from '../context/NotificationContext.tsx';
-import { useNavigate } from 'react-router-dom';
 //icons
 import { Plus } from 'lucide-react';
 
@@ -26,7 +25,6 @@ function AddDish() {
     const [showCatId, setShowCatId] = useState<string>("");
     const [newDishMemo, setNewDishMemo] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchGetAllIng();
@@ -60,12 +58,14 @@ function AddDish() {
         const trimmedDishName = newDishName.trim();
 
         if (!trimmedDishName) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             showNotification("error", "料理名を入力してください");
             setLoading(false);
             return;
         }
 
         if (selectedIngIds.length === 0) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             showNotification("error", "材料を1つ以上選択してください");
             setLoading(false);
             return;
@@ -77,8 +77,8 @@ function AddDish() {
             setNewDishName('');
             setSelectedIngIds([]);
             setNewDishMemo('');
-            navigate("/list_dish");
         } catch (error: any) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             showNotification("error", error.message);
             return;
         } finally {

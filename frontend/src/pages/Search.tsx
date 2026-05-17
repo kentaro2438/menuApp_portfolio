@@ -72,6 +72,7 @@ function Search() {
     const handleSearch = async () => {
         setLoading(true);
         if (selectedIngIds.length === 0) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
             showNotification("error", "材料を1つ以上選択してください");
             setLoading(false);
             return;
@@ -85,6 +86,7 @@ function Search() {
                 },
             });
         } catch (error: any) {
+            window.scrollTo({ top: 0, behavior: "smooth" });    
             showNotification("error", error.message);
         } finally {
             setLoading(false);
