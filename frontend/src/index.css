@@ -1171,17 +1171,11 @@ nav a.active::after {
 
 
 .message.success {
-    background:
-        linear-gradient(180deg,
-            #73cd22 0%,
-            #63bf18 100%);
+    background-color: #93bc5c;
 }
 
 .message.error {
-    background:
-        linear-gradient(180deg,
-            #f44336 0%,
-            #d32f2f 100%);
+    background-color: rgb(255, 94, 94);
 }
 
 

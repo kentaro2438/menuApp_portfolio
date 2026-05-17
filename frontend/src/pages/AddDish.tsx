@@ -73,6 +73,7 @@ function AddDish() {
 
         try {
             await addDish(trimmedDishName, selectedIngIds, newDishMemo);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             showNotification("success", "料理が追加されました");
             setNewDishName('');
             setSelectedIngIds([]);
