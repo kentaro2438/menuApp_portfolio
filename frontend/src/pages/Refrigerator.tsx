@@ -220,7 +220,7 @@ function Refrigerator() {
                     }>
                         <section className="ref-list yellow">
                             <div className='card-header yellow'>
-                                冷蔵庫にある材料
+                                冷蔵庫の材料
                                 <span className='length'>{filteredRefIngData.length}</span>
                                 <span className='icon-hint'>
                                     <img src={DeleteIcon} alt="削除" />
