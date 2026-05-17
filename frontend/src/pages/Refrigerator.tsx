@@ -145,7 +145,7 @@ function Refrigerator() {
             <h2><RefrigeratorIcon className='h2-icon' />冷蔵庫</h2>
             <hr />
             <div className="contents-area">
-                <p>冷蔵庫の材料を管理できます．冷蔵庫の材料で作れる料理を検索できます．</p>
+                <p>冷蔵庫の材料を管理できます</p>
                 <div className="input-area">
                     <div className='input-area-for-mb'>
                         <Input

@@ -106,7 +106,7 @@ function Search() {
             <h2><SearchIcon className='h2-icon' />検索</h2>
             <hr />
             <div className="contents-area">
-                <p>以下の材料リストで材料をチェックして検索してください．</p>
+                <p>選んだ材料で作れる料理を検索できます</p>
                 <div className="input-area">
                     <div className='input-area-for-mb'>
                         <Input

@@ -79,7 +79,7 @@ function EditIng() {
             <h2><Pencil className='h2-icon'/>材料を編集</h2>
             <hr />
             <div className="contents-area">
-                <p>既存の材料を編集できます</p>
+                <p>登録した材料を編集できます</p>
                 <form onSubmit={handleEditedIng}>
                     <div className="input-area">
                         <div className="input-area-for-mb">

@@ -118,7 +118,7 @@ function ShoppingList() {
             <h2><ShoppingCart className='h2-icon' />買い物リスト</h2>
             <hr />
             <div className="contents-area">
-                <p>買い物リストを管理できます．以下のリストで材料を追加・削除できます．</p>
+                <p>買い物リストを管理できます</p>
                 <div className="input-area">
                     <div className="input-area-for-mb">
                         <Input

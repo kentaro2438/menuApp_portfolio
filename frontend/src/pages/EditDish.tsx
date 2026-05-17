@@ -110,7 +110,7 @@
                 <h2><Pencil className='h2-icon'/>料理を編集</h2>
                 <hr />
                 <div className="contents-area">
-                    <p>既存の料理を編集できます</p>
+                    <p>登録した料理を編集できます</p>
                     <form onSubmit={handleEditDish}>
                         <h3>料理名を編集</h3>
                         <div className="input-area">

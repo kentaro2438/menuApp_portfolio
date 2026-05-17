@@ -39,7 +39,7 @@ function Result() {
             <h2><ChefHat className='h2-icon' />検索結果</h2>
             <hr />
             <div className="contents-area">
-                <p>選択した材料に基づいて検索された料理の結果です</p>
+                <p>選択した材料で作れる料理の一覧です</p>
                 <div className="input-area">
                     <Link to="/search">
                         <button type="button" className='btn'><ArrowLeft className='icon-in-btn' />検索に戻る</button>
