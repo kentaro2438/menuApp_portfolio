@@ -135,7 +135,7 @@
                                 />
                             </div>
                         </div>
-                        <div>
+                        <section className='ing-list'>
                             <div className='card-header'>材料一覧<span className='length'>{filteredIngData.length}</span></div>
                             <div className="card-columns-container">
                                 {filteredIngData
@@ -150,7 +150,7 @@
                                         />
                                     ))}
                             </div>
-                        </div>
+                        </section>
                         <h3>メモ</h3>
                             <textarea
                                 value={dishMemo}

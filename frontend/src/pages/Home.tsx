@@ -85,7 +85,6 @@ function Home() {
             <h2><House className='h2-icon' />ホーム</h2>
             <hr />
             <div className="contents-area">
-                <p>今日のおすすめやクイックアクションを確認できます</p>
                 <div className='section-container'>
                     <section className='recommend-section'>
                         <div className="card-header">

@@ -641,10 +641,11 @@ textarea:focus {
     color: white;
     border-radius: 50%;
     padding: 10px;
+    margin: 0 auto;
 }
 
 .recommend-dish-card .match-rate p {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
     margin-top: 2px;
 }
@@ -656,7 +657,7 @@ textarea:focus {
 
 .dish-info {
     margin-left: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 .recommend-dish-card p.lack-ing_list {
