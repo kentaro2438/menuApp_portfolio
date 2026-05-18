@@ -29,6 +29,12 @@ h2 {
     color: #93bc5c;
 }
 
+@media screen and (max-width: 700px) {
+    h2 {
+        font-size: 20px;
+    }
+}
+
 .h2-icon {
     width: 28px;
     height: 28px;
@@ -44,9 +50,21 @@ hr {
     margin-bottom: 20px;
 }
 
+@media screen and (max-width: 700px) {
+    hr {
+        margin-bottom: 10px;
+    }
+}
+
 /* ページ説明 */
 .contents-area>p {
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 700px) {
+    .contents-area>p {
+        margin-bottom: 10px;
+    }
 }
 
 h3 {
@@ -126,7 +144,7 @@ a.btn {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 10px 20px;
-    max-height: 40vh;
+    max-height: 50vh;
     column-gap: 20px;
     overflow-y: auto;
     background-color: white;
@@ -922,7 +940,8 @@ header {
 
     .title-icon-for-mb {
         display: block;
-        width: 300px;
+        width: 80vw;
+        margin-bottom: -20px;
     }
 }
 
@@ -1190,7 +1209,7 @@ nav a.active::after {
 /* refrigerator_shoppinglist.css */
 .ref-columns-container,
 .shopping-columns-container {
-    max-height: 40vh;
+    max-height: 50vh;
     padding: 10px 20px;
     overflow-y: auto;
     background-color: white;
@@ -1220,7 +1239,7 @@ nav a.active::after {
 /* タブ全体 */
 .tabs {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     height: 30px;
     box-shadow: 0 0 8px rgb(0, 0, 0, 0.15);
     border-radius: 10px;
@@ -1269,16 +1288,6 @@ nav a.active::after {
 @media screen and (min-width: 700px) {
     .tabs {
         display: none;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .ref-columns-container {
-        max-height: 46vh;
-    }
-
-    .shopping-columns-container {
-        max-height: 49vh;
     }
 }
 

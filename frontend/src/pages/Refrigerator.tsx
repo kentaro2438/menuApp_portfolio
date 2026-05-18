@@ -176,7 +176,7 @@ function Refrigerator() {
                         className={isOpenRef ? "tab active in-ref" : "tab"}
                         onClick={() => setIsOpenRef(true)}
                     >
-                        冷蔵庫にある材料
+                        冷蔵庫の材料
                     </button>
                 </div>
                 <div className='two-columns-container'>
