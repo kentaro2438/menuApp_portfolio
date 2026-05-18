@@ -3,18 +3,16 @@ import '../reset.css';
 //react
 import { useEffect, useState } from "react";
 //api
-import { getAllDish, deleteDish } from '../api/api.js';
+import { getAllDish } from '../api/api.js';
 //types
 import type { dishType } from '../types/type.ts';
 //components
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
 import { Link } from "react-router-dom";
 //icons
 import { CookingPot, Plus } from 'lucide-react';
-import DeleteIcon from '../img/Delete.svg';
 import EditIcon from '../img/Edit.svg';
 
 
@@ -23,7 +21,6 @@ function ListDish() {
     const [dishesData, setDishesData] = useState<dishType[]>([]);
     const [search, setSearch] = useState('');
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
-    const { showNotification } = useNotification();
 
     //ローディング表示
     useEffect(() => {
@@ -43,12 +40,6 @@ function ListDish() {
         const data = await getAllDish();
         setDishesData(data.dish_list_json);
     };
-
-    const fetchDeleteDish = async (dish_id: number) => {
-        await deleteDish(dish_id);
-        showNotification("success", "料理が削除されました");
-        await fetchGetAllDish();
-    }
 
     // 検索フィルタ
     const filteredDishes = dishesData.filter((dish) =>
@@ -78,8 +69,6 @@ function ListDish() {
                         <span className='icon-hint'>
                             <img src={EditIcon} alt="編集"/>
                             料理を編集
-                            <img src={DeleteIcon} alt="削除"/>
-                            料理を削除
                         </span>
                     </div>
                     <div className="card-columns-container">
@@ -96,16 +85,6 @@ function ListDish() {
                                         >
                                             <img src={EditIcon} alt="編集" className='icon edit' />
                                         </Link>
-                                        <button
-                                            onClick={async () => {
-                                                if (window.confirm('本当に削除しますか？')) {
-                                                    await fetchDeleteDish(dish.dish_id);
-                                                }
-                                            }}
-                                            className='icon-btn'
-                                        >
-                                            <img src={DeleteIcon} alt="削除" className='icon delete' />
-                                        </button>
                                     </div>
                                 </div>
                             </div>

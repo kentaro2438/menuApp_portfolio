@@ -548,6 +548,7 @@ def get_shopping_list():
 
 # 買い物リストに材料を追加するAPI
 @app.route("/api/shoppingList", methods=["POST"])
+@login_required
 def add_ing_to_shopping_list():
     user_id = current_user.user_id
     data = request.get_json()
@@ -563,6 +564,7 @@ def add_ing_to_shopping_list():
 
 # 買い物リストから材料を削除するAPI
 @app.route("/api/shoppingList/<int:ing_id>", methods=["DELETE"])
+@login_required
 def delete_ing_from_shopping_list(ing_id):
     user_id = current_user.user_id
     ing = ShoppingList.query.filter_by(user_id=user_id, ing_id=ing_id).first_or_404()
@@ -570,9 +572,19 @@ def delete_ing_from_shopping_list(ing_id):
     db.session.commit()
     return jsonify({"message": "買い物リストから材料が削除されました"}), 200
 
+# 買い物リストを空にするAPI
+@app.route("/api/shoppingList/clear", methods=["DELETE"])
+@login_required
+def clear_shopping_list():
+    user_id = current_user.user_id
+    ShoppingList.query.filter_by(user_id=user_id).delete()
+    db.session.commit()
+    return jsonify({"message": "買い物リストが空になりました"}), 200
+
 
 # 不足材料を買い物リストに追加するAPI
 @app.route("/api/addLackIngToShoppingList", methods=["POST"])
+@login_required
 def add_lack_ing_to_shopping_list():
     user_id = current_user.user_id
     data = request.get_json()

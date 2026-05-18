@@ -3,7 +3,7 @@ import '../reset.css';
 //react
 import { useEffect, useState } from "react";
 //api
-import { getAllIng, getCat, getShoppingList, addIngToShoppingList, deleteIngFromShoppingList } from '../api/api.js';
+import { getAllIng, getCat, getShoppingList, addIngToShoppingList, deleteIngFromShoppingList, clearShoppingList } from '../api/api.js';
 //types
 import type { ingType, catType } from '../types/type.ts';
 //components
@@ -15,6 +15,7 @@ import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { useNotification } from '../context/NotificationContext.tsx';
 import { ShoppingCart } from 'lucide-react';
 //icons
+import { Check } from 'lucide-react';
 import PlusIcon from '../img/Plus.svg';
 import CheckIcon from '../img/Check.svg';
 
@@ -29,6 +30,7 @@ function ShoppingList() {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 700); //画面サイズが700px以下かどうか
     const [shoppingList, setShoppingList] = useState<ingType[]>([]); //買い物リストにある材料   
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const shoppingListIngIdSet = new Set(shoppingList.map(ing => ing.ing_id)); //買い物リストにある材料IDのセット（重複なし）
     const { showNotification } = useNotification();
 
@@ -113,6 +115,21 @@ function ShoppingList() {
         }
     }
 
+    //買い物リストを空にする
+    const handleClearShoppingList = async () => {
+        setLoading(true);
+        try {
+            await clearShoppingList();
+            showNotification("success", "買い物リストが空になりました");
+            fetchGetShoppingList();
+        } catch (error: any) {
+            showNotification("error", error.message);
+            return;
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <div className="main shopping-list-page">
             <h2><ShoppingCart className='h2-icon' />買い物リスト</h2>
@@ -132,6 +149,13 @@ function ShoppingList() {
                             catData={catData}
                         />
                     </div>
+                    <button 
+                    onClick={handleClearShoppingList} 
+                    disabled={loading || shoppingList.length === 0} 
+                    className='btn clear-shopping-list-btn'>
+                        <Check className='icon-in-btn'/>
+                        {loading ? "空にしています..." : "買い物リストを空にする"}
+                    </button>
                 </div>
                 <div className='tabs'>
                     <button

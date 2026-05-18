@@ -163,6 +163,11 @@ export const deleteIngFromShoppingList = (ing_id: number) => apiFetch(`/shopping
     method: 'DELETE',
 });
 
+//買い物リストを空にする
+export const clearShoppingList = () => apiFetch('/shoppingList/clear', {
+    method: 'DELETE',
+});
+
 // 不足材料を買い物リストに追加
 export const addLackIngToShoppingList = (lack_ing_id_list: number[]) => apiFetch('/addLackIngToShoppingList', {
     method: 'POST',
