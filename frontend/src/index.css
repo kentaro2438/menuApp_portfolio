@@ -122,7 +122,8 @@ a.btn {
 .btn.to-add-dish-btn,
 .btn.to-add-ing-btn,
 .btn.search-from-ref-btn,
-.btn.search-btn {
+.btn.search-btn,
+.btn.clear-shopping-list-btn {
     margin-left: auto;
 }
 
@@ -884,6 +885,7 @@ input {
 }
 
 @media (hover: hover) {
+
     input:hover,
     select:hover {
         border: 2px solid #93bc5c;
