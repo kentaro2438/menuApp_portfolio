@@ -169,7 +169,7 @@ section {
     flex-wrap: wrap;
     align-items: center;
     min-height: 50px;
-    gap: 12px;
+    gap: 2vw;
     font-size: 16px;
     font-weight: 590;
     padding: 10px 20px;

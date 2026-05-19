@@ -21,5 +21,9 @@
 
 ## ホーム画面
 
-![ホーム画面](./docs/home.png)
+![ホーム画面](./docs/Home.png)
 ![材料一覧](./docs/Listing.png)
+![料理一覧](./docs/Listdish.png)
+![検索](./docs/Search.png)
+![冷蔵庫](./docs/Refrigerator.png)
+![買い物リスト](./docs/Shoppinglist.png)
