@@ -61,8 +61,9 @@ function Result() {
                                             <h3>{result[0]}</h3>
                                             <div className="inner-wrap">
                                                 {result[2] === 0 ? (
-                                                    <div>
-                                                        <p className='is-lack-ing-name no-lack'>不足なし</p>
+                                                    <div className='is-lack-ing-name'>
+                                                        <p className='no-lack'>不足なし</p>
+                                                        <p className='no-lack zero-opacity'>不足なし</p>
                                                     </div>
                                                 ) : (
                                                     <div className='is-lack-ing-name'>
