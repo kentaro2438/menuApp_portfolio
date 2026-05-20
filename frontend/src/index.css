@@ -162,6 +162,25 @@ a.btn {
     grid-template-columns: repeat(2, 1fr);
 }
 
+.selected-ings-container {
+    display: flex;
+    gap: 12px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding-bottom: 8px;
+
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+}
+
+.selected-ings-container  > * {
+    flex: 0 0 auto;
+
+    scroll-snap-align: start;
+}
+
 section {
     background-color: white;
     box-shadow: 0 0 8px rgb(0, 0, 0, 0.15);

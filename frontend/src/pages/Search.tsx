@@ -131,7 +131,7 @@ function Search() {
                                 選択中の材料
                                 <span className='length'>{selectedIngIds.length}</span>
                             </div>
-                            <div className='card-columns-container'>
+                            <div className='card-columns-container selected-ings-container'>
                                 {selectedIngIds.map((id) => {
                                     const ing = ingData.find((ing) => ing.ing_id === id);
                                     return ing
