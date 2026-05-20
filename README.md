@@ -1,6 +1,7 @@
 # Meal Mate
 
 一人暮らしの方向けに，毎日の献立を考える手間を減らすWebアプリを開発しました．
+
 私自身も一人暮らしをしており，「今日は何を作ろうか」と毎日献立を考えることを面倒に感じていました．
 また，冷蔵庫の材料を使い切れず，食材を余らせてしまうことも多くありました．
 
@@ -32,7 +33,12 @@ https://menu-app-portfolio.vercel.app
 ## 主な画面
 - ホーム
 
+    #### PC 
+
     <img src="./docs/Home.png" height="400px">
+
+    #### スマホ
+    
     <img src="./docs/Home_mb.png" height="400px">
 
 - 材料一覧
@@ -67,13 +73,13 @@ https://menu-app-portfolio.vercel.app
 - AIによる献立提案
 
 
-### 改善履歴
+## 改善履歴
 
 - スマホChromeのみログインできない問題
   - 原因:
     クロスサイトCookie制限
   - 解決:
-    Vercel rewrites を利用し same-origin 化
+    Vercel rewritesを利用し，same-origin 化
 
 - スマホで hover が残留する問題
   - 解決:
@@ -82,13 +88,13 @@ https://menu-app-portfolio.vercel.app
 
 - ページ更新時に404になる問題
   - 原因:
-    React Router のルーティングを Vercel が認識できていなかった
+    React RouterのルーティングをVercelが認識できていなかった
   - 解決:
-    `vercel.json` に rewrite 設定を追加
+    `vercel.json`にrewrite 設定を追加
 
-- iPhoneで input フォーカス時に画面がズームされる問題
+- iPhoneでinputフォーカス時に画面がズームされる問題
   - 解決:
-    input の font-size を 16px 以上に調整
+    inputのfont-sizeを16px以上に調整
 
 
 
