@@ -326,7 +326,7 @@ img.icon.edit {
 }
 
 img.icon:active {
-    transform: scale(1.3);
+    transform: scale(1.2);
     cursor: pointer;
 }
 
@@ -348,7 +348,7 @@ img.icon.delete:active {
 
 @media (hover: hover) {
     img.icon:hover {
-        transform: scale(1.3);
+        transform: scale(1.2);
         cursor: pointer;
     }
 
@@ -1039,7 +1039,6 @@ nav a {
 nav a.active {
     color: #93bc5c;
     background-color: #e5eed2;
-    font-weight: 600;
 }
 
 @media (hover: hover) {
@@ -1170,7 +1169,6 @@ nav a.active::after {
     nav a.active {
         color: #93bc5c;
         background-color: white;
-        font-weight: 600;
     }
 }
 
@@ -1230,7 +1228,10 @@ nav a.active::after {
     margin-right: 2vw;
 }
 
-
+.expired {
+    color: rgb(255, 104, 87);
+    font-weight: 600;
+}
 
 @media screen and (max-width: 700px) {
     .two-columns-container {

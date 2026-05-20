@@ -22,9 +22,15 @@ function RefCard({ ing, catId, catName, type, onClick }:
 
                 <div className='card-right'>
 
-                    <span className='elapsed-time'>
-                        {getElaspedTime(ing.added_at)}
-                    </span>
+                    {parseInt(getElaspedTime(ing.added_at)) >= 7 ? 
+                        <span className='elapsed-time expired'>
+                            {getElaspedTime(ing.added_at)}
+                        </span>
+                        :
+                        <span className='elapsed-time'>
+                            {getElaspedTime(ing.added_at)}
+                        </span>
+                    }
                     
                     <span className={`cat-name cat-${catId}`}>
                         {catName}
