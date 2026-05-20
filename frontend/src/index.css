@@ -178,7 +178,7 @@ a.btn {
 .selected-ings-container  > * {
     flex: 0 0 auto;
 
-    scroll-snap-align: start;
+    scroll-snap-align: center;
 }
 
 section {
@@ -503,6 +503,10 @@ textarea:focus {
     .card-columns-container {
         display: block;
         max-height: 55vh;
+    }
+
+    .selected-ings-container {
+        display: flex;
     }
 
     .card {
