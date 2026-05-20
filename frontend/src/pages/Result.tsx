@@ -60,21 +60,22 @@ function Result() {
                                         <div key={index} className='result-card'>
                                             <h3>{result[0]}</h3>
                                             <div className="inner-wrap">
-                                                    {result[2] === 0 ? (
-                                                        <div>
-                                                            <p className='is-lack-ing-name no-lack'>不足なし</p>
-                                                        </div>
-                                                    ) : (
-                                                        <div className='is-lack-ing-name'>
-                                                            <p className='no-lack'>一致率</p> {result[5]}% <br />
-                                                            <p className='is-lack-ing-name lack'>不足あり</p> {result[3].join("、")}
-                                                        </div>
-                                                    )}
+                                                {result[2] === 0 ? (
+                                                    <div>
+                                                        <p className='is-lack-ing-name no-lack'>不足なし</p>
+                                                    </div>
+                                                ) : (
+                                                    <div className='is-lack-ing-name'>
+                                                        <p className='no-lack'>一致率</p> {result[5]}% <br />
+                                                        <p className='is-lack-ing-name lack'>不足あり</p> {result[3].join("、")}
+                                                    </div>
+                                                )}
                                             </div>
                                             <div className='result-card-btn-container'>
-                                                <button className='btn' onClick={handleAddLackIngToShoppingList}>
-                                                    買い物リストに追加
-                                                </button>
+                                                {result[2] === 0 ? null : (
+                                                    <button className='btn' onClick={handleAddLackIngToShoppingList}>
+                                                        買い物リストに追加
+                                                    </button>)}
                                                 <a
                                                     href={`https://www.google.com/search?q=${encodeURIComponent(result[0] + ' レシピ')}`}
                                                     target="_blank"

@@ -111,7 +111,7 @@ https://menu-app-portfolio.vercel.app
 </table>
 
 
-## 今後追加したい機能
+## 今後追加予定の機能
 
 - 料理画像表示
 - AIによる献立提案
