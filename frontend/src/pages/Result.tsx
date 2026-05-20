@@ -62,13 +62,13 @@ function Result() {
                                             <div className="inner-wrap">
                                                 {result[2] === 0 ? (
                                                     <div className='is-lack-ing-name'>
-                                                        <p className='no-lack'>不足なし</p>
+                                                        <p className='no-lack'>不足なし</p><br />
                                                         <p className='no-lack zero-opacity'>不足なし</p>
                                                     </div>
                                                 ) : (
                                                     <div className='is-lack-ing-name'>
                                                         <p className='no-lack'>一致率</p> {result[5]}% <br />
-                                                        <p className='is-lack-ing-name lack'>不足あり</p> {result[3].join("、")}
+                                                        <p className='lack'>不足あり</p> {result[3].join("、")}
                                                     </div>
                                                 )}
                                             </div>
