@@ -72,10 +72,16 @@ function Result() {
                                                 )}
                                             </div>
                                             <div className='result-card-btn-container'>
-                                                {result[2] === 0 ? null : (
-                                                    <button className='btn' onClick={handleAddLackIngToShoppingList}>
+                                                {result[2] === 0 ?
+                                                    <button className='btn zero-opacity' onClick={handleAddLackIngToShoppingList} disabled={true}>
                                                         買い物リストに追加
-                                                    </button>)}
+                                                    </button> :
+                                                    (
+                                                        <button className='btn' onClick={handleAddLackIngToShoppingList}>
+                                                            買い物リストに追加
+                                                        </button>
+                                                    )
+                                                }
                                                 <a
                                                     href={`https://www.google.com/search?q=${encodeURIComponent(result[0] + ' レシピ')}`}
                                                     target="_blank"

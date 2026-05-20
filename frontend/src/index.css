@@ -11,6 +11,10 @@ body {
     display: none;
 }
 
+.zero-opacity {
+    opacity: 0;
+}
+
 .main {
     min-height: 80vh;
     margin: 0 auto;
