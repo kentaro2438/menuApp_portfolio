@@ -33,6 +33,25 @@ https://menu-app-portfolio.vercel.app
 ## 主な画面
 - ホーム
 
+<table>
+<tr>
+<th>PC</th>
+<th>スマホ</th>
+</tr>
+<tr>
+<td><img src="./docs/Home.png" height="300px"></td>
+<td><img src="./docs/Home_mb.png" height="300px"></td>
+</tr>
+<tr>
+<td><img src="./docs/Listing.png" height="300px"></td>
+<td><img src="./docs/Listing_mb.png" height="300px"></td>
+</tr>
+</table>
+
+
+
+- ホーム
+
     #### PC 
 
     <img src="./docs/Home.png" height="400px">
@@ -88,7 +107,7 @@ https://menu-app-portfolio.vercel.app
     <img src="./docs/Shoppinglist.png" height="400px">
 
     #### スマホ
-    
+
     <img src="./docs/Shoppinglist_mb.png" height="400px">
 
 
