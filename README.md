@@ -20,10 +20,20 @@
 - 不足材料の表示
 
 ## ホーム画面
+- PC
+  - ホーム
+    <img src="./docs/Home.png" height="400px">
+    <img src="./docs/Home_mb.png" height="400px">
+  - 材料一覧
+<img src="./docs/ListDish.png" width="800px">
 
-![ホーム画面](./docs/Home.png)
-![材料一覧](./docs/Listing.png)
-![料理一覧](./docs/Listdish.png)
-![検索](./docs/Search.png)
-![冷蔵庫](./docs/Refrigerator.png)
-![買い物リスト](./docs/Shoppinglist.png)
+- スマホ
+![ログイン](./docs/Login_mb.png)
+![ホーム](./docs/Home_mb.png)
+![材料一覧](./docs/Listing_mb.png)
+![料理一覧](./docs/Listdish_mb.png)
+![検索](./docs/Search_mb.png)
+![冷蔵庫](./docs/Refrigerator_mb.png)
+![買い物リスト](./docs/Shoppinglist_mb.png)
+
+
