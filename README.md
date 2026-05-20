@@ -38,32 +38,57 @@ https://menu-app-portfolio.vercel.app
     <img src="./docs/Home.png" height="400px">
 
     #### スマホ
-    
+
     <img src="./docs/Home_mb.png" height="400px">
 
 - 材料一覧
 
+    #### PC
+
     <img src="./docs/Listing.png" height="400px">
+
+    #### スマホ
+
     <img src="./docs/Listing_mb.png" height="400px">
 
 - 料理一覧
 
+    #### PC
+
     <img src="./docs/Listdish.png" height="400px">
+
+    #### スマホ
+
     <img src="./docs/Listdish_mb.png" height="400px">
 
 - 検索
 
+    #### PC
+
     <img src="./docs/Search.png" height="400px">
+
+    #### スマホ
+
     <img src="./docs/Search_mb.png" height="400px">
 
 - 冷蔵庫
 
+    #### PC
+
     <img src="./docs/Refrigerator.png" height="400px">
+
+    #### スマホ
+
     <img src="./docs/Refrigerator_mb.png" height="400px">
 
 - 買い物リスト
 
+    #### PC
+
     <img src="./docs/Shoppinglist.png" height="400px">
+
+    #### スマホ
+    
     <img src="./docs/Shoppinglist_mb.png" height="400px">
 
 
